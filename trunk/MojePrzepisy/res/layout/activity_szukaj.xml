@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/przepis_list_bg2"
+    tools:context=".Szukaj" >
+
+    <EditText
+        android:id="@+id/wyszukiwarka"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="3dp"
+        android:layout_toLeftOf="@+id/szukaj_button"
+        android:hint="Wyszukaj przepis" />
+
+    <Button
+        android:id="@+id/szukaj_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/przycisk"
+        android:text="@string/szukaj" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/szukaj_button" />
+
+</RelativeLayout>
