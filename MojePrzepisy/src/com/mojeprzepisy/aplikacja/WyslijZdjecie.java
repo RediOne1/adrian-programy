@@ -67,7 +67,6 @@ public class WyslijZdjecie {
 					while ((sResponse = reader.readLine()) != null) {
 						s = s.append(sResponse);
 					}
-					System.out.println("Response: " + s);
 				} catch (Exception e) {
 					// handle exception here
 					Log.e(e.getClass().getName(), e.getMessage());

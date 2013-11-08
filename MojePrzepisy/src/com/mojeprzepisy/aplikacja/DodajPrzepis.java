@@ -342,6 +342,22 @@ public class DodajPrzepis extends Activity implements OnClickListener {
 		return null;
 	}
 
+	public String formatujTytul(String tytul) {
+		String formatTytul = null;
+		formatTytul = tytul.replace(" ", "_");
+		formatTytul = formatTytul.replace("/", "_");
+		formatTytul = formatTytul.replace("¹", "a");
+		formatTytul = formatTytul.replace("œ", "s");
+		formatTytul = formatTytul.replace("æ", "c");
+		formatTytul = formatTytul.replace("ñ", "n");
+		formatTytul = formatTytul.replace("ó", "o");
+		formatTytul = formatTytul.replace("Ÿ", "z");
+		formatTytul = formatTytul.replace("¿", "z");
+		formatTytul = formatTytul.replace("³", "l");
+		formatTytul = formatTytul.replace("ê", "e");
+		return formatTytul;
+	}
+
 	public void wstawSkladniki() {
 		ArrayList<HashMap<String, String>> Skladniki = new ArrayList<HashMap<String, String>>();
 		LinearLayout layout = (LinearLayout) findViewById(R.id.SkladnikiList);
@@ -517,11 +533,13 @@ public class DodajPrzepis extends Activity implements OnClickListener {
 						.toString()));
 
 			} else {
-				wyslij = new WyslijZdjecie(zdjecieBitmap, tytulDodaj.getText()
-						.toString());
-				params.add(new BasicNameValuePair("zdjecie",
+				wyslij = new WyslijZdjecie(zdjecieBitmap,
+						formatujTytul(tytulDodaj.getText().toString()));
+				params.add(new BasicNameValuePair(
+						"zdjecie",
 						"http://softpartner.pl/moje_przepisy/zdjecia/"
-								+ tytulDodaj.getText().toString() + ".jpg"));
+								+ formatujTytul(tytulDodaj.getText().toString())
+								+ ".jpg"));
 			}
 			// getting JSON string from URL
 			try {
@@ -536,8 +554,8 @@ public class DodajPrzepis extends Activity implements OnClickListener {
 				if (success == 1) {
 					przepisID = json.getInt("przepisID");
 					komunikat = "Dodano przepis";
-					if(zdjecieBitmap != null)
-					wyslij.executeMultipartPost();
+					if (zdjecieBitmap != null)
+						wyslij.executeMultipartPost();
 				} else {
 					komunikat = "Podany tytu³ jest ju¿ zajêty";
 				}
@@ -605,21 +623,24 @@ public class DodajPrzepis extends Activity implements OnClickListener {
 					Log.d("DEBUG_TAG", "dodano url");
 					params.add(new BasicNameValuePair("zdjecie", urlDodaj
 							.getText().toString()));
-				} else if (!staryTytul.equals(tytulDodaj.getText().toString())) {
+				} else if (!formatujTytul(staryTytul).equals(formatujTytul(tytulDodaj.getText()
+						.toString()))) {
 					Log.d("DEBUG_TAG", "zmieniono tytul");
-					wyslij.zmienTytul(staryTytul, tytulDodaj.getText()
-							.toString());
+					wyslij.zmienTytul(formatujTytul(staryTytul), formatujTytul(tytulDodaj.getText()
+							.toString()));
 				}
 			} else {
 
 				Log.d("DEBUG_TAG", "zrobiono nowe zdjecie");
 				imageLoader.remove(stareZdjecie);
-				wyslij.usunZdjecie(staryTytul);
-				wyslij = new WyslijZdjecie(zdjecieBitmap, tytulDodaj.getText()
-						.toString());
-				params.add(new BasicNameValuePair("zdjecie",
+				wyslij.usunZdjecie(formatujTytul(staryTytul));
+				wyslij = new WyslijZdjecie(zdjecieBitmap,
+						formatujTytul(tytulDodaj.getText().toString()));
+				params.add(new BasicNameValuePair(
+						"zdjecie",
 						"http://softpartner.pl/moje_przepisy/zdjecia/"
-								+ tytulDodaj.getText().toString() + ".jpg"));
+								+ formatujTytul(tytulDodaj.getText().toString())
+								+ ".jpg"));
 			}
 			// getting JSON string from URL
 			try {
