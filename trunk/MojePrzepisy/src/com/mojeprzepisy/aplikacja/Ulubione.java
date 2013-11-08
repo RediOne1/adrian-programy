@@ -141,6 +141,7 @@ public class Ulubione extends ListActivity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			setProgressBarIndeterminateVisibility(true);
 		}
 
 		/**
@@ -236,6 +237,7 @@ public class Ulubione extends ListActivity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			setProgressBarIndeterminateVisibility(true);
 		}
 
 		/**
