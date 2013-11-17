@@ -1,0 +1,9 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/lewo"
+        android:title="Obróć w lewo" />
+    <item
+        android:id="@+id/prawo"
+        android:title="Obróć w prawo" />
+</menu>
