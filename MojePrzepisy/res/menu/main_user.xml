@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/odswiez"
+        android:orderInCategory="1"
+        android:title="@string/odswiezMenu"/>
+    <item
+        android:id="@+id/pokazKomunikat"
+        android:orderInCategory="2"
+        android:title="Pokazuj komunikat"/>
+    <item
+        android:id="@+id/wyloguj"
+        android:orderInCategory="3"
+        android:title="@string/wylogujMenu"/>
+
+</menu>

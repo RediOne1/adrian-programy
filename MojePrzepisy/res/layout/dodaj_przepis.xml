@@ -1,0 +1,232 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".DodajPrzepis" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/przepis_list_bg2" >
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/LinearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/kategoria"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/kategoriaDodaj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/kategorie"
+                    android:prompt="@string/kategoriaPrompt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/LinearLayout1"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/trudnosc"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/trudnoscDodaj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/trudnosc"
+                    android:prompt="@string/trudnoscPrompt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/LinearLayout2"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/czas"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/czasDodaj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/czas"
+                    android:prompt="@string/czasPrompt" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/addFavourite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/LinearLayout3"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_launcher" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addFavourite"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/zrobZdjecie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/przycisk"
+                    android:text="Zrób zdjęcie" />
+
+                <Button
+                    android:id="@+id/wybierzZdjecie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/przycisk"
+                    android:text="Wybierz zdjęcie" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/LinearLayout4"
+                android:background="@drawable/background3"
+                android:text="Obrazek URL:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/urlDodaj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView4"
+                android:ems="10"
+                android:hint="wklej link"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/urlDodaj"
+                android:background="@drawable/background3"
+                android:text="Tytuł"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/tytulDodaj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView6"
+                android:ems="10"
+                android:hint="wpisz tekst"
+                android:singleLine="true" />
+
+            <LinearLayout
+                android:id="@+id/SkladnikiList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tytulDodaj"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/SkladnikiList"
+                android:background="@drawable/background3"
+                android:text="@string/skladniki"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="20dp" />
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/skladnikiDodaj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/textView2"
+                android:completionHint="wybierz składnik lub wpisz własny"
+                android:completionThreshold="1"
+                android:hint="składnik; ...." />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/skladnikiDodaj"
+                android:text="pomiedzy składnikami wstaw średnik &apos;;&apos;" />
+
+            <TextView
+                android:id="@+id/htmlView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView3"
+                android:layout_marginTop="10dp"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/htmlView"
+                android:background="@drawable/background3"
+                android:text="@string/opis"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/opisDodaj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView5"
+                android:hint="wpisz tekst.."
+                android:inputType="textMultiLine" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
