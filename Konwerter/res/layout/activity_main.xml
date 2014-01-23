@@ -58,25 +58,71 @@
                 android:text="0"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
+            <TextView
+                android:id="@+id/kurs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/kwota"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"
+                android:text="Kurs:"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <include
+                android:id="@+id/include"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/kurs"
+                android:layout_centerHorizontal="true"
+                layout="@layout/main" />
+
+            <RelativeLayout
+                android:id="@+id/checker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/include"
+                android:layout_centerHorizontal="true" >
+
+                <EditText
+                    android:id="@+id/min"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Min. wartosc"
+                    android:inputType="numberDecimal" >
+
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/max"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/min"
+                    android:ems="10"
+                    android:hint="Max. wartosc"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/czas"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/min"
+                    android:ems="10"
+                    android:hint="Czas"
+                    android:inputType="number" />
+
+                <Button
+                    android:id="@+id/start"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/max"
+                    android:layout_toRightOf="@id/czas"
+                    android:text="Start" />
+
+            </RelativeLayout>
         </RelativeLayout>
-
     </ScrollView>
-
-    <TextView
-        android:id="@+id/kurs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scrollView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:text="Kurs:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <include
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/kurs"
-        android:layout_centerHorizontal="true"
-        layout="@layout/main" />
 
 </RelativeLayout>
