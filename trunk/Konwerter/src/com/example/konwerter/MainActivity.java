@@ -99,6 +99,7 @@ public class MainActivity extends Activity implements OnItemSelectedListener,
 	private static final int NOTIFY_4 = 0x1004;
 	private static final int NOTIFY_5 = 0x1005;
 	private NotificationManager notifier = null;
+	float min, max, czas;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +141,7 @@ public class MainActivity extends Activity implements OnItemSelectedListener,
 						android.R.drawable.stat_notify_chat, "Wibrujemy!",
 						System.currentTimeMillis());
 				notify.flags |= Notification.FLAG_AUTO_CANCEL;
-				notify.vibrate = new long[] {0, 300, 200, 300, 200, 120, 100,
+				notify.vibrate = new long[] { 0, 300, 200, 300, 200, 120, 100,
 						120, 100, 120, 200, 150, 150, 150, 150, 150, 150, 150,
 						150, 500, 200, 600, };
 				Intent toLaunch = new Intent(MainActivity.this,
@@ -203,6 +204,63 @@ public class MainActivity extends Activity implements OnItemSelectedListener,
 						MainActivity.this, 0, toLaunch, 0);
 				notify.contentIntent = intentBack;
 				notifier.notify(NOTIFY_5, notify);
+			}
+		});
+		Button checker = (Button) findViewById(R.id.start);
+		checker.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				EditText Emin = (EditText) findViewById(R.id.min);
+				EditText Emax = (EditText) findViewById(R.id.max);
+				EditText Eczas = (EditText) findViewById(R.id.czas);
+
+				try {
+					min = Float.parseFloat(Emin.getText().toString());
+					max = Float.parseFloat(Emax.getText().toString());
+					czas = Float.parseFloat(Eczas.getText().toString());
+				} catch (Exception e) {
+
+				}
+				new Thread(new Runnable() {
+					public void run() {
+						while (true) {
+							try {
+								synchronized (this) {
+									wait((long)czas);
+								}
+							} catch (Exception e) {
+							}
+							float wynik = 0;
+							List<NameValuePair> params = new ArrayList<NameValuePair>();
+							params.add(new BasicNameValuePair("currency", "PLN"));
+							params.add(new BasicNameValuePair("value", ""+10000));
+							// getting JSON string from URL
+							try {
+								String json = jParser.makeHttpRequest(
+										"http://blockchain.info/tobtc", "GET",
+										params);
+								wynik = Float.parseFloat(json);
+
+							} catch (Exception e) {
+							}
+							if (wynik < min || wynik > max) {
+
+							}
+							notify.number++;
+							notify.flags |= Notification.FLAG_AUTO_CANCEL;
+							Intent toLaunch = new Intent(MainActivity.this,
+									MainActivity.class);
+							PendingIntent intentBack = PendingIntent
+									.getActivity(MainActivity.this, 0,
+											toLaunch, 0);
+							notify.setLatestEventInfo(MainActivity.this,
+									"Czeœæ!",
+									"Kwota spe³nia ju¿ Twoje oczekiwania",
+									intentBack);
+							notifier.notify(NOTIFY_1, notify);
+							break;
+						}
+					}
+				}).start();
 			}
 		});
 	}
@@ -293,13 +351,15 @@ public class MainActivity extends Activity implements OnItemSelectedListener,
 
 	}
 
-	public void zamien() {
+	public float zamien() {
+		float fkwota = 0;
 		try {
-			float fkwota = Float.parseFloat(kwota.getText().toString());
+			fkwota = Float.parseFloat(kwota.getText().toString());
 			tv_wynik.setText("" + (fkwota * kurs));
 		} catch (Exception e) {
 
 		}
+		return fkwota;
 	}
 
 }
