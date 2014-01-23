@@ -1,24 +1,41 @@
 package com.example.konwerter;
 
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.media.AudioManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.Editable;
+import android.text.Layout;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
+import android.widget.RemoteViews;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnDateChangedListener,
-		OnClickListener, TextWatcher {
+public class MainActivity extends Activity implements OnItemSelectedListener,
+		TextWatcher {
 
 	@Override
 	protected void onDestroy() {
@@ -65,53 +82,129 @@ public class MainActivity extends Activity implements OnDateChangedListener,
 		Toast.makeText(this, "Aplikacja zatrzymana", Toast.LENGTH_SHORT).show();
 	}
 
-	DatePicker data;
-	public int konwersja = 0;
-	private TextView waluta1;
-	private TextView waluta2;
-	private EditText wartosc1;
-	private EditText wartosc2;
-	private Button zamien;
-	private Button clear;
-	private EditText kurs;
-	private int dzien;
-	private int miesiac;
-	private int rok;
-	SharedPreferences kursy;
-	private String miesiace[] = { "styczeñ", "luty", "marzec", "kwiecieñ",
-			"maj", "czerwiec", "lipiec", "sierpieñ", "wrzesieñ", "paŸdziernik",
-			"listopad", "grudzieñ" };
+	private ProgressDialog pDialog;
+	private JSONParser jParser = new JSONParser();
+	private JSONArray dane = null;
+	private float kurs;
+	private TextView tv_kurs;
+	private Spinner waluta;
+	private String currency;
+	private String value;
+	private EditText kwota;
+	private TextView tv_wynik;
+	public static final String NOTIFY_KEY_1 = "NOTIFY_KEY_1";
+	private static final int NOTIFY_1 = 0x1001;
+	private static final int NOTIFY_2 = 0x1002;
+	private static final int NOTIFY_3 = 0x1003;
+	private static final int NOTIFY_4 = 0x1004;
+	private static final int NOTIFY_5 = 0x1005;
+	private NotificationManager notifier = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		kursy = getSharedPreferences("MyCustomSharedPreferences", 0);
-		data = (DatePicker) findViewById(R.id.data);
-		waluta1 = (TextView) findViewById(R.id.waluta1);
-		waluta2 = (TextView) findViewById(R.id.waluta2);
-		wartosc1 = (EditText) findViewById(R.id.wartosc1);
-		wartosc2 = (EditText) findViewById(R.id.wartosc2);
-		clear = (Button) findViewById(R.id.clear);
-		kurs = (EditText) findViewById(R.id.kurs);
-		zamien = (Button) findViewById(R.id.zamien);
-		zamien.setOnClickListener(this);
-		kurs.addTextChangedListener(this);
-		wartosc1.addTextChangedListener(this);
-		clear.setOnClickListener(this);
+		tv_kurs = (TextView) findViewById(R.id.kurs);
+		waluta = (Spinner) findViewById(R.id.waluta);
+		waluta.setOnItemSelectedListener(this);
+		kwota = (EditText) findViewById(R.id.kwota);
+		kwota.addTextChangedListener(this);
+		tv_wynik = (TextView) findViewById(R.id.wynik);
 
-		Calendar today = Calendar.getInstance();
-
-		dzien = today.get(Calendar.DAY_OF_MONTH);
-		miesiac = today.get(Calendar.MONTH);
-		rok = today.get(Calendar.YEAR);
-
-		data.init(rok, miesiac, dzien, this);
-
-		ustaw_tytuly();
-		String data2 = dzien + "." + miesiac + "." + rok;
-		kurs.setText("" + get(data2));
-
+		notifier = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		// utworzone poza przyciskiem, tak by moÅ¼na inkrementowaÄ‡ liczbÄ™
+		// rysowanÄ… na ikonie
+		final Notification notify = new Notification(R.drawable.ic_launcher,
+				"Witamy!", System.currentTimeMillis());
+		notify.icon = R.drawable.ic_launcher;
+		notify.tickerText = "Witam!";
+		notify.when = System.currentTimeMillis();
+		Button notify1 = (Button) findViewById(R.id.notify1);
+		notify1.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				notify.number++;
+				notify.flags |= Notification.FLAG_AUTO_CANCEL;
+				Intent toLaunch = new Intent(MainActivity.this,
+						MainActivity.class);
+				PendingIntent intentBack = PendingIntent.getActivity(
+						MainActivity.this, 0, toLaunch, 0);
+				notify.setLatestEventInfo(MainActivity.this, "Czeœæ!",
+						"To jest kolejny tekst.", intentBack);
+				notifier.notify(NOTIFY_1, notify);
+			}
+		});
+		Button notify2 = (Button) findViewById(R.id.notify2);
+		notify2.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Notification notify = new Notification(
+						android.R.drawable.stat_notify_chat, "Wibrujemy!",
+						System.currentTimeMillis());
+				notify.flags |= Notification.FLAG_AUTO_CANCEL;
+				notify.vibrate = new long[] {0, 300, 200, 300, 200, 120, 100,
+						120, 100, 120, 200, 150, 150, 150, 150, 150, 150, 150,
+						150, 500, 200, 600, };
+				Intent toLaunch = new Intent(MainActivity.this,
+						MainActivity.class);
+				PendingIntent intentBack = PendingIntent.getActivity(
+						MainActivity.this, 0, toLaunch, 0);
+				notify.setLatestEventInfo(MainActivity.this, "Bzzyt!",
+						"To wibruje Twój telefon.", intentBack);
+				notifier.notify(NOTIFY_2, notify);
+				// jest wiêcej sposobów na wibrowanie
+				// Vibrator vibe = (Vibrator)
+				// getSystemService(Context.VIBRATOR_SERVICE);
+				// vibe.vibrate(500);
+			}
+		});
+		Button notify3 = (Button) findViewById(R.id.notify3);
+		notify3.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				notify.flags |= Notification.FLAG_AUTO_CANCEL;
+				notify.number++;
+				notify.flags |= Notification.FLAG_SHOW_LIGHTS;
+				if (notify.number < 2) {
+					notify.ledARGB = Color.GREEN;
+					notify.ledOnMS = 1000;
+					notify.ledOffMS = 1000;
+				} else if (notify.number < 3) {
+					notify.ledARGB = Color.BLUE;
+					notify.ledOnMS = 750;
+					notify.ledOffMS = 750;
+				} else if (notify.number < 4) {
+					notify.ledARGB = Color.WHITE;
+					notify.ledOnMS = 500;
+					notify.ledOffMS = 500;
+				} else {
+					notify.ledARGB = Color.RED;
+					notify.ledOnMS = 50;
+					notify.ledOffMS = 50;
+				}
+				Intent toLaunch = new Intent(MainActivity.this,
+						MainActivity.class);
+				PendingIntent intentBack = PendingIntent.getActivity(
+						MainActivity.this, 0, toLaunch, 0);
+				notify.setLatestEventInfo(MainActivity.this, "Razi!",
+						"To œwieci Twój telefon.", intentBack);
+				notifier.notify(NOTIFY_3, notify);
+			}
+		});
+		Button notifyRemote = (Button) findViewById(R.id.notifyRemote);
+		notifyRemote.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				notify.flags |= Notification.FLAG_AUTO_CANCEL;
+				RemoteViews remote = new RemoteViews(getPackageName(),
+						R.layout.remote);
+				remote.setTextViewText(R.id.text1, "To du¿y tekst!");
+				remote.setTextViewText(R.id.text2, "Czerwony tekst na dole!");
+				notify.contentView = remote;
+				Intent toLaunch = new Intent(MainActivity.this,
+						MainActivity.class);
+				PendingIntent intentBack = PendingIntent.getActivity(
+						MainActivity.this, 0, toLaunch, 0);
+				notify.contentIntent = intentBack;
+				notifier.notify(NOTIFY_5, notify);
+			}
+		});
 	}
 
 	@Override
@@ -121,108 +214,92 @@ public class MainActivity extends Activity implements OnDateChangedListener,
 		return true;
 	}
 
-	@Override
-	public void onDateChanged(DatePicker view, int year, int monthOfYear,
-			int dayOfMonth) {
-		dzien = dayOfMonth;
-		miesiac = monthOfYear;
-		rok = year;
-		String data = dzien + "." + miesiac + "." + rok;
-		kurs.setText("" + get(data));
-		Toast.makeText(
-				this,
-				"Data: " + dayOfMonth + " " + miesiace[monthOfYear] + " "
-						+ year, Toast.LENGTH_SHORT).show();
-		Toast.makeText(this, "Kurs: " + get(data),
-				Toast.LENGTH_SHORT).show();
+	class Wymien extends AsyncTask<String, String, String> {
 
-	}
-
-	public void ustaw_tytuly() {
-		switch (konwersja) {
-		case 0:
-			waluta1.setText("Z³otówki");
-			waluta2.setText("Bitcoiny");
-			break;
-		case 1:
-			waluta1.setText("Bitcoiny");
-			waluta2.setText("Z³otówki");
-			break;
+		/**
+		 * Before starting background thread Show Progress Dialog
+		 * */
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pDialog = new ProgressDialog(MainActivity.this);
+			pDialog.setMessage("Pobieranie kursu");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(true);
+			pDialog.show();
 		}
-	}
 
-	public void konwertuj() {
-		float var1 = 0, var_kurs = 0, wynik;
-		try {
-			var1 = Float.parseFloat(wartosc1.getText().toString());
-			var_kurs = Float.parseFloat(kurs.getText().toString());
-			String data = dzien + "." + miesiac + "." + rok;
-			put(data, var_kurs);
-		} catch (Exception e) {
+		/**
+		 * getting All products from url
+		 * */
+		protected String doInBackground(String... args) {
 
+			currency = waluta.getSelectedItem().toString();
+			value = "1";
+			// Building Parameters
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("currency", currency));
+			params.add(new BasicNameValuePair("value", value));
+			// getting JSON string from URL
+			try {
+				String json = jParser.makeHttpRequest(
+						"http://blockchain.info/tobtc", "GET", params);
+				kurs = Float.parseFloat(json);
+
+			} catch (Exception e) {
+			}
+
+			return null;
 		}
-		wynik = konwersja == 0 ? var1 * var_kurs : var1 / var_kurs;
-		wartosc2.setText("" + wynik);
-	}
 
-	public void zamien() {
-		konwersja = konwersja == 0 ? 1 : 0;
-		String temp;
-		temp = wartosc1.getText().toString();
-		wartosc1.setText(wartosc2.getText().toString());
-		wartosc2.setText(temp);
-		ustaw_tytuly();
-	}
-
-	@Override
-	public void onClick(View v) {
-		if (v == zamien) {
+		/**
+		 * After completing background task Dismiss the progress dialog
+		 * **/
+		protected void onPostExecute(String file_url) {
+			tv_kurs.setText("Kurs: " + kurs);
 			zamien();
-		} else if (v == clear){
-			clear();
+			pDialog.dismiss();
 		}
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		new Wymien().execute();
+
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void afterTextChanged(Editable s) {
-		konwertuj();
+		zamien();
 	}
 
 	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
 			int after) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
+		// TODO Auto-generated method stub
 
-	}	
-	
-
-	public float get(String data) {
-		float ref = kursy.getFloat(data, 1);
-		return ref;
 	}
 
-	public void put(String data, float kurs) {
-		SharedPreferences.Editor edytorPref = kursy.edit();
-		if (!kursy.contains(data))
-			edytorPref.remove(data);
-		edytorPref.putFloat(data, kurs);
-		edytorPref.commit();
+	public void zamien() {
+		try {
+			float fkwota = Float.parseFloat(kwota.getText().toString());
+			tv_wynik.setText("" + (fkwota * kurs));
+		} catch (Exception e) {
+
+		}
 	}
 
-	public void remove(String data) {
-		SharedPreferences.Editor edytorPref = kursy.edit();
-		edytorPref.remove(data);
-		edytorPref.commit();
-	}
-
-	public void clear() {
-		SharedPreferences.Editor edytorPref = kursy.edit();
-		edytorPref.clear();
-		edytorPref.commit();
-		Toast.makeText(this, "Usuniêto zapamiêtane kursy",
-				Toast.LENGTH_SHORT).show();
-	}
 }

@@ -8,135 +8,75 @@
 
     <ScrollView
         android:id="@+id/scrollView1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" >
 
         <RelativeLayout
-            android:id="@+id/RelativeLayout1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <EditText
-                android:id="@+id/wartosc1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView1"
-                android:layout_alignBottom="@+id/textView1"
-                android:layout_toLeftOf="@+id/textView1"
-                android:ems="10"
-                android:hint="123.45"
-                android:inputType="number|numberDecimal"
-                android:singleLine="true" >
-            </EditText>
-
-            <EditText
-                android:id="@+id/wartosc2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView1"
-                android:layout_alignBottom="@+id/textView1"
-                android:layout_toRightOf="@+id/textView1"
-                android:ems="10"
-                android:enabled="false"
-                android:hint="123.45"
-                android:inputType="number|numberDecimal"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:text="Konwerter"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/wartosc1"
-                android:layout_marginTop="20dp"
-                android:text="1zł ="
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/waluta1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/wartosc1"
-                android:layout_alignParentLeft="true"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/waluta2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/wartosc2"
-                android:layout_alignParentRight="true"
-                android:text="TextView" />
-
-            <Button
-                android:id="@+id/zamien"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView2"
-                android:layout_centerHorizontal="true"
-                android:text="&lt;->" />
+            android:layout_height="match_parent" >
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/zamien"
-                android:layout_centerHorizontal="true"
-                android:text="="
+                android:text="Waluta:"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <DatePicker
-                android:id="@+id/data"
+            <Spinner
+                android:id="@+id/waluta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/kwota"
+                android:entries="@array/waluta" />
+
+            <EditText
+                android:id="@+id/kwota"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/kurs" />
-
-            <EditText
-                android:id="@+id/kurs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView3"
-                android:layout_alignBottom="@+id/textView3"
-                android:layout_toLeftOf="@+id/zamien"
-                android:layout_toRightOf="@+id/waluta1"
-                android:ems="10"
-                android:inputType="number|numberDecimal"
-                android:singleLine="true"
-                android:text="1" />
+                android:layout_below="@+id/waluta"
+                android:hint="Podaj kwote..."
+                android:inputType="numberDecimal" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/kurs"
-                android:layout_alignBottom="@+id/kurs"
-                android:layout_toRightOf="@+id/kurs"
-                android:text="bitcoin"
+                android:layout_alignBaseline="@id/kwota"
+                android:layout_toRightOf="@+id/kwota"
+                android:text="="
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <Button
-                android:id="@+id/clear"
+            <TextView
+                android:id="@+id/wynik"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/data"
-                android:layout_centerHorizontal="true"
-                android:text="Wyczyść pamięć" />
+                android:layout_alignBaseline="@id/kwota"
+                android:layout_toRightOf="@id/textView2"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </RelativeLayout>
+
     </ScrollView>
+
+    <TextView
+        android:id="@+id/kurs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="Kurs:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/kurs"
+        android:layout_centerHorizontal="true"
+        layout="@layout/main" />
 
 </RelativeLayout>
