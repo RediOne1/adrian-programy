@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="typ_produktu">
+        <item >spodnie</item>
+        <item >sukienki</item>
+        <item >bluzy</item>
+        <item >buty</item>
+    </string-array>
+    
+</resources>
