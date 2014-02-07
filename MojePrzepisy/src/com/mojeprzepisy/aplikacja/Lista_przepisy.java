@@ -37,6 +37,7 @@ public class Lista_przepisy extends ListActivity {
 	private String kategoria;
 	private final static int ALERT_DIALOG_ID = 2;
 	private String url_wszystkie_przepisy;
+	private String url_user_przepisy;
 	private String komunikat;
 	private boolean dialog = false;
 	private MyListAdapter adapter;
@@ -48,6 +49,7 @@ public class Lista_przepisy extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lista_przepisy);
 		url_wszystkie_przepisy = getString(R.string.url_wszystkie_przepisy);
+		url_user_przepisy = getString(R.string.url_user_przepisy);
 		Bundle bundle = getIntent().getExtras();
 		kategoria = bundle.getString("kategoria");
 		pseudonim = bundle.getString("pseudonim", null);
@@ -151,8 +153,14 @@ public class Lista_przepisy extends ListActivity {
 			params.add(new BasicNameValuePair("kategoria", kategoria));
 			// getting JSON string from URL
 			try {
-				JSONObject json = jParser.makeHttpRequest(
-						url_wszystkie_przepisy, "POST", params);
+				JSONObject json;
+				if (kategoria.equals("user")) {
+					params.add(new BasicNameValuePair("autorID", "" + user_id));
+					json = jParser.makeHttpRequest(url_user_przepisy, "POST",
+							params);
+				} else
+					json = jParser.makeHttpRequest(url_wszystkie_przepisy,
+							"POST", params);
 
 				// Check your log cat for JSON reponse
 
@@ -201,7 +209,7 @@ public class Lista_przepisy extends ListActivity {
 				}
 			} catch (Exception e) {
 				dialog = true;
-				komunikat = "B³¹d w po³¹czeniu.";
+				komunikat = "B³¹d w po³¹czeniu."+e;
 			}
 
 			return null;
