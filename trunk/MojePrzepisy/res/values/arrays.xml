@@ -28,7 +28,7 @@
         <item >Wegetariańskie</item>   
         <item >Zapiekanki</item>
         <item >Zupy</item>   
-        <item >Inne</item>
+        <item >Inne</item>   
     </string-array>
     <string-array name="trudnosc">
         <item >Bardzo łatwe</item>

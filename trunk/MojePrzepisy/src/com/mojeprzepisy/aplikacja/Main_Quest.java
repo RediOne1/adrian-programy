@@ -166,6 +166,7 @@ public class Main_Quest extends Activity implements OnClickListener {
 			edytorPref.commit();
 			Intent i = new Intent(getApplicationContext(), StartActivity.class);
 			startActivity(i);
+			finish();
 		} else {
 
 			String przepID = ((TextView) v.findViewById(R.id.przepisID))

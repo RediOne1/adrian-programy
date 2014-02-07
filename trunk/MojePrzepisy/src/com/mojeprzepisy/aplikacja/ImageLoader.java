@@ -32,7 +32,7 @@ public class ImageLoader {
         executorService=Executors.newFixedThreadPool(5);
     }
  
-    final int stub_id = R.drawable.noimage; //no image
+    final int stub_id = R.drawable.noimage3; //no image
     public void DisplayImage(String url, ImageView imageView)
     {
         imageViews.put(imageView, url);

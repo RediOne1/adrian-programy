@@ -84,9 +84,7 @@ public class Main_User extends Activity implements OnClickListener {
 		new OstatnioDodane().execute();
 		Toast.makeText(Main_User.this, "Zalogowany jako: " + pseudonim,
 				Toast.LENGTH_SHORT).show();
-		ustawienia = getSharedPreferences("MyCustomSharedPreferences", 0);
-		if (!ustawienia.getBoolean("niePokazuj", false))
-			showDialog(INFO_DIALOG_ID);		
+		ustawienia = getSharedPreferences("MyCustomSharedPreferences", 0);	
 	}
 
 	@Override
@@ -124,13 +122,6 @@ public class Main_User extends Activity implements OnClickListener {
 			layout2.removeAllViewsInLayout();
 			new NajwyzejOceniane().execute();
 			new OstatnioDodane().execute();
-			break;
-		case R.id.pokazKomunikat:
-			ustawienia = getSharedPreferences("MyCustomSharedPreferences", 0);
-			edytorPref = ustawienia.edit();
-			edytorPref.remove("niePokazuj");
-			edytorPref.commit();
-			showDialog(INFO_DIALOG_ID);
 			break;
 		}
 		return super.onOptionsItemSelected(item);
