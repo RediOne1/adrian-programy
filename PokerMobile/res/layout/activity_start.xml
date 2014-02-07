@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".StartActivity" >
+
+    <RelativeLayout
+        android:id="@+id/panel_dane_wejsciowe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" >
+
+        <TextView
+            android:id="@+id/karta_liczba"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textCzlowiek"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:text="@string/podaj_ilosc_ludzi"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/textCzlowiek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/karta_liczba"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="25dp" />
+
+        <SeekBar
+            android:id="@+id/seekCzlowiek"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/karta_liczba"
+            android:layout_marginBottom="20dp"
+            android:max="4" />
+
+        <TextView
+            android:id="@+id/stan_konta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/seekCzlowiek"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:text="@string/podaj_ilosc_botow"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/textBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/seekBot"
+            android:layout_toRightOf="@+id/stan_konta"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="25dp" />
+
+        <SeekBar
+            android:id="@+id/seekBot"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stan_konta"
+            android:max="4" />
+
+        <TextView
+            android:id="@+id/pula"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/seekBot"
+            android:text="@string/poczatkowa_liczba_zetonow"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/ileZetonow"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pula"
+            android:hint="np. 500"
+            android:inputType="number"
+            android:maxLength="5"
+            android:singleLine="true" >
+
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ileZetonow"
+            android:text="@string/wysokosc_wpisowego"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/ileWpisowe"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView4"
+            android:hint="np. 50"
+            android:inputType="number"
+            android:maxLength="3"
+            android:singleLine="true" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/panel_dane_wejsciowe"
+        android:layout_centerHorizontal="true"
+        android:text="@string/Start"
+        android:textSize="22dp" />
+
+</RelativeLayout>
