@@ -1,7 +1,11 @@
-package com.mojeprzepisy.aplikacja;
+package com.mojeprzepisy.aplikacja.narzedzia;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.mojeprzepisy.aplikacja.R;
+import com.mojeprzepisy.aplikacja.R.id;
+import com.mojeprzepisy.aplikacja.R.layout;
 
 import android.app.Activity;
 import android.content.Context;

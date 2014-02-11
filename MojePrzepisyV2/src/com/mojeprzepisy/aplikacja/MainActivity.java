@@ -9,15 +9,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -118,10 +111,18 @@ public class MainActivity extends FragmentActivity implements
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new DummySectionFragment();
-			Bundle args = new Bundle();
-			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-			fragment.setArguments(args);
+			Fragment fragment = null;
+			switch (position) {
+			case 0:
+				fragment = new StronaGlowna();
+				break;
+			case 1:
+				fragment = new NajwyzejOceniane();
+				break;
+			case 2:
+				fragment = new OstatnioDodane();
+				break;
+			}
 			return fragment;
 		}
 
@@ -143,44 +144,6 @@ public class MainActivity extends FragmentActivity implements
 				return getString(R.string.title_section3).toUpperCase(l);
 			}
 			return null;
-		}
-	}
-
-	/**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
-	 */
-	public static class DummySectionFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public DummySectionFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = null;
-			;
-			switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-			case 1:
-				rootView = inflater.inflate(R.layout.strona_glowna, container,
-						false);
-				new StronaGlowna(rootView);
-				break;
-			case 2:
-				rootView = inflater.inflate(R.layout.najwyzej_oceniane, container,
-						false);
-				break;
-			case 3:
-				rootView = inflater.inflate(R.layout.ostatnio_dodane, container,
-						false);
-				break;
-			}
-			return rootView;
 		}
 	}
 

@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
