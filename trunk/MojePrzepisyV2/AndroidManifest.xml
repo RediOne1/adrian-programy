@@ -8,6 +8,9 @@
         android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -21,6 +24,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mojeprzepisy.aplikacja.NajwyzejOceniane"
+            android:label="@string/title_activity_najwyzej_oceniane" >
+        </activity>
+        <activity
+            android:name="com.mojeprzepisy.aplikacja.OstatnioDodane"
+            android:label="@string/title_activity_ostatnio_dodane" >
+        </activity>
+        <activity
+            android:name="com.mojeprzepisy.aplikacja.przepis.Przepis"
+            android:label="@string/title_activity_przepis" >
         </activity>
     </application>
 

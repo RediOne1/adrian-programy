@@ -7,5 +7,9 @@
     <string name="title_section2">Najwyzej oceniane</string>
     <string name="title_section3">Ostatnio dodane</string>
     <string name="przepis_dnia">Przepis dnia</string>
+    <string name="title_activity_najwyzej_oceniane">Najwyzej Oceniane</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_ostatnio_dodane">Ostatnio Dodane</string>
+    <string name="title_activity_przepis">Moje Przepisy</string>
 
 </resources>

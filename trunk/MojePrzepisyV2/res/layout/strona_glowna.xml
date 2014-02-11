@@ -5,7 +5,7 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/przepisID"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -17,17 +17,8 @@
         android:id="@+id/include1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/przepisID"
+        android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         layout="@layout/przepis_maly_layout" />
-
-    <ProgressBar
-        android:id="@+id/progressBar1"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/include1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="54dp" />
 
 </RelativeLayout>

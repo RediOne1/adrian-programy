@@ -1,4 +1,4 @@
-package com.mojeprzepisy.aplikacja;
+package com.mojeprzepisy.aplikacja.narzedzia;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +13,9 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import com.mojeprzepisy.aplikacja.R;
+import com.mojeprzepisy.aplikacja.R.drawable;
 
 import android.app.Activity;
 import android.content.Context;

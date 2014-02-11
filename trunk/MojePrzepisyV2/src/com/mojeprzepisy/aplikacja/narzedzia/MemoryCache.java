@@ -1,4 +1,4 @@
-package com.mojeprzepisy.aplikacja;
+package com.mojeprzepisy.aplikacja.narzedzia;
 
 import java.lang.ref.SoftReference;
 import java.util.Collections;
