@@ -15,8 +15,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.mojeprzepisy.aplikacja.R;
-import com.mojeprzepisy.aplikacja.R.drawable;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -156,7 +154,8 @@ public class ImageLoader {
         Bitmap bitmap;
         PhotoToLoad photoToLoad;
         public BitmapDisplayer(Bitmap b, PhotoToLoad p){bitmap=b;photoToLoad=p;}
-        public void run()
+        @Override
+		public void run()
         {
             if(imageViewReused(photoToLoad))
                 return;

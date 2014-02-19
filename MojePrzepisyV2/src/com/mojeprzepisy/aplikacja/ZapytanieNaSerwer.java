@@ -6,15 +6,12 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 public class ZapytanieNaSerwer {
@@ -49,6 +46,7 @@ public class ZapytanieNaSerwer {
 	}
 
 	class wyslijZapytanie extends AsyncTask<String, String, String> {
+		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 			pDialog = new ProgressDialog(context);
@@ -59,11 +57,13 @@ public class ZapytanieNaSerwer {
 
 		}
 
+		@Override
 		protected String doInBackground(String... args) {
 			json = jsonParser.makeHttpRequest(adres_url, "POST", params);
 			return null;
 		}
 
+		@Override
 		protected void onPostExecute(String file_url) {
 			pDialog.dismiss();
 		}

@@ -1,35 +1,33 @@
 package com.mojeprzepisy.aplikacja;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.mojeprzepisy.aplikacja.dodaj_przepis.DodajPrzepisActivity;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class StronaGlowna extends Fragment {
+public class StronaGlowna extends Fragment implements OnClickListener{
 
-	View root;
-	ImageView zdjecie;
-	TextView tytul2;
-	TextView kategoria2;
-	RatingBar rate;
-	
+	private ImageView zdjecie;
+	private TextView tytul2;
+	private TextView kategoria2;
+	private RatingBar rate;
+	private View root;
+	private View rootView;
+	private Button dodajPrzepisButton;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.strona_glowna, container,
+		rootView = inflater.inflate(R.layout.strona_glowna, container,
 				false);
 		this.root = rootView;
 		return rootView;
@@ -42,6 +40,16 @@ public class StronaGlowna extends Fragment {
 		tytul2 = (TextView) root.findViewById(R.id.przepis_tytul_maly_layout);
 		kategoria2 = (TextView) root.findViewById(R.id.kategoria_maly_layout);
 		rate = (RatingBar) root.findViewById(R.id.ratingbar_maly_layout);
-		rate.setRating((float)4.5);
-	}	
+		rate.setRating((float) 4.5);
+		dodajPrzepisButton = (Button) root.findViewById(R.id.strona_glowna_dodaj_przepis);
+		dodajPrzepisButton.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		if(v == dodajPrzepisButton){
+			Intent i = new Intent(getActivity().getApplicationContext(), DodajPrzepisActivity.class);
+			startActivity(i);
+		}
+	}
 }

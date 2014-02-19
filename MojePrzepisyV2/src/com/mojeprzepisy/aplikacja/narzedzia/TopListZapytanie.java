@@ -1,7 +1,7 @@
 package com.mojeprzepisy.aplikacja.narzedzia;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -11,22 +11,23 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.widget.ListView;
+
+import com.mojeprzepisy.aplikacja.Przepis;
 
 public class TopListZapytanie{
 
 	JSONParser jParser = new JSONParser();
 	public JSONArray dane = null;
 	private ListView lv;
-	private ArrayList<HashMap<String, String>> wszystkiePrzepisy;
+	private List<Przepis> wszystkiePrzepisy;
 	private MyListAdapter2 adapter;
 	private Activity a;
 
 	public TopListZapytanie(Activity _a, ListView _lv) {
 		this.lv = _lv;
 		this.a = _a;
-		wszystkiePrzepisy = new ArrayList<HashMap<String, String>>();
+		wszystkiePrzepisy = new LinkedList<Przepis>();
 		adapter = new MyListAdapter2(a, wszystkiePrzepisy);
 		lv.setAdapter(adapter);
 	}
@@ -47,15 +48,16 @@ public class TopListZapytanie{
 		/**
 		 * getting All products from url
 		 * */
+		@Override
 		protected String doInBackground(String... args) {
 			// Building Parameters
 			String URL = args[0];
-			String minLimit = args[1];
-			String ilePrzepisow = args[2];
+			//String minLimit = args[1];
+			//String ilePrzepisow = args[2];
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("minLimit", minLimit));
-			params.add(new BasicNameValuePair("ilePrzepisow", ilePrzepisow));
+			params.add(new BasicNameValuePair("minLimit", 0+""));
+			params.add(new BasicNameValuePair("ilePrzepisow", 100+""));
 			// getting JSON string from URL
 			try {
 				JSONObject json = jParser.makeHttpRequest(URL, "POST", params);
@@ -81,21 +83,11 @@ public class TopListZapytanie{
 						String kategoria = c.getString("kategoria");
 						String StrZdjecie = c.getString("zdjecie");
 						String ocena = c.getString("ocena");
-						// creating new HashMap
-						HashMap<String, String> map = new HashMap<String, String>();
-
-						// adding each child node to HashMap key => value
-						map.put("autorID", autorID);
-						map.put("przepisID", przepisID);
-						map.put("tytul", tytul);
-						map.put("kategoria", kategoria);
-						map.put("zdjecie", StrZdjecie);
-						map.put("ocena", ocena);
-
-						// adding HashList to ArrayList
-						wszystkiePrzepisy.add(map);
+						
+						wszystkiePrzepisy.add(new Przepis(autorID, przepisID, tytul, kategoria, ocena, null, null, null, StrZdjecie));
+						//adapter.notifyDataSetChanged();
+						publishProgress();
 					}
-					adapter.notifyDataSetChanged();
 				} else {
 					// no products found
 					// Launch Add New product Activity
@@ -114,8 +106,13 @@ public class TopListZapytanie{
 		/**
 		 * After completing background task Dismiss the progress dialog
 		 * **/
+		@Override
 		protected void onPostExecute(String file_url) {
 			lv.invalidateViews();
 		}
+		@Override
+		protected void onProgressUpdate(String...progress) {
+			lv.invalidateViews();
+	     }
 	}
 }

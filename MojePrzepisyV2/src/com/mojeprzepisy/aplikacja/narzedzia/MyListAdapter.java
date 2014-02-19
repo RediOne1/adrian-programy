@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.mojeprzepisy.aplikacja.R;
-import com.mojeprzepisy.aplikacja.R.id;
-import com.mojeprzepisy.aplikacja.R.layout;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -38,18 +35,22 @@ public class MyListAdapter extends BaseAdapter {
 		imageLoader = new ImageLoader(activity.getApplicationContext());
 	}
 
+	@Override
 	public int getCount() {
 		return dane.size();
 	}
 
+	@Override
 	public Object getItem(int position) {
 		return position;
 	}
 
+	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View vi = convertView;
 
