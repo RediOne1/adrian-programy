@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore.MediaColumns;
-import android.text.Layout;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
