@@ -5,7 +5,7 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/single_item_przepisID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -14,11 +14,20 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <include
-        android:id="@+id/include1"
+        android:id="@+id/include_dodaj_zdjecie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/single_item_przepisID"
         android:layout_centerHorizontal="true"
         layout="@layout/przepis_maly_layout" />
+
+    <Button
+        android:id="@+id/strona_glowna_dodaj_przepis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/include_dodaj_zdjecie"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Dodaj przepis" />
 
 </RelativeLayout>

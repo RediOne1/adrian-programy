@@ -1,6 +1,7 @@
 package com.mojeprzepisy.aplikacja.narzedzia;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
@@ -32,6 +33,7 @@ public class EndlessScrollListener implements OnScrollListener {
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
+		Log.d("DEBUG_TAG","onScroll");
 		if (loading) {
 			if (totalItemCount > previousTotal) {
 				loading = false;

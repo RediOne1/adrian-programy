@@ -1,9 +1,6 @@
 package com.mojeprzepisy.aplikacja.przepis;
 
 import com.mojeprzepisy.aplikacja.R;
-import com.mojeprzepisy.aplikacja.R.layout;
-import com.mojeprzepisy.aplikacja.R.menu;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
