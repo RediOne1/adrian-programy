@@ -10,12 +10,12 @@ import com.mojeprzepisy.aplikacja.R;
 public class DodajPrzepisActivity extends Activity {
 	
 	public DodajZdjecie dodajZdjecie;
-
+	public ImageView imageview;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dodaj_przepis_layout);
-		//ImageView imageview = (ImageView) findViewById(R.id.imageView1);
+		imageview = (ImageView) findViewById(R.id.imageView1);
 		dodajZdjecie = new DodajZdjecie();
 	}
 
@@ -25,5 +25,4 @@ public class DodajPrzepisActivity extends Activity {
 		getMenuInflater().inflate(R.menu.dodaj_przepis, menu);
 		return true;
 	}
-
 }
