@@ -8,7 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore.MediaColumns;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -19,11 +19,11 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 		OnClickListener {
 
 	private ImageView imageview;
-	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-	private static final int REQ_CODE_PICK_IMAGE = 101;
+	private Activity root;
 
-	public DodajZdjecie() {
-		imageview = (ImageView) findViewById(R.id.imageView1);
+	public DodajZdjecie(Activity dodajPrzepisActivity) {
+		root = dodajPrzepisActivity;
+		imageview = (ImageView) root.findViewById(R.id.dodaj_zdjecie_image);
 		imageview.setOnClickListener(this);
 	}
 
@@ -33,19 +33,19 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 			Intent intent = new Intent(
 					Intent.ACTION_PICK,
 					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-			startActivityForResult(intent, REQ_CODE_PICK_IMAGE);
+			root.startActivityForResult(intent, REQ_CODE_PICK_IMAGE);
 		}
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	public void dodajPrzepisActivityResult(int requestCode, int resultCode,
+			Intent data) {
 		switch (requestCode) {
 		case REQ_CODE_PICK_IMAGE:
-			if (resultCode == RESULT_OK) {
+			if (resultCode == Activity.RESULT_OK) {
 				Uri selectedImage = data.getData();
-				String[] filePathColumn = { MediaColumns.DATA };
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-				Cursor cursor = getContentResolver().query(selectedImage,
+				Cursor cursor = root.getContentResolver().query(selectedImage,
 						filePathColumn, null, null, null);
 				cursor.moveToFirst();
 
@@ -72,7 +72,6 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 				Bitmap yourSelectedImage2 = BitmapFactory.decodeFile(filePath,
 						o2);
 				imageview.setImageBitmap(yourSelectedImage2);
-				// zdjecieBitmap = yourSelectedImage2;
 			}
 			break;
 
@@ -84,7 +83,6 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 				byte[] byteArray = stream.toByteArray();
 
 				imageview.setImageBitmap(bmp);
-				// zdjecieBitmap = bmp;
 
 			} else if (resultCode == Activity.RESULT_CANCELED) {
 				// User cancelled the image capture
