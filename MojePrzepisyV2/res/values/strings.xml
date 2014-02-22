@@ -12,5 +12,6 @@
     <string name="title_activity_ostatnio_dodane">Ostatnio Dodane</string>
     <string name="title_activity_przepis">Moje Przepisy</string>
     <string name="title_activity_dodaj_przepis">Dodaj przepis</string>
+    <string name="dodaj_tytul">Dodaj tytuł</string>
 
 </resources>
