@@ -2,12 +2,12 @@ package com.mojeprzepisy.aplikacja.dodaj_przepis;
 
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mojeprzepisy.aplikacja.R;
+import com.mojeprzepisy.aplikacja.narzedzia.MyTypeFace;
 
 public class DodajTytul extends DodajPrzepisActivity implements OnClickListener {
 
@@ -24,6 +24,7 @@ public class DodajTytul extends DodajPrzepisActivity implements OnClickListener 
 		save_image.setOnClickListener(this);
 		tytul_tv.setOnClickListener(this);
 		tytul_et.setOnClickListener(this);
+		tytul_tv = (TextView) new MyTypeFace(tytul_tv, root).MyBold();
 		tytul_et.setVisibility(View.GONE);
 		save_image.setVisibility(View.GONE);
 	}
@@ -43,7 +44,7 @@ public class DodajTytul extends DodajPrzepisActivity implements OnClickListener 
 			tytul_et.setVisibility(View.GONE);
 			tytul_tv.setVisibility(View.VISIBLE);
 			if(temp_tytul.length()==0)
-				temp_tytul = root.getResources().getString(R.string.dodaj_tytul);
+				temp_tytul = root.getResources().getString(R.string.dotknij_aby_edytowac);
 			tytul_tv.setText(temp_tytul);
 			save_image.setVisibility(View.GONE);
 		}

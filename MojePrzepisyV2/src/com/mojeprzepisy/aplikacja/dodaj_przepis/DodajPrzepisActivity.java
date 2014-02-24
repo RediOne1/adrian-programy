@@ -16,6 +16,7 @@ public class DodajPrzepisActivity extends Activity {
 
 	public DodajZdjecie dodajZdjecie;
 	public DodajTytul dodajTytul;
+	public DodajSkladniki dodajSkladniki;
 	public ImageView imageview;
 	public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	public static final int REQ_CODE_PICK_IMAGE = 101;
@@ -27,6 +28,7 @@ public class DodajPrzepisActivity extends Activity {
 		imageview = (ImageView) findViewById(R.id.dodaj_tytul_save);
 		dodajZdjecie = new DodajZdjecie(DodajPrzepisActivity.this);
 		dodajTytul = new DodajTytul(DodajPrzepisActivity.this);
+		dodajSkladniki = new DodajSkladniki(DodajPrzepisActivity.this);
 	}
 
 	@Override

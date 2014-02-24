@@ -20,6 +20,7 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 
 	private ImageView imageview;
 	private Activity root;
+	private static final int IMAGE_SIZE = 250;
 
 	public DodajZdjecie(Activity dodajPrzepisActivity) {
 		root = dodajPrzepisActivity;
@@ -56,7 +57,7 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 				BitmapFactory.Options o = new BitmapFactory.Options();
 				o.inJustDecodeBounds = true;
 				BitmapFactory.decodeFile(filePath, o);
-				final int REQUIRED_SIZE = 220;
+				final int REQUIRED_SIZE = IMAGE_SIZE;
 				int width_tmp = o.outWidth, height_tmp = o.outHeight;
 				int scale = 1;
 				while (true) {

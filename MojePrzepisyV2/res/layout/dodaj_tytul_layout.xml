@@ -3,11 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tytul" />
+
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/textView1"
         android:layout_centerHorizontal="true"
         android:background="@drawable/shadow_effect" >
 
@@ -19,8 +25,8 @@
             android:layout_centerHorizontal="true"
             android:focusable="true"
             android:gravity="center"
-            android:text="@string/dodaj_tytul"
-            android:textSize="25dp" />
+            android:text="@string/dotknij_aby_edytowac"
+            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/dodaj_tytul_edittext"

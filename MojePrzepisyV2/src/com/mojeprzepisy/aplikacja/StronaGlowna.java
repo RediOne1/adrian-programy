@@ -1,7 +1,5 @@
 package com.mojeprzepisy.aplikacja;
 
-import com.mojeprzepisy.aplikacja.dodaj_przepis.DodajPrzepisActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.mojeprzepisy.aplikacja.dodaj_przepis.DodajPrzepisActivity;
+import com.mojeprzepisy.aplikacja.narzedzia.MyTypeFace;
+
 public class StronaGlowna extends Fragment implements OnClickListener{
 
 	private ImageView zdjecie;
@@ -21,13 +22,12 @@ public class StronaGlowna extends Fragment implements OnClickListener{
 	private TextView kategoria2;
 	private RatingBar rate;
 	private View root;
-	private View rootView;
 	private Button dodajPrzepisButton;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.strona_glowna, container,
+		View rootView = inflater.inflate(R.layout.strona_glowna, container,
 				false);
 		this.root = rootView;
 		return rootView;
@@ -43,6 +43,7 @@ public class StronaGlowna extends Fragment implements OnClickListener{
 		rate.setRating((float) 4.5);
 		dodajPrzepisButton = (Button) root.findViewById(R.id.strona_glowna_dodaj_przepis);
 		dodajPrzepisButton.setOnClickListener(this);
+		dodajPrzepisButton = (Button) new MyTypeFace(dodajPrzepisButton, getActivity()).MyBold();
 	}
 
 	@Override
