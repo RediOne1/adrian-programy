@@ -13,5 +13,19 @@
     <string name="title_activity_przepis">Moje Przepisy</string>
     <string name="title_activity_dodaj_przepis">Dodaj przepis</string>
     <string name="dodaj_tytul">Dodaj tytuł</string>
+    <string name="dodaj_skladnik">Dodaj składnik</string>
+    <string name="dotknij_aby_edytowac">Dotknij aby edytować</string>
+    <string name="tytul">Tytuł:</string>
+    <string name="skladniki">Składniki:</string>
+    <string name="widoczny_dla_wszystkich">Widoczny dla wszystkich:</string>
+    <string name="tak">Tak</string>
+    <string name="nie">Nie</string>
+    <string name="kategoria">Kategoria</string>
+    <string name="trudnosc">Trudność</string>
+    <string name="czas">Czas</string>
+    <string name="dodatkowe_dane">Dodatkowe dane:</string>
+    <string name="krok">krok</string>
+    <string name="nastepny_krok">Nastepny krok</string>
+    <string name="opis">Opis:</string>
 
 </resources>
