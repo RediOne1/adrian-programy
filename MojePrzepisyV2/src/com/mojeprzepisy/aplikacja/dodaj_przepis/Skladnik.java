@@ -2,6 +2,7 @@ package com.mojeprzepisy.aplikacja.dodaj_przepis;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,17 +14,19 @@ import android.widget.TextView;
 import com.mojeprzepisy.aplikacja.R;
 import com.mojeprzepisy.aplikacja.narzedzia.MyTypeFace;
 
-public class Skladnik extends DodajPrzepisActivity implements OnClickListener {
+public class Skladnik extends DodajSkladniki implements OnClickListener {
 
 	private String nazwa = null;
-	private Activity root;
 	private ViewGroup container;
 	private View usun;
 	private TextView nazwa_textview;
 	private EditText nazwa_edittext;
 	private ImageView zapisz;
+	private DodajSkladniki dodajS;
 
-	public Skladnik(Activity _root, ViewGroup _container) {
+	public Skladnik(Activity _root, ViewGroup _container, DodajSkladniki _dodajS) {
+		super();
+		dodajS = _dodajS;
 		root = _root;
 		container = _container;
 	}
@@ -42,7 +45,8 @@ public class Skladnik extends DodajPrzepisActivity implements OnClickListener {
 		zapisz.setOnClickListener(this);
 		nazwa_textview.setOnClickListener(this);
 		usun.setOnClickListener(this);
-		nazwa_textview = (TextView) new MyTypeFace(nazwa_textview, root).MyNormal();
+		nazwa_textview = (TextView) new MyTypeFace(nazwa_textview, root)
+				.MyNormal();
 		nazwa_edittext.setVisibility(View.GONE);
 		zapisz.setVisibility(View.GONE);
 		return v;
@@ -52,6 +56,8 @@ public class Skladnik extends DodajPrzepisActivity implements OnClickListener {
 	public void onClick(View v) {
 		if (v == usun) {
 			container.removeView((View) v.getParent());
+			dodajS.skladniki.remove(this);
+			//dodajS.wypisz();
 		} else if (v == nazwa_textview) {
 			// nazwa = nazwa_textview.getText().toString();
 			nazwa_textview.setVisibility(View.GONE);
@@ -69,5 +75,10 @@ public class Skladnik extends DodajPrzepisActivity implements OnClickListener {
 						R.string.dotknij_aby_edytowac);
 			nazwa_textview.setText(nazwa);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return nazwa;
 	}
 }

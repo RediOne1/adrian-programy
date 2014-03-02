@@ -14,15 +14,14 @@
         android:text="@string/dotknij_aby_edytowac"
         android:textSize="15dp" />
 
-    <TextView
+    <ImageView
         android:id="@+id/skladnik_usun_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="16dp"
-        android:text="X"
-        android:textSize="20dp" />
+        android:src="@android:drawable/ic_delete" />
 
     <EditText
         android:id="@+id/single_skladnik_edittext"
@@ -32,7 +31,6 @@
         android:layout_below="@+id/single_skladnik_textview"
         android:ems="10"
         android:hint="@string/dodaj_skladnik" >
-
     </EditText>
 
     <ImageView

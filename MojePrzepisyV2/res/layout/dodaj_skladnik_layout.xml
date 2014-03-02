@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/krok_tittle_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/skladniki" />
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="20dp"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/krok_tittle_textview"
         android:background="@drawable/shadow_effect"
         android:orientation="vertical" >
 

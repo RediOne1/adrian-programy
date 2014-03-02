@@ -24,8 +24,9 @@
     <string name="trudnosc">Trudność</string>
     <string name="czas">Czas</string>
     <string name="dodatkowe_dane">Dodatkowe dane:</string>
-    <string name="krok">krok</string>
-    <string name="nastepny_krok">Nastepny krok</string>
+    <string name="krok">Krok</string>
+    <string name="nastepny_krok">Dodaj krok</string>
     <string name="opis">Opis:</string>
+    <string name="wyslij_przepis">Wyślij przepis</string>
 
 </resources>

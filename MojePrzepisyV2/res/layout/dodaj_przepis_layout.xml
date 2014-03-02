@@ -56,11 +56,22 @@
                 layout="@layout/dodaj_opis" />
 
             <include
+                android:id="@+id/include5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/include4"
                 android:layout_margin="10dp"
                 layout="@layout/dodaj_dodatkowe_dane" />
+
+            <Button
+                android:id="@+id/dodaj_przepis_wyslij_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/include5"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/przycisk"
+                android:text="@string/wyslij_przepis" />
+
         </RelativeLayout>
     </ScrollView>
 
