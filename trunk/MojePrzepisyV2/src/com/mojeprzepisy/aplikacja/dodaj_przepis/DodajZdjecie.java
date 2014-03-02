@@ -19,7 +19,6 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 		OnClickListener {
 
 	private ImageView imageview;
-	private Activity root;
 	private static final int IMAGE_SIZE = 250;
 
 	public DodajZdjecie(Activity dodajPrzepisActivity) {
