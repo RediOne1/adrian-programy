@@ -20,6 +20,7 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 
 	private ImageView imageview;
 	private static final int IMAGE_SIZE = 250;
+	private Bitmap zdjecie_bitmap;
 
 	public DodajZdjecie(Activity dodajPrzepisActivity) {
 		root = dodajPrzepisActivity;
@@ -72,6 +73,7 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 				Bitmap yourSelectedImage2 = BitmapFactory.decodeFile(filePath,
 						o2);
 				imageview.setImageBitmap(yourSelectedImage2);
+				zdjecie_bitmap = yourSelectedImage2;				
 			}
 			break;
 
@@ -91,5 +93,8 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 			}
 			break;
 		}
+	}
+	public Bitmap getBitmap(){
+		return zdjecie_bitmap;
 	}
 }

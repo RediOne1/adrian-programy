@@ -34,6 +34,10 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 		dodajO = _dodajO;
 	}
 
+	public Krok(String _tytul, String _opis){
+		this.tytul = _tytul;
+		this.opis = _opis;
+	}
 	public View toView() {
 		LayoutInflater inflater = (LayoutInflater) root
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

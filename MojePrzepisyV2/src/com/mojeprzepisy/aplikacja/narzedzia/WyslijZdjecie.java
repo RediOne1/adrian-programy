@@ -30,7 +30,7 @@ public class WyslijZdjecie {
 	private String url_zmien_tytul = "http://softpartner.pl/moje_przepisy/zmien_tytul.php";
 	private String url_usun_zdjecie = "http://softpartner.pl/moje_przepisy/usun_zdjecie.php";
 
-	WyslijZdjecie(Bitmap bm, String name) {
+	public WyslijZdjecie(Bitmap bm, String name) {
 		this.bm = bm;
 		this.name = name;
 	}

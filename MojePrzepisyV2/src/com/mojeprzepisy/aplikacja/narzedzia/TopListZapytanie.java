@@ -21,14 +21,14 @@ public class TopListZapytanie{
 	public JSONArray dane = null;
 	private ListView lv;
 	private List<Przepis> wszystkiePrzepisy;
-	private MyListAdapter2 adapter;
+	private MyListAdapter adapter;
 	private Activity a;
 
 	public TopListZapytanie(Activity _a, ListView _lv) {
 		this.lv = _lv;
 		this.a = _a;
 		wszystkiePrzepisy = new LinkedList<Przepis>();
-		adapter = new MyListAdapter2(a, wszystkiePrzepisy);
+		adapter = new MyListAdapter(a, wszystkiePrzepisy);
 		lv.setAdapter(adapter);
 	}
 
@@ -83,8 +83,13 @@ public class TopListZapytanie{
 						String kategoria = c.getString("kategoria");
 						String StrZdjecie = c.getString("zdjecie");
 						String ocena = c.getString("ocena");
+						String ilosc_ocen = c.getString("ilosc_ocen");
+						String trudnosc = c.getString("trudnosc");
+						String czas = c.getString("czas");
+						String skladniki = c.getString("skladniki");
+						String opis = c.getString("opis");
 						
-						wszystkiePrzepisy.add(new Przepis(autorID, przepisID, tytul, kategoria, ocena, null, null, null, StrZdjecie));
+						wszystkiePrzepisy.add(new Przepis(autorID, przepisID, tytul, kategoria, ocena, ilosc_ocen, trudnosc, czas, StrZdjecie, skladniki, opis));
 						//adapter.notifyDataSetChanged();
 						publishProgress();
 					}
