@@ -1,9 +1,7 @@
 package com.mojeprzepisy.aplikacja.narzedzia;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
-import com.mojeprzepisy.aplikacja.R;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -15,23 +13,24 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.mojeprzepisy.aplikacja.Przepis;
+import com.mojeprzepisy.aplikacja.R;
+
 public class MyListAdapter extends BaseAdapter {
 	private Activity activity;
 	private Context mContext;
-	private ArrayList<HashMap<String, String>> dane;
+	private List<Przepis> dane;
 	private static LayoutInflater inflater = null;
-	public ImageLoader imageLoader;
 	private Typeface MyBold;
 	private Typeface MyNormal;
+	private ImageLoader imageLoader;
 
 	public MyListAdapter(Activity a,
-			ArrayList<HashMap<String, String>> wszystkiePrzepisy) {
+			List<Przepis> wszystkiePrzepisy) {
 		activity = a;
 		dane = wszystkiePrzepisy;
 		inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		MyBold = Typeface.createFromAsset(activity.getAssets(), "fonts/SEGOEPRB.TTF");
-		MyNormal = Typeface.createFromAsset(activity.getAssets(), "fonts/SEGOEPR.TTF");
 		imageLoader = new ImageLoader(activity.getApplicationContext());
 	}
 
@@ -55,27 +54,31 @@ public class MyListAdapter extends BaseAdapter {
 		View vi = convertView;
 
 		if (convertView == null)
-			vi = inflater.inflate(R.layout.przepis_maly_layout, null);
+			vi = inflater.inflate(R.layout.list_single_item, null);
 
-		TextView przepisID = (TextView) vi.findViewById(R.id.przepisID);
-		TextView autorID = (TextView) vi.findViewById(R.id.autorID);
-		TextView Tytul = (TextView) vi.findViewById(R.id.przepis_tytul_maly_layout);
-		TextView kategoria = (TextView) vi.findViewById(R.id.kategoria_maly_layout);
-		ImageView image_view = (ImageView) vi.findViewById(R.id.zdjecie_maly_layout);
-		RatingBar rating = (RatingBar) vi.findViewById(R.id.ratingbar_maly_layout);
+		TextView przepisID = (TextView) vi.findViewById(R.id.single_item_przepisID);
+		TextView autorID = (TextView) vi.findViewById(R.id.single_item_autorID);
+		TextView Tytul = (TextView) vi.findViewById(R.id.single_item_tytul);
+		TextView kategoria = (TextView) vi.findViewById(R.id.single_item_kategoria);
+		TextView nr = (TextView) vi.findViewById(R.id.nr_najwyzej_oceniane);
+		TextView ocena = (TextView) vi.findViewById(R.id.single_item_ocena);
+		ImageView image_view = (ImageView) vi.findViewById(R.id.single_item_image);
+		RatingBar rating = (RatingBar) vi.findViewById(R.id.single_item_ratingbar);
 
-		HashMap<String, String> map = new HashMap<String, String>();
-		map = dane.get(position);
+		Przepis przepis;
+		przepis = dane.get(position);
 		// Setting all values in listview
-		autorID.setText(map.get("autorID"));
-		przepisID.setText(map.get("przepisID"));
-		Tytul.setText(map.get("tytul"));
-		Tytul.setTypeface(MyBold);
-		kategoria.setText(map.get("kategoria"));
-		kategoria.setTypeface(MyNormal);
-		float ocena = Float.parseFloat(map.get("ocena"));
-		rating.setRating(ocena);
-		imageLoader.DisplayImage(map.get("zdjecie"), image_view);
+		autorID.setText(""+przepis.autorID);
+		przepisID.setText(""+przepis.przepisID);
+		nr.setText((position+1)+".");
+		Tytul.setText(przepis.tytul);
+		rating.setRating(przepis.ocena);
+		ocena.setText(""+przepis.ocena);
+		kategoria.setText(przepis.kategoria);
+		imageLoader.DisplayImage(przepis.zdjecie, image_view);
+		vi.setTag(przepis);
+		//kategoria.setTypeface(MyNormal);
+		//float ocena = Float.parseFloat(map.get("ocena"));
 		return vi;
 	}
 

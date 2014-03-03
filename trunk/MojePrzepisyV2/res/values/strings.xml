@@ -28,5 +28,8 @@
     <string name="nastepny_krok">Dodaj krok</string>
     <string name="opis">Opis:</string>
     <string name="wyslij_przepis">Wyślij przepis</string>
+    <string name="title_activity_wyswietl_przepis">Moje Przepisy</string>
+    <string name="nieokreslony">Nieokreślony</string>
+    <string name="sredni">Średni</string>
 
 </resources>

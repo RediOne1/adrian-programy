@@ -2,7 +2,6 @@ package com.mojeprzepisy.aplikacja.dodaj_przepis;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +29,9 @@ public class Skladnik extends DodajSkladniki implements OnClickListener {
 		root = _root;
 		container = _container;
 	}
+	public Skladnik(String _nazwa){
+		this.nazwa = _nazwa;
+	}
 
 	public View toView() {
 		LayoutInflater inflater = (LayoutInflater) root
@@ -45,6 +47,23 @@ public class Skladnik extends DodajSkladniki implements OnClickListener {
 		zapisz.setOnClickListener(this);
 		nazwa_textview.setOnClickListener(this);
 		usun.setOnClickListener(this);
+		nazwa_textview = (TextView) new MyTypeFace(nazwa_textview, root)
+				.MyNormal();
+		nazwa_edittext.setVisibility(View.GONE);
+		zapisz.setVisibility(View.GONE);
+		return v;
+	}
+	public View wyswietl(Activity _root, ViewGroup _container){
+		LayoutInflater inflater = (LayoutInflater) _root
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View v = inflater.inflate(R.layout.single_skladnik_layout, _container,
+				false);
+		usun = v.findViewById(R.id.skladnik_usun_button);
+		nazwa_textview = (TextView) v
+				.findViewById(R.id.single_skladnik_textview);
+		nazwa_edittext = (EditText) v
+				.findViewById(R.id.single_skladnik_edittext);
+		zapisz = (ImageView) v.findViewById(R.id.single_skladnik_save);
 		nazwa_textview = (TextView) new MyTypeFace(nazwa_textview, root)
 				.MyNormal();
 		nazwa_edittext.setVisibility(View.GONE);

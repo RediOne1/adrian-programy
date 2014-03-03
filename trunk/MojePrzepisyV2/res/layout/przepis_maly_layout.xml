@@ -8,9 +8,6 @@
         android:id="@+id/przepis_maly_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/shadow_effect" >
 
         <ImageView
@@ -58,6 +55,29 @@
                 android:layout_below="@id/ratingbar_maly_layout"
                 android:text="kategoria"
                 android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/ilosc_ocen_maly_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ratingbar_maly_layout"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/trudnosc_maly_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/sredni" />
+
+            <TextView
+                android:id="@+id/czas_maly_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/trudnosc_maly_layout"
+                android:text="@string/nieokreslony" />
+
         </RelativeLayout>
     </RelativeLayout>
 

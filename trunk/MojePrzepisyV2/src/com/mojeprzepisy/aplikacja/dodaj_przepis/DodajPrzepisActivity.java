@@ -126,13 +126,13 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 
 				if (success == 1) {
 					przepisID = json.getInt("przepisID");
-					/*
-					 * WyslijZdjecie wyslij = new WyslijZdjecie(zdjecieBitmap,
-					 * "" + przepisID); params.add(new
-					 * BasicNameValuePair("zdjecie",
-					 * "http://softpartner.pl/moje_przepisy/zdjecia/" +
-					 * przepisID + ".jpg"));
-					 */
+
+					WyslijZdjecie wyslij = new WyslijZdjecie(dodajZdjecie.getBitmap(), ""
+							+ przepisID);
+					params.add(new BasicNameValuePair("zdjecie",
+							"http://softpartner.pl/moje_przepisy/zdjecia/"
+									+ przepisID + ".jpg"));
+					wyslij.executeMultipartPost();
 				} else {
 				}
 				komunikat = json.getString("message");

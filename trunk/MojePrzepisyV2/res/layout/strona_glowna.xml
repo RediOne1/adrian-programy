@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/single_item_przepisID"
         android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
         layout="@layout/przepis_maly_layout" />
 
     <Button
