@@ -4,6 +4,17 @@
     android:layout_height="match_parent"
     tools:context=".WyswietlPrzepis" >
 
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
     <include
         android:id="@+id/include1"
         android:layout_width="wrap_content"
@@ -21,5 +32,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         layout="@layout/wyswietl_skladniki" />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
