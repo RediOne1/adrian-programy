@@ -34,10 +34,11 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 		dodajO = _dodajO;
 	}
 
-	public Krok(String _tytul, String _opis){
+	public Krok(String _tytul, String _opis) {
 		this.tytul = _tytul;
 		this.opis = _opis;
 	}
+
 	public View toView() {
 		LayoutInflater inflater = (LayoutInflater) root
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -60,6 +61,24 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 		return v;
 	}
 
+	public View wyswietl(Activity _root, ViewGroup _container) {
+		LayoutInflater inflater = (LayoutInflater) _root
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View v = inflater.inflate(R.layout.krok_layout, _container, false);
+		view = v;
+		tittle_tv = (TextView) v.findViewById(R.id.krok_tittle_textview);
+		tittle_et = (EditText) v.findViewById(R.id.krok_tittle_edittext);
+		opis_et = (EditText) v.findViewById(R.id.krok_opis);
+		usun = (ImageView) v.findViewById(R.id.krok_tittle_delete);
+		zapisz = (ImageView) v.findViewById(R.id.krok_tittle_save);
+		tittle_tv = (TextView) new MyTypeFace(tittle_tv, _root).MyNormal();
+		zapisz.setVisibility(View.GONE);
+		tittle_et.setVisibility(View.GONE);
+		usun.setVisibility(View.GONE);
+		tittle_tv.setText(tytul);
+		return v;
+	}
+
 	@Override
 	public void onClick(View v) {
 		if (v == usun) {
@@ -74,8 +93,8 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 			tittle_et.setText(tytul);
 			tittle_et.requestFocus();
 		} else if (v == zapisz) {
-			if(tittle_et.getText().toString().length()!=0)
-			tytul = tittle_et.getText().toString();
+			if (tittle_et.getText().toString().length() != 0)
+				tytul = tittle_et.getText().toString();
 			tittle_et.setVisibility(View.GONE);
 			zapisz.setVisibility(View.GONE);
 			tittle_tv.setVisibility(View.VISIBLE);
