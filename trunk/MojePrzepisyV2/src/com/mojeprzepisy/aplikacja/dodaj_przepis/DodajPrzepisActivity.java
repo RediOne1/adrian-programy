@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -28,7 +29,7 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 
 	public DodajZdjecie dodajZdjecie;
 	public int user_id = 1;
-	public int przepisID;
+	public int przepisID=0;
 	private String komunikat;
 	public DodajTytul dodajTytul;
 	public DodajSkladniki dodajSkladniki;
@@ -112,7 +113,7 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 					.getSkladniki()));
 			params.add(new BasicNameValuePair("opis", dodajOpis.getOpis()));
 			params.add(new BasicNameValuePair("publiczny", ""
-					+ (dodatkoweDane.widoczny.isChecked() ? 1 : 0)));
+					+ (dodatkoweDane.widoczny.isChecked() ? 1 : 0)));			
 			// getting JSON string from URL
 			try {
 				JSONObject json = jParser

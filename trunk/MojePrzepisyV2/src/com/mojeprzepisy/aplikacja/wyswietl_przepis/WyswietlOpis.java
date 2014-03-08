@@ -36,10 +36,10 @@ public class WyswietlOpis extends WyswietlPrzepis {
 				.findViewById(R.id.wyswietl_opis_linearLayout);
 		this.przepis = _przepis;
 		kroki = new ArrayList<Krok>();
-		new PobierzSkladniki().execute();
+		new PobierzOpis().execute();
 	}
 
-	class PobierzSkladniki extends AsyncTask<String, Krok, String> {
+	class PobierzOpis extends AsyncTask<String, Krok, String> {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -66,7 +66,6 @@ public class WyswietlOpis extends WyswietlPrzepis {
 					dane = json.getJSONArray("dane");
 					JSONObject c = dane.getJSONObject(0);
 					String temp = c.getString("opis");
-					Log.d("Wyswietl opis", "Pobrano opis: " + temp);
 					kroki_tab = temp.split(";;");
 					root.runOnUiThread(new Runnable() {
 						public void run() {
@@ -74,9 +73,14 @@ public class WyswietlOpis extends WyswietlPrzepis {
 								if (kroki_tab[i].length() == 0)
 									continue;
 								String temp2[] = kroki_tab[i].split(";");
-								publishProgress(new Krok(temp2[0],temp2[1]));
+								if (temp2.length == 1)
+									publishProgress(new Krok("Krok " + (i + 1),
+											temp2[0]));
+								else
+									publishProgress(new Krok(temp2[0], temp2[1]));
 							}
 						}
+
 					});
 
 				} else {
