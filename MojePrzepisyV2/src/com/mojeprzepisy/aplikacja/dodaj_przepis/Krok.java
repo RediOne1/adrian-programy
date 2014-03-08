@@ -76,6 +76,7 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 		tittle_et.setVisibility(View.GONE);
 		usun.setVisibility(View.GONE);
 		tittle_tv.setText(tytul);
+		opis_et.setText(opis);
 		return v;
 	}
 

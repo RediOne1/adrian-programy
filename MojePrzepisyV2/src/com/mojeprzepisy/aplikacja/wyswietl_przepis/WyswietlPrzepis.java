@@ -12,6 +12,7 @@ public class WyswietlPrzepis extends Activity {
 	private Przepis przepis;
 	private WyswietlTytulowyModul wyswietlTytulowyModul;
 	private WyswietlSkladniki wyswietlSkladniki;
+	private WyswietlOpis wyswietlOpis;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class WyswietlPrzepis extends Activity {
 		przepis = (Przepis) getIntent().getSerializableExtra("przepis");
 		wyswietlTytulowyModul = new WyswietlTytulowyModul(WyswietlPrzepis.this, przepis);
 		wyswietlSkladniki = new WyswietlSkladniki(WyswietlPrzepis.this, przepis);
+		wyswietlOpis = new WyswietlOpis(WyswietlPrzepis.this, przepis);
 	}
 
 	@Override
