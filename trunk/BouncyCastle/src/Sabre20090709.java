@@ -1,90 +1,75 @@
-import org.bouncycastle.crypto.StreamCipher;
-import org.bouncycastle.crypto.engines.RC4Engine;
-import org.bouncycastle.crypto.params.KeyParameter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.PrintWriter;
+import java.security.Key;
+import java.security.KeyStore;
+import java.util.Scanner;
 
 public class Sabre20090709 {
-	static byte[] encrypt(byte[] cleartext) {
-		byte[] keyBytes = { 0x01, 0x23, 0x45, 0x67, (byte) 0x89, (byte) 0xab,
-				(byte) 0xcd, (byte) 0xef };
-		StreamCipher rc4 = new RC4Engine();
-		KeyParameter keyParam = new KeyParameter(keyBytes);
-		rc4.init(true, keyParam);
-		byte[] ciphertext = new byte[cleartext.length];
-		rc4.processBytes(cleartext, 0, cleartext.length, ciphertext, 0);
-		return ciphertext;
-	}
 
-	static byte[] decrypt(byte[] cipertext) {
+	
+	/**
+	 * keytool -genseckey -alias "myKey" -keystore KEYSTORE.jks -storepass "password" -storetype "JCEKS" -keyalg AES -keysize 128
+	 */
+	private static String plik = null;
 
-		return null;
-	}
-
-	public static void print(String title, byte[] bytes) {
+	private static void print(String title, byte[] bytes) {
 		System.out.printf("%20s : ", title);
 		for (byte b : bytes) {
-			System.out.printf("%02x ", b & 0xff);
+			System.out.printf("%02x ", b);
 		}
 		System.out.println();
-
 	}
 
 	public static void main(String[] args) throws Exception {
-
-		byte[] cleartext1 = args[0].getBytes("utf-8");
-		byte[] ciphertext1 = encrypt(cleartext1);
+		String dane = odczytaj(args);
+		
+		final KeyStore keyStore = KeyStore.getInstance("JCEKS");
+		keyStore.load(new FileInputStream(new File("C:\\Users\\Adrian\\KEYSTORE.jks")), "password".toCharArray());
+		final Key key = keyStore.getKey("myKey", "password".toCharArray());		
+		MyRC4 mrc4 = new MyRC4(key);
+		byte[] cleartext1 = dane.getBytes("utf-8");
+		byte[] ciphertext1 = mrc4.encrypt(cleartext1);
+		byte[] odszyfrowany = mrc4.decrypt(ciphertext1);
+		print("key", key.getEncoded());
 		print("Cleartext 1", cleartext1);
 		print("Ciphertext 1", ciphertext1);
-
-		/*byte[] keyBytes = { 0x01, 0x23, 0x45, 0x67, (byte) 0x89, (byte) 0xab,
-				(byte) 0xcd, (byte) 0xef };
-		StreamCipher rc4 = new RC4Engine();
-		KeyParameter keyParam = new KeyParameter(keyBytes);
-		rc4.init(true, keyParam);
-		for (int i = 0; i < ciphertext1.length; i++) {
-			System.out.printf("%x ", rc4.returnByte(ciphertext1[i]));
-		}
-
-		/*
-		 * byte[] cleartext2 =
-		 * "Now is the time for all good men to come to the aid of the parts."
-		 * .getBytes("utf-8"); byte[] ciphertext2 = encrypt(cleartext2);
-		 * print("Ciphertext 2", ciphertext2);
-		 * 
-		 * int n = Math.min(ciphertext1.length, ciphertext2.length); byte[]
-		 * xorOfCleartext = new byte[n]; for (int i = 0; i < n; i++) {
-		 * xorOfCleartext[i] = (byte) (cleartext1[i] ^ cleartext2[i]);
-		 * 
-		 * }
-		 * 
-		 * print("xor cleartext", xorOfCleartext);
-		 * 
-		 * byte[] xorOfCiphertext = new byte[n];
-		 * 
-		 * for (int i = 0; i < n; i++)
-		 * 
-		 * {
-		 * 
-		 * xorOfCiphertext[i] = (byte) (ciphertext1[i] ^ ciphertext2[i]);
-		 * 
-		 * }
-		 * 
-		 * print("xor ciphertext", xorOfCleartext);
-		 * 
-		 * byte[] extreactedCleartext2 = new byte[n];
-		 * 
-		 * for (int i = 0; i < n; i++)
-		 * 
-		 * {
-		 * 
-		 * extreactedCleartext2[i] = (byte) (xorOfCiphertext[i] ^
-		 * cleartext1[i]);
-		 * 
-		 * }
-		 * 
-		 * print("extracted cleartext2", extreactedCleartext2);
-		 * 
-		 * System.out.println(new String(extreactedCleartext2, "utf-8"));
-		 */
+		print("Odszyfrowany", odszyfrowany);
+		if (plik != null)
+			zapisz(dane, cleartext1);
 	}
 
+	private static String odczytaj(String... args) {
+		String wynik = "";
+		try {
+			File file = new File(args[0]);
+			Scanner in = new Scanner(file);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while (in.hasNextLine()) {
+				line = in.nextLine();
+				sb.append(line + "\n");
+			}
+			wynik = sb.toString();
+			plik = args[0];
+		} catch (Exception e) {
+			System.out.println(e);
+			if (args.length != 0)
+				wynik = args[0];
+		}
+		return wynik;
+	}
+
+	private static void zapisz(String oldData, byte... args) {
+		try {
+			PrintWriter zapis = new PrintWriter(plik);
+			zapis.println("Dane wejœciowe: " + oldData);
+			zapis.print("Zaszyfrowane: ");
+			for (byte b : args) {
+				zapis.printf("%02x ", b);
+			}
+			zapis.close();
+		} catch (Exception e) {
+		}
+	}
 }
