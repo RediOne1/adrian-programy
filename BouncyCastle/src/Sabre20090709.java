@@ -5,12 +5,22 @@ import java.security.Key;
 import java.security.KeyStore;
 import java.util.Scanner;
 
+import org.bouncycastle.crypto.StreamCipher;
+import org.bouncycastle.crypto.engines.RC4Engine;
+import org.bouncycastle.crypto.params.KeyParameter;
+
 public class Sabre20090709 {
 
-	
 	/**
-	 * keytool -genseckey -alias "myKey" -keystore KEYSTORE.jks -storepass "password" -storetype "JCEKS" -keyalg AES -keysize 128
+	 * keytool -genseckey -alias "myKey" -keystore KEYSTORE.jks -storepass
+	 * "password" -storetype "JCEKS" -keyalg RC4 -keysize 128
 	 */
+
+	public static Key key = null;
+	public static StreamCipher rc4;
+	public static KeyParameter keyParam;
+	private static final String HASLO = "password";
+
 	private static String plik = null;
 
 	private static void print(String title, byte[] bytes) {
@@ -19,24 +29,6 @@ public class Sabre20090709 {
 			System.out.printf("%02x ", b);
 		}
 		System.out.println();
-	}
-
-	public static void main(String[] args) throws Exception {
-		String dane = odczytaj(args);
-		
-		final KeyStore keyStore = KeyStore.getInstance("JCEKS");
-		keyStore.load(new FileInputStream(new File("C:\\Users\\Adrian\\KEYSTORE.jks")), "password".toCharArray());
-		final Key key = keyStore.getKey("myKey", "password".toCharArray());		
-		MyRC4 mrc4 = new MyRC4(key);
-		byte[] cleartext1 = dane.getBytes("utf-8");
-		byte[] ciphertext1 = mrc4.encrypt(cleartext1);
-		byte[] odszyfrowany = mrc4.decrypt(ciphertext1);
-		print("key", key.getEncoded());
-		print("Cleartext 1", cleartext1);
-		print("Ciphertext 1", ciphertext1);
-		print("Odszyfrowany", odszyfrowany);
-		if (plik != null)
-			zapisz(dane, cleartext1);
 	}
 
 	private static String odczytaj(String... args) {
@@ -71,5 +63,32 @@ public class Sabre20090709 {
 			zapis.close();
 		} catch (Exception e) {
 		}
+	}
+
+	static byte[] forCrypt(boolean forEncrypt, byte[] text) {
+		byte[] wynik = new byte[text.length];
+		rc4.init(forEncrypt, keyParam);
+		rc4.processBytes(text, 0, text.length, wynik, 0);
+		return wynik;
+	}
+
+	public static void main(String[] args) throws Exception {
+		String dane = odczytaj(args);
+
+		final KeyStore keyStore = KeyStore.getInstance("JCEKS");
+		keyStore.load(new FileInputStream(new File(
+				"C:\\Users\\Adrian\\KEYSTORE.jks")), HASLO.toCharArray());
+		key = keyStore.getKey("myKey", HASLO.toCharArray());
+		rc4 = new RC4Engine();
+		keyParam = new KeyParameter(key.getEncoded());
+		byte[] cleartext1 = dane.getBytes("utf-8");
+		byte[] ciphertext1 = forCrypt(true, cleartext1);
+		byte[] odszyfrowany = forCrypt(false, ciphertext1);
+		print("key", key.getEncoded());
+		print("Cleartext 1", cleartext1);
+		print("Ciphertext 1", ciphertext1);
+		print("Odszyfrowany", odszyfrowany);
+		if (plik != null)
+			zapisz(dane, cleartext1);
 	}
 }

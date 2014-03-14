@@ -89,7 +89,7 @@ public class Zamowienie extends Activity implements OnClickListener,
 			boolean fromUser) {
 		if (seekBar == Silosc) {
 			seek_progress = progress;
-			Tkoszt.setText("" + (float)(progress * cena));
+			Tkoszt.setText("Koszt: " + (float)(progress * cena));
 			Tilosc.setText("" + progress);
 		}
 	}
