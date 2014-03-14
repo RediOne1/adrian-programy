@@ -5,6 +5,10 @@
         <item >sukienki</item>
         <item >bluzy</item>
         <item >buty</item>
+        <item >czapki</item>
+        <item >koszulki</item>
+        <item >kurtki</item>
+        <item >skarpetki</item>
     </string-array>
     
 </resources>
