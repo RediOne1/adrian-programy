@@ -27,6 +27,9 @@ public class Kryptogram {
 		}
 	}
 
+	public int length(){
+		return znaki.size();
+	}
 	@Override
 	public String toString() {
 		String wynik = "";
