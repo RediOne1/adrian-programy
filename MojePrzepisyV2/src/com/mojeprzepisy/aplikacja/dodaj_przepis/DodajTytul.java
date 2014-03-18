@@ -50,4 +50,8 @@ public class DodajTytul extends DodajPrzepisActivity implements OnClickListener 
 			save_image.setVisibility(View.GONE);
 		}
 	}
+	@Override
+	public String toString(){
+		return tytul;
+	}
 }

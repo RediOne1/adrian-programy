@@ -31,5 +31,7 @@
     <string name="title_activity_wyswietl_przepis">Moje Przepisy</string>
     <string name="nieokreslony">Nieokreślony</string>
     <string name="sredni">Średni</string>
+    <string name="ocen_przepis">Oceń przepis</string>
+    <string name="twoja_ocena">Twoja ocena</string>
 
 </resources>

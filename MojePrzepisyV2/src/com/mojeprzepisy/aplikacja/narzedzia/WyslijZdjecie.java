@@ -44,11 +44,11 @@ public class WyslijZdjecie {
 			public void run() {
 				try {
 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					bm.compress(CompressFormat.PNG, 100, bos);
+					bm.compress(CompressFormat.JPEG, 100, bos);
 					byte[] data = bos.toByteArray();
 					HttpClient httpClient = new DefaultHttpClient();
 					HttpPost postRequest = new HttpPost(
-							"http://softpartner.pl/moje_przepisy/wyslijZdjecie.php");
+							"http://softpartner.pl/moje_przepisy2/wyslijZdjecie.php");
 					ByteArrayBody bab = new ByteArrayBody(data, name);
 					// File file= new File("/mnt/sdcard/forest.png");
 					// FileBody bin = new FileBody(file);
@@ -69,7 +69,8 @@ public class WyslijZdjecie {
 					}
 				} catch (Exception e) {
 					// handle exception here
-					Log.e(e.getClass().getName(), e.getMessage());
+					Log.e("Wyslij zdjecie", ""+e);
+					Log.e("Wyslij zdjecie", ""+e.getMessage());
 				}
 			}
 		}).start();
