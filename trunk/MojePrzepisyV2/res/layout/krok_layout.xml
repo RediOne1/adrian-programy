@@ -63,6 +63,15 @@
             android:ems="10"
             android:inputType="textMultiLine"
             android:minHeight="80dp" />
+
+        <TextView
+            android:id="@+id/krok_opis_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/krok_tittle"
+            android:layout_margin="5dp"
+            android:text="" />
+
     </RelativeLayout>
 
 </RelativeLayout>

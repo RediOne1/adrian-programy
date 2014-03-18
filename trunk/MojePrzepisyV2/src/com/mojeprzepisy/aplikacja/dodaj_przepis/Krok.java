@@ -22,6 +22,7 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 	private TextView tittle_tv;
 	private EditText tittle_et;
 	private EditText opis_et;
+	private TextView opis_tv;
 	private ImageView usun;
 	private ImageView zapisz;
 	public String tytul, opis;
@@ -37,6 +38,7 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 	public Krok(String _tytul, String _opis) {
 		this.tytul = _tytul;
 		this.opis = _opis;
+		opis = opis.replace("<br>", "\n");
 	}
 
 	public View toView() {
@@ -56,8 +58,9 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 		opis_et.addTextChangedListener(this);
 		zapisz.setVisibility(View.GONE);
 		tittle_et.setVisibility(View.GONE);
-		tittle_tv.setText(root.getResources().getString(R.string.krok) + " "
-				+ dodajO.kroki.size());
+		tytul = root.getResources().getString(R.string.krok) + " "
+				+ dodajO.kroki.size();
+		tittle_tv.setText(tytul);
 		return v;
 	}
 
@@ -69,14 +72,17 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 		tittle_tv = (TextView) v.findViewById(R.id.krok_tittle_textview);
 		tittle_et = (EditText) v.findViewById(R.id.krok_tittle_edittext);
 		opis_et = (EditText) v.findViewById(R.id.krok_opis);
+		opis_tv = (TextView) v.findViewById(R.id.krok_opis_textview);
 		usun = (ImageView) v.findViewById(R.id.krok_tittle_delete);
 		zapisz = (ImageView) v.findViewById(R.id.krok_tittle_save);
 		tittle_tv = (TextView) new MyTypeFace(tittle_tv, _root).MyNormal();
+		opis_tv = (TextView) new MyTypeFace(opis_tv, _root).MyNormal();
 		zapisz.setVisibility(View.GONE);
 		tittle_et.setVisibility(View.GONE);
 		usun.setVisibility(View.GONE);
+		opis_et.setVisibility(View.GONE);
 		tittle_tv.setText(tytul);
-		opis_et.setText(opis);
+		opis_tv.setText(opis);
 		return v;
 	}
 

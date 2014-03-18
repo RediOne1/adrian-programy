@@ -29,7 +29,7 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 
 	public DodajZdjecie dodajZdjecie;
 	public int user_id = 1;
-	public int przepisID=0;
+	public int przepisID = 0;
 	private String komunikat;
 	public DodajTytul dodajTytul;
 	public DodajSkladniki dodajSkladniki;
@@ -102,7 +102,7 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 			// Building Parameters
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("autorID", "" + user_id));
-			params.add(new BasicNameValuePair("tytul", dodajTytul.tytul));
+			params.add(new BasicNameValuePair("tytul", dodajTytul.toString()));
 			params.add(new BasicNameValuePair("kategoria",
 					dodatkoweDane.kategoria.getSelectedItem().toString()));
 			params.add(new BasicNameValuePair("trudnosc",
@@ -110,10 +110,10 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 			params.add(new BasicNameValuePair("czas", dodatkoweDane.czas
 					.getSelectedItem().toString()));
 			params.add(new BasicNameValuePair("skladniki", dodajSkladniki
-					.getSkladniki()));
-			params.add(new BasicNameValuePair("opis", dodajOpis.getOpis()));
+					.toString()));
+			params.add(new BasicNameValuePair("opis", dodajOpis.toString()));
 			params.add(new BasicNameValuePair("publiczny", ""
-					+ (dodatkoweDane.widoczny.isChecked() ? 1 : 0)));			
+					+ (dodatkoweDane.widoczny.isChecked() ? 1 : 0)));
 			// getting JSON string from URL
 			try {
 				JSONObject json = jParser
@@ -128,11 +128,9 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 				if (success == 1) {
 					przepisID = json.getInt("przepisID");
 
-					WyslijZdjecie wyslij = new WyslijZdjecie(dodajZdjecie.getBitmap(), ""
-							+ przepisID);
-					params.add(new BasicNameValuePair("zdjecie",
-							"http://softpartner.pl/moje_przepisy/zdjecia/"
-									+ przepisID + ".jpg"));
+					WyslijZdjecie wyslij = new WyslijZdjecie(
+							dodajZdjecie.getBitmap(), "" + przepisID);
+					params.add(new BasicNameValuePair("zdjecie", "" + przepisID));
 					wyslij.executeMultipartPost();
 				} else {
 				}

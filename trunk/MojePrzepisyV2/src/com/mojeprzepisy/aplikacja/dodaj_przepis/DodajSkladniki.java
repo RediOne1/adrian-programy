@@ -13,15 +13,17 @@ import android.widget.LinearLayout;
 import com.mojeprzepisy.aplikacja.R;
 import com.mojeprzepisy.aplikacja.narzedzia.MyTypeFace;
 
-public class DodajSkladniki extends DodajPrzepisActivity implements OnClickListener {
+public class DodajSkladniki extends DodajPrzepisActivity implements
+		OnClickListener {
 
 	private Button dodajSkladnikButton;
 	public LinearLayout linearLayout;
 	public List<Skladnik> skladniki = new LinkedList<Skladnik>();
 
-	public DodajSkladniki(){
-		
+	public DodajSkladniki() {
+
 	}
+
 	public DodajSkladniki(Activity dodajPrzepisActivity) {
 		root = dodajPrzepisActivity;
 		dodajSkladnikButton = (Button) root
@@ -29,24 +31,27 @@ public class DodajSkladniki extends DodajPrzepisActivity implements OnClickListe
 		linearLayout = (LinearLayout) root
 				.findViewById(R.id.skladniki_linearLayout);
 		dodajSkladnikButton.setOnClickListener(this);
-		dodajSkladnikButton = (Button) new MyTypeFace(dodajSkladnikButton, root).MyNormal();
+		dodajSkladnikButton = (Button) new MyTypeFace(dodajSkladnikButton, root)
+				.MyNormal();
 	}
 
 	@Override
 	public void onClick(View v) {
 		if (v == dodajSkladnikButton) {
-			Skladnik skladnik = new Skladnik(root, linearLayout, DodajSkladniki.this);
+			Skladnik skladnik = new Skladnik(root, linearLayout,
+					DodajSkladniki.this);
 			skladniki.add(skladnik);
-			linearLayout.addView(skladnik.toView());	
-			//wypisz();
+			linearLayout.addView(skladnik.toView());
+			// wypisz();
 		}
 	}
-	public String getSkladniki(){
+	@Override
+	public String toString() {
 		String wynik = "";
-		for(int i=0;i<skladniki.size();i++){
-			if(skladniki.get(i)==null)
+		for (int i = 0; i < skladniki.size(); i++) {
+			if (skladniki.get(i).toString() == null)
 				continue;
-			wynik+=skladniki.get(i)+";";
+			wynik += skladniki.get(i) + ";";
 		}
 		return wynik;
 	}

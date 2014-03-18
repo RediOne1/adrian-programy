@@ -15,7 +15,7 @@ import android.widget.ListView;
 
 import com.mojeprzepisy.aplikacja.Przepis;
 
-public class TopListZapytanie{
+public class TopListZapytanie {
 
 	JSONParser jParser = new JSONParser();
 	public JSONArray dane = null;
@@ -33,7 +33,11 @@ public class TopListZapytanie{
 	}
 
 	public void wykonaj(String... params) {
-		new NajwyzejOcenianeZapytania().execute(params);
+		try {
+			new NajwyzejOcenianeZapytania().execute(params);
+		} catch (Exception e) {
+			wykonaj(params);
+		}
 	}
 
 	/**
@@ -52,12 +56,12 @@ public class TopListZapytanie{
 		protected String doInBackground(String... args) {
 			// Building Parameters
 			String URL = args[0];
-			//String minLimit = args[1];
-			//String ilePrzepisow = args[2];
+			// String minLimit = args[1];
+			// String ilePrzepisow = args[2];
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("minLimit", 0+""));
-			params.add(new BasicNameValuePair("ilePrzepisow", 100+""));
+			params.add(new BasicNameValuePair("minLimit", 0 + ""));
+			params.add(new BasicNameValuePair("ilePrzepisow", 100 + ""));
 			// getting JSON string from URL
 			try {
 				JSONObject json = jParser.makeHttpRequest(URL, "POST", params);
@@ -88,9 +92,11 @@ public class TopListZapytanie{
 						String czas = c.getString("czas");
 						String skladniki = c.getString("skladniki");
 						String opis = c.getString("opis");
-						
-						wszystkiePrzepisy.add(new Przepis(autorID, przepisID, tytul, kategoria, ocena, ilosc_ocen, trudnosc, czas, StrZdjecie, skladniki, opis));
-						//adapter.notifyDataSetChanged();
+
+						wszystkiePrzepisy.add(new Przepis(autorID, przepisID,
+								tytul, kategoria, ocena, ilosc_ocen, trudnosc,
+								czas, StrZdjecie, skladniki, opis));
+						// adapter.notifyDataSetChanged();
 						publishProgress();
 					}
 				} else {
@@ -113,11 +119,20 @@ public class TopListZapytanie{
 		 * **/
 		@Override
 		protected void onPostExecute(String file_url) {
+			try{
 			lv.invalidateViews();
+			}catch(Exception e){
+				lv.invalidateViews();
+			}
 		}
+
 		@Override
-		protected void onProgressUpdate(String...progress) {
+		protected void onProgressUpdate(String... progress) {
+			try{
 			lv.invalidateViews();
-	     }
+			}catch(Exception e){
+				lv.invalidateViews();
+			}
+		}
 	}
 }

@@ -11,18 +11,20 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.mojeprzepisy.aplikacja.Przepis;
 import com.mojeprzepisy.aplikacja.R;
 import com.mojeprzepisy.aplikacja.dodaj_przepis.Krok;
-import com.mojeprzepisy.aplikacja.dodaj_przepis.Skladnik;
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
 
 public class WyswietlOpis extends WyswietlPrzepis {
 	private LinearLayout linearLayout;
 	private Przepis przepis;
 	private Activity root;
+	private ProgressBar progress;
 	private List<Krok> kroki;
 	private String URL = "http://softpartner.pl/moje_przepisy2/pobierz_opis.php";
 	JSONParser jParser = new JSONParser();
@@ -34,6 +36,7 @@ public class WyswietlOpis extends WyswietlPrzepis {
 		this.root = _root;
 		linearLayout = (LinearLayout) root
 				.findViewById(R.id.wyswietl_opis_linearLayout);
+		progress = (ProgressBar) root.findViewById(R.id.wyswietl_opis_progressbar);
 		this.przepis = _przepis;
 		kroki = new ArrayList<Krok>();
 		new PobierzOpis().execute();
@@ -66,13 +69,13 @@ public class WyswietlOpis extends WyswietlPrzepis {
 					dane = json.getJSONArray("dane");
 					JSONObject c = dane.getJSONObject(0);
 					String temp = c.getString("opis");
-					kroki_tab = temp.split(";;");
+					kroki_tab = temp.split(";krok;");
 					root.runOnUiThread(new Runnable() {
 						public void run() {
 							for (int i = 0; i < kroki_tab.length; i++) {
 								if (kroki_tab[i].length() == 0)
 									continue;
-								String temp2[] = kroki_tab[i].split(";");
+								String temp2[] = kroki_tab[i].split(";opis;");
 								if (temp2.length == 1)
 									publishProgress(new Krok("Krok " + (i + 1),
 											temp2[0]));
@@ -86,7 +89,7 @@ public class WyswietlOpis extends WyswietlPrzepis {
 				} else {
 				}
 			} catch (Exception e) {
-				Log.e("Wyswietl skladniki", "" + e);
+				Log.e("Wyswietl opis", "" + e);
 			}
 			return null;
 		}
@@ -96,6 +99,7 @@ public class WyswietlOpis extends WyswietlPrzepis {
 		 * **/
 		@Override
 		protected void onPostExecute(String file_url) {
+			progress.setVisibility(View.GONE);
 		}
 
 		@Override

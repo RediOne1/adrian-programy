@@ -12,7 +12,9 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.mojeprzepisy.aplikacja.Przepis;
 import com.mojeprzepisy.aplikacja.R;
@@ -24,6 +26,7 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 	private LinearLayout linearLayout;
 	private Przepis przepis;
 	private Activity root;
+	private ProgressBar progress;
 	private Handler mHandler = new Handler();
 	private List<Skladnik> skladniki;
 	private String URL = "http://softpartner.pl/moje_przepisy2/pobierz_skladniki.php";
@@ -36,6 +39,7 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 		this.root = _root;
 		linearLayout = (LinearLayout) root
 				.findViewById(R.id.wyswietl_skladniki_linearLayout);
+		progress = (ProgressBar) root.findViewById(R.id.wyswietl_skladniki_progressbar);
 		this.przepis = _przepis;
 		skladniki = new ArrayList<Skladnik>();
 		new PobierzSkladniki().execute();
@@ -73,9 +77,7 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 					root.runOnUiThread(new Runnable() {
 						public void run() {
 							for (int i = 0; i < skladniki_tab.length; i++) {
-								if (skladniki_tab[i].length() == 0)
-									continue;
-								publishProgress(new Skladnik(skladniki_tab[i]));
+								publishProgress(new Skladnik("- "+skladniki_tab[i]));
 							}
 						}
 					});
@@ -93,6 +95,7 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 		 * **/
 		@Override
 		protected void onPostExecute(String file_url) {
+			progress.setVisibility(View.GONE);
 		}
 
 		@Override

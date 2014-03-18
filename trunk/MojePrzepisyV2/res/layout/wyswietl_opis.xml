@@ -5,16 +5,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/opis" />
+
     <LinearLayout
         android:id="@+id/wyswietl_opis_linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:orientation="vertical" >
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/wyswietl_opis_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

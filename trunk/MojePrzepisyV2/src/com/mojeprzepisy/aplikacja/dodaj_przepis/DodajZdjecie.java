@@ -20,7 +20,7 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 
 	private ImageView imageview;
 	private static final int IMAGE_SIZE = 250;
-	private Bitmap zdjecie_bitmap;
+	private Bitmap zdjecie_bitmap = null;
 
 	public DodajZdjecie(Activity dodajPrzepisActivity) {
 		root = dodajPrzepisActivity;

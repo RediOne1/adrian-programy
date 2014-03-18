@@ -39,11 +39,14 @@ public class DodajOpis extends DodajPrzepisActivity implements OnClickListener {
 			linearLayout.addView(krok.toView());
 		}
 	}
-
-	public String getOpis() {
+	@Override
+	public String toString() {
 		String wynik = "";
 		for (int i = 0; i < kroki.size(); i++) {
-			wynik += kroki.get(i).tytul + ";" + kroki.get(i).opis + ";;";
+			if ((kroki.get(i).opis == null) || (kroki.get(i).opis.length() < 2))
+				continue;
+			wynik += ";krok;" + kroki.get(i).tytul + ";opis;"
+					+ kroki.get(i).opis;
 		}
 		return wynik;
 	}
