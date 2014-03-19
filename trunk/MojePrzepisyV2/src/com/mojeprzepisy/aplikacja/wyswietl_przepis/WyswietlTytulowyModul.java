@@ -28,10 +28,11 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 	JSONParser jParser = new JSONParser();
 	public JSONArray dane = null;
 
-	private final String URL = "http://softpartner.pl/moje_przepisy2/pobierz_ocene.php";
+	private final String URL = "http://softpartner.pl/moje_przepisy2/wyswietl_tytulowy_modul.php";
 	private Przepis przepis;
 	private ImageView zdjecie;
 	private TextView tytul;
+	private Activity root;
 	private ProgressBar progress;
 	private TextView kategoria;
 	private RatingBar ocena;
@@ -39,8 +40,9 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 	private TextView trudnosc;
 	private TextView czas;
 
-	public WyswietlTytulowyModul(Activity root, Przepis _przepis) {
+	public WyswietlTytulowyModul(Activity _root, Przepis _przepis) {
 		this.przepis = _przepis;
+		this.root = _root;
 		zdjecie = (ImageView) root.findViewById(R.id.zdjecie_maly_layout);
 		tytul = (TextView) root.findViewById(R.id.przepis_tytul_maly_layout);
 		kategoria = (TextView) root.findViewById(R.id.kategoria_maly_layout);
@@ -67,7 +69,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 		new OdswiezDane().execute();
 	}
 
-	class OdswiezDane extends AsyncTask<Float, Float, String> {
+	class OdswiezDane extends AsyncTask<Float, String, String> {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -96,13 +98,18 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 						JSONObject c = dane.getJSONObject(i);
 						String ocena = c.getString("ocena");
 						String ilosc_ocen = c.getString("ilosc_ocen");
-						float ocenaF = Float.parseFloat(ocena);
-						float ilosc_ocenF = Float.parseFloat(ilosc_ocen);
-						publishProgress(ocenaF, ilosc_ocenF);
+						String trudnosc = c.getString("trudnosc");
+						String czas = c.getString("czas");
+						String kategoria = c.getString("kategoria");
+						String zdjecie = c.getString("zdjecie");
+						String tytul = c.getString("tytul");
+						publishProgress(ocena, ilosc_ocen, trudnosc, czas,
+								kategoria, zdjecie, tytul);
 					}
 				} else {
 				}
 			} catch (Exception e) {
+				Log.d("DEBUG_TAG", "Wyswietl tytulowy modul: " + e);
 			}
 			return null;
 		}
@@ -113,9 +120,19 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 		}
 
 		@Override
-		protected void onProgressUpdate(Float... args) {
-			ocena.setRating(args[0]);
-			ilosc_ocen.setText("" + (int)Math.round(args[1]));
+		protected void onProgressUpdate(String... args) {
+			try {
+				ocena.setRating(Float.parseFloat(args[0]));
+				ilosc_ocen.setText("" + Integer.parseInt(args[1]));
+				trudnosc.setText(args[2]);
+				czas.setText(args[3]);
+				kategoria.setText(args[4]);
+				new ImageLoader(root).DisplayImage(args[5], zdjecie);
+				tytul.setText(args[6]);
+			} catch (Exception e) {
+
+			}
+
 		}
 	}
 }

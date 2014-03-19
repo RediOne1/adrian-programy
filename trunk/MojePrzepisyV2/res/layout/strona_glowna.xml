@@ -15,7 +15,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <include
-        android:id="@+id/include_dodaj_zdjecie"
+        android:id="@+id/include6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/single_item_przepisID"
@@ -27,7 +27,7 @@
         android:id="@+id/strona_glowna_dodaj_przepis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/include_dodaj_zdjecie"
+        android:layout_below="@+id/include6"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:background="@drawable/przycisk"

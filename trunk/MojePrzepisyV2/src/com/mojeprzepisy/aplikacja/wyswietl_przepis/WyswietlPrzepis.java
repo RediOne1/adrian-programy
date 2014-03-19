@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.mojeprzepisy.aplikacja.R;
 public class WyswietlPrzepis extends Activity implements OnClickListener {
 
 	public final int OCEN_DIALOG_ID = 1;
+	private int user_id = 1;
 	private Przepis przepis;
 	public WyswietlTytulowyModul wyswietlTytulowyModul;
 	private WyswietlSkladniki wyswietlSkladniki;
@@ -29,10 +31,11 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.wyswietl_przepis);
+		setContentView(R.layout.wyswietl_przepis);		
 		przepis = (Przepis) getIntent().getSerializableExtra("przepis");
 		wyswietlTytulowyModul = new WyswietlTytulowyModul(WyswietlPrzepis.this,
 				przepis);
+		wyswietlTytulowyModul.odswiez();
 		wyswietlSkladniki = new WyswietlSkladniki(WyswietlPrzepis.this, przepis);
 		wyswietlOpis = new WyswietlOpis(WyswietlPrzepis.this, przepis);
 		ocenPrzepis = new OcenPrzepis(WyswietlPrzepis.this, przepis,
@@ -44,6 +47,12 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.wyswietl_przepis, menu);
+		if (przepis.przepisID == user_id) {
+			menu.add("Edytuj").setIcon(android.R.drawable.ic_menu_edit)
+					.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+			menu.add("Usun").setIcon(android.R.drawable.ic_menu_delete)
+					.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
 		return true;
 	}
 
