@@ -46,6 +46,10 @@
             android:name="com.mojeprzepisy.aplikacja.wyswietl_przepis.WyswietlPrzepis"
             android:label="@string/title_activity_wyswietl_przepis" >
         </activity>
+        <activity
+            android:name="com.mojeprzepisy.aplikacja.narzedzia.Szukaj"
+            android:label="@string/szukaj" >
+        </activity>
     </application>
 
 </manifest>

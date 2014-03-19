@@ -4,17 +4,22 @@ import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+
+import com.mojeprzepisy.aplikacja.narzedzia.Szukaj;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
-
+	public int user_id = 0;
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a
@@ -75,7 +80,19 @@ public class MainActivity extends FragmentActivity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		menu.add("Szukaj").setIcon(android.R.drawable.ic_menu_search)
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.toString() == "Szukaj") {
+			Intent i = new Intent(getApplicationContext(), Szukaj.class);
+			i.putExtra("user_id", user_id);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(i);
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

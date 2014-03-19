@@ -15,12 +15,8 @@ import android.widget.TextView;
 import com.mojeprzepisy.aplikacja.dodaj_przepis.DodajPrzepisActivity;
 import com.mojeprzepisy.aplikacja.narzedzia.MyTypeFace;
 
-public class StronaGlowna extends Fragment implements OnClickListener{
+public class StronaGlowna extends Fragment implements OnClickListener {
 
-	private ImageView zdjecie;
-	private TextView tytul2;
-	private TextView kategoria2;
-	private RatingBar rate;
 	private View root;
 	private Button dodajPrzepisButton;
 
@@ -36,20 +32,19 @@ public class StronaGlowna extends Fragment implements OnClickListener{
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		zdjecie = (ImageView) root.findViewById(R.id.zdjecie_maly_layout);
-		tytul2 = (TextView) root.findViewById(R.id.przepis_tytul_maly_layout);
-		kategoria2 = (TextView) root.findViewById(R.id.kategoria_maly_layout);
-		rate = (RatingBar) root.findViewById(R.id.ratingbar_maly_layout);
-		rate.setRating((float) 4.5);
-		dodajPrzepisButton = (Button) root.findViewById(R.id.strona_glowna_dodaj_przepis);
+		LosowyPrzepis losowyPrzepis = new LosowyPrzepis(getActivity());
+		dodajPrzepisButton = (Button) root
+				.findViewById(R.id.strona_glowna_dodaj_przepis);
 		dodajPrzepisButton.setOnClickListener(this);
-		dodajPrzepisButton = (Button) new MyTypeFace(dodajPrzepisButton, getActivity()).MyBold();
+		dodajPrzepisButton = (Button) new MyTypeFace(dodajPrzepisButton,
+				getActivity()).MyBold();
 	}
 
 	@Override
 	public void onClick(View v) {
-		if(v == dodajPrzepisButton){
-			Intent i = new Intent(getActivity().getApplicationContext(), DodajPrzepisActivity.class);
+		if (v == dodajPrzepisButton) {
+			Intent i = new Intent(getActivity().getApplicationContext(),
+					DodajPrzepisActivity.class);
 			startActivity(i);
 		}
 	}

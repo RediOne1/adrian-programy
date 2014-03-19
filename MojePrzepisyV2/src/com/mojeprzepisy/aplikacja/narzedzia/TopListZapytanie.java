@@ -96,7 +96,7 @@ public class TopListZapytanie {
 						wszystkiePrzepisy.add(new Przepis(autorID, przepisID,
 								tytul, kategoria, ocena, ilosc_ocen, trudnosc,
 								czas, StrZdjecie, skladniki, opis));
-						// adapter.notifyDataSetChanged();
+						//adapter.notifyDataSetChanged();
 						publishProgress();
 					}
 				} else {

@@ -33,5 +33,8 @@
     <string name="sredni">Średni</string>
     <string name="ocen_przepis">Oceń przepis</string>
     <string name="twoja_ocena">Twoja ocena</string>
+    <string name="szukaj_przepis">Szukaj przepis</string>
+    <string name="szukaj">Szukaj</string>
+    <string name="url_szukaj_przepis">http://softpartner.pl/moje_przepisy/szukaj_przepis.php</string>
 
 </resources>
