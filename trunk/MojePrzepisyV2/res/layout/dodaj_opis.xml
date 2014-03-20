@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tytul_linearlayout"
+        android:background="@drawable/button_indicator"
         android:text="@string/nastepny_krok" />
 
 </RelativeLayout>

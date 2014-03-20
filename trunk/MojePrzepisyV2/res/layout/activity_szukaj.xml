@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/przycisk"
+        android:background="@drawable/button_indicator"
         android:text="@string/szukaj" />
 
     <ListView
