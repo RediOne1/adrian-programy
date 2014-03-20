@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/include5"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/przycisk"
+                android:background="@drawable/button_indicator"
                 android:text="@string/wyslij_przepis" />
 
         </RelativeLayout>

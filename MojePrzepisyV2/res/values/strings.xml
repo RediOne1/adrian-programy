@@ -36,5 +36,6 @@
     <string name="szukaj_przepis">Szukaj przepis</string>
     <string name="szukaj">Szukaj</string>
     <string name="url_szukaj_przepis">http://softpartner.pl/moje_przepisy/szukaj_przepis.php</string>
+    <string name="zaloguj_sie">Zaloguj się</string>
 
 </resources>

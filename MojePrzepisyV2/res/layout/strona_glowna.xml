@@ -5,32 +5,67 @@
     android:layout_height="match_parent"
     android:background="@color/background" >
 
-    <TextView
-        android:id="@+id/single_item_przepisID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/przepis_dnia"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <include
-        android:id="@+id/include6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/single_item_przepisID"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        layout="@layout/przepis_maly_layout" />
+        <RelativeLayout
+            android:id="@+id/strona_glowna_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-    <Button
-        android:id="@+id/strona_glowna_dodaj_przepis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/include6"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/przycisk"
-        android:text="Dodaj przepis" />
+            <TextView
+                android:id="@+id/single_item_przepisID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/przepis_dnia"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <include
+                android:id="@+id/include6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/single_item_przepisID"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                layout="@layout/przepis_maly_layout" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/include6"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/button_indicator"
+                android:clickable="true" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_menu_login" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/zaloguj_sie"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/strona_glowna_dodaj_przepis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout1"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/button_indicator"
+                android:text="Dodaj przepis" />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
