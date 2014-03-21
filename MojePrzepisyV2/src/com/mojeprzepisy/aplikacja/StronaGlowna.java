@@ -18,7 +18,8 @@ import com.mojeprzepisy.aplikacja.narzedzia.MyTypeFace;
 public class StronaGlowna extends Fragment implements OnClickListener {
 
 	private View root;
-	private Button dodajPrzepisButton;
+	private View dodajPrzepisButton;
+	private View wybierzKategorie;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,11 +34,11 @@ public class StronaGlowna extends Fragment implements OnClickListener {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		LosowyPrzepis losowyPrzepis = new LosowyPrzepis(getActivity());
-		dodajPrzepisButton = (Button) root
-				.findViewById(R.id.strona_glowna_dodaj_przepis);
+		dodajPrzepisButton = (View) root
+				.findViewById(R.id.dodaj_przepis_linearLayout);
+		wybierzKategorie = (View) root.findViewById(R.id.Wybierz_kategorie_linearLayout);
+		wybierzKategorie.setOnClickListener(this);
 		dodajPrzepisButton.setOnClickListener(this);
-		dodajPrzepisButton = (Button) new MyTypeFace(dodajPrzepisButton,
-				getActivity()).MyBold();
 	}
 
 	@Override
@@ -45,6 +46,10 @@ public class StronaGlowna extends Fragment implements OnClickListener {
 		if (v == dodajPrzepisButton) {
 			Intent i = new Intent(getActivity().getApplicationContext(),
 					DodajPrzepisActivity.class);
+			startActivity(i);
+		} else if(v==wybierzKategorie){
+			Intent i = new Intent(getActivity().getApplicationContext(),
+					WybierzKategorie.class);
 			startActivity(i);
 		}
 	}

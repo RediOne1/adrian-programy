@@ -34,7 +34,7 @@
                 layout="@layout/przepis_maly_layout" />
 
             <LinearLayout
-                android:id="@+id/linearLayout1"
+                android:id="@+id/zaloguj_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/include6"
@@ -44,8 +44,8 @@
 
                 <ImageView
                     android:id="@+id/imageView1"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_menu_login" />
 
                 <TextView
@@ -54,17 +54,56 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/zaloguj_sie"
-                    android:textSize="25dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/strona_glowna_dodaj_przepis"
+            <LinearLayout
+                android:id="@+id/Wybierz_kategorie_linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout1"
+                android:layout_below="@id/zaloguj_layout"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/button_indicator"
-                android:text="Dodaj przepis" />
+                android:clickable="true" >
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icon_all" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/wybierz_kategorie"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dodaj_przepis_linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Wybierz_kategorie_linearLayout"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/button_indicator"
+                android:clickable="true" >
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icon_compose" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/dodaj_przepis"
+                    android:textSize="15dp" />
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 
