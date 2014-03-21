@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mojeprzepisy.aplikacja"
-    android:versionCode="21"
+    android:versionCode="22"
     android:versionName="2.0" >
 
     <uses-sdk
@@ -29,6 +29,10 @@
         <activity
             android:name="com.mojeprzepisy.aplikacja.NajwyzejOceniane"
             android:label="@string/title_activity_najwyzej_oceniane" >
+        </activity>
+        <activity
+            android:name="com.mojeprzepisy.aplikacja.WybierzKategorie"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.mojeprzepisy.aplikacja.OstatnioDodane"
