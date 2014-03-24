@@ -14,18 +14,12 @@
         android:text="@string/kategoria"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ScrollView
-        android:id="@+id/scrollView1"
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nazwa_kategoria_tv" >
+        android:layout_height="match_parent"
+        android:layout_below="@id/nazwa_kategoria_tv" >
 
-        <LinearLayout
-            android:id="@+id/kategorie"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-        </LinearLayout>
-    </ScrollView>
+    </ListView>
 
 </RelativeLayout>

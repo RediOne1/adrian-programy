@@ -7,7 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,37 +17,55 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
 import com.mojeprzepisy.aplikacja.narzedzia.Kategoria;
 import com.mojeprzepisy.aplikacja.narzedzia.Szukaj;
+import com.mojeprzepisy.aplikacja.narzedzia.WybierzKategorieListAdapter;
 
-public class WybierzKategorie extends Activity implements OnClickListener {
+public class WybierzKategorie extends ListActivity implements OnClickListener {
 
 	private String pseudonim;
 	private int user_id;
 	private JSONParser jParser = new JSONParser();
 	private String kategorie[];
 	private List<Kategoria> Kategorie;
-	private LinearLayout layout;
 	private String url_ile_przepisow, url_ile_przepisow_user;
-
+	private WybierzKategorieListAdapter adapter;
+	private ListView lv;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_wybierz_kategorie);
 		url_ile_przepisow = getString(R.string.url_ile_przepisow);
 		url_ile_przepisow_user = getString(R.string.url_ile_przepisow_user);
-		setContentView(R.layout.activity_wybierz_kategorie);
 		Kategorie = new ArrayList<Kategoria>();
+		adapter = new WybierzKategorieListAdapter(WybierzKategorie.this, Kategorie);
 		kategorie = getResources().getStringArray(R.array.kategorie);
-		layout = (LinearLayout) findViewById(R.id.kategorie);
+		lv = getListView();
+		lv.setAdapter(adapter);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent i = new Intent(getApplicationContext(),
+						Lista_przepisy.class);
+				Kategoria k = (Kategoria) view.getTag();
+				i.putExtra("kategoria", k);
+				startActivity(i);
+			}
+		});
 		for (String s : kategorie) {
 			Kategoria k = new Kategoria(s);
 			Kategorie.add(k);
-			layout.addView(k.toView(WybierzKategorie.this, layout));
 		}
+		lv.invalidateViews();
 		new WyswietlKategorie().execute();
 	}
 
@@ -128,11 +146,7 @@ public class WybierzKategorie extends Activity implements OnClickListener {
 		}
 
 		protected void onProgressUpdate(String... progress) {
-			layout.removeAllViews();
-			for (Kategoria k : Kategorie) {
-				layout.addView(k.toView(WybierzKategorie.this, layout));
-			}
-
+			lv.invalidateViews();
 		}
 	}
 }

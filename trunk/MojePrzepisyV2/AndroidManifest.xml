@@ -54,6 +54,14 @@
             android:name="com.mojeprzepisy.aplikacja.narzedzia.Szukaj"
             android:label="@string/szukaj" >
         </activity>
+        <activity
+            android:name="com.mojeprzepisy.aplikacja.Lista_przepisy"
+            android:label="@string/title_activity_lista_przepisy" >
+        </activity>
+        <activity
+            android:name="com.mojeprzepisy.aplikacja.RejestracjaActivity"
+            android:label="@string/title_activity_rejestracja" >
+        </activity>
     </application>
 
 </manifest>

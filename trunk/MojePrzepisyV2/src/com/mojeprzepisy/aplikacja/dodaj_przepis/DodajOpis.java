@@ -14,7 +14,7 @@ import com.mojeprzepisy.aplikacja.narzedzia.MyTypeFace;
 
 public class DodajOpis extends DodajPrzepisActivity implements OnClickListener {
 
-	private Button dodaj_krok;
+	private View dodaj_krok;
 	public LinearLayout linearLayout;
 	public List<Krok> kroki = new LinkedList<Krok>();
 
@@ -24,10 +24,9 @@ public class DodajOpis extends DodajPrzepisActivity implements OnClickListener {
 
 	public DodajOpis(Activity dodajPrzepisActivity) {
 		root = dodajPrzepisActivity;
-		dodaj_krok = (Button) root.findViewById(R.id.dodaj_opis_button);
+		dodaj_krok = (View) root.findViewById(R.id.dodaj_opis_button);
 		linearLayout = (LinearLayout) root
 				.findViewById(R.id.tytul_linearlayout);
-		dodaj_krok = (Button) new MyTypeFace(dodaj_krok, root).MyNormal();
 		dodaj_krok.setOnClickListener(this);
 	}
 

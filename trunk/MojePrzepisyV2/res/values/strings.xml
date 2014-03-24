@@ -34,7 +34,17 @@
     <string name="ocen_przepis">Oceń przepis</string>
     <string name="twoja_ocena">Twoja ocena</string>
     <string name="szukaj_przepis">Szukaj przepis</string>
-    <string name="szukaj">Szukaj</string>    
+    <string name="szukaj">Szukaj</string>
+    <string name="StworzKonto">Stwórz konto</string>
+    <string name="TextViewLogin">Login:  (max: 12 znaków)</string>
+    <string name="TextViewPassword">Hasło:</string>
+    <string name="Mail">Mail:</string>
+    <string name="powtorzHaslo">Powtórz hasło:</string>
+    <string name="zgodnoscHasel"></string>
+    <string name="wyczysc">Wyczyść</string>
+    <string name="pseudonim">Pseudonim: (max: 20 znaków)</string>
+    <string name="StworzButton">Stwórz</string>
+    <string name="zaloguj">Zaloguj</string>
     <string name="url_multi_complete">http://softpartner.pl/moje_przepisy/multi_complete.php</string>
     <string name="url_dodaj_przepis">http://softpartner.pl/moje_przepisy/dodaj_przepis.php</string>
     <string name="url_edytuj_przepis">http://softpartner.pl/moje_przepisy/edytuj_przepis.php</string>
@@ -56,5 +66,8 @@
     <string name="zaloguj_sie">Zaloguj się</string>
     <string name="wybierz_kategorie">Wybierz kategorie</string>
     <string name="dodaj_przepis">Dodaj przepis</string>
+    <string name="title_activity_lista_przepisy">Lista_przepisy</string>
+    <string name="title_activity_rejestracja">RejestracjaActivity</string>
+    <string name="losowy_przepis">Losowy przepis</string>
 
 </resources>

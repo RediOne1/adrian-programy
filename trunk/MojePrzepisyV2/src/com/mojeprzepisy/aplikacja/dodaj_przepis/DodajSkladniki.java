@@ -16,7 +16,7 @@ import com.mojeprzepisy.aplikacja.narzedzia.MyTypeFace;
 public class DodajSkladniki extends DodajPrzepisActivity implements
 		OnClickListener {
 
-	private Button dodajSkladnikButton;
+	private View dodajSkladnikButton;
 	public LinearLayout linearLayout;
 	public List<Skladnik> skladniki = new LinkedList<Skladnik>();
 
@@ -26,13 +26,11 @@ public class DodajSkladniki extends DodajPrzepisActivity implements
 
 	public DodajSkladniki(Activity dodajPrzepisActivity) {
 		root = dodajPrzepisActivity;
-		dodajSkladnikButton = (Button) root
+		dodajSkladnikButton = (View) root
 				.findViewById(R.id.dodaj_skladnik_button);
 		linearLayout = (LinearLayout) root
 				.findViewById(R.id.skladniki_linearLayout);
 		dodajSkladnikButton.setOnClickListener(this);
-		dodajSkladnikButton = (Button) new MyTypeFace(dodajSkladnikButton, root)
-				.MyNormal();
 	}
 
 	@Override

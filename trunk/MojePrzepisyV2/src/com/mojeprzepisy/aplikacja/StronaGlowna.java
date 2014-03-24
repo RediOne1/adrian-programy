@@ -20,6 +20,7 @@ public class StronaGlowna extends Fragment implements OnClickListener {
 	private View root;
 	private View dodajPrzepisButton;
 	private View wybierzKategorie;
+	private View rejestracja;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,9 +35,11 @@ public class StronaGlowna extends Fragment implements OnClickListener {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		LosowyPrzepis losowyPrzepis = new LosowyPrzepis(getActivity());
+		rejestracja = (View) root.findViewById(R.id.zaloguj_layout);
 		dodajPrzepisButton = (View) root
 				.findViewById(R.id.dodaj_przepis_linearLayout);
 		wybierzKategorie = (View) root.findViewById(R.id.Wybierz_kategorie_linearLayout);
+		rejestracja.setOnClickListener(this);
 		wybierzKategorie.setOnClickListener(this);
 		dodajPrzepisButton.setOnClickListener(this);
 	}
@@ -50,6 +53,10 @@ public class StronaGlowna extends Fragment implements OnClickListener {
 		} else if(v==wybierzKategorie){
 			Intent i = new Intent(getActivity().getApplicationContext(),
 					WybierzKategorie.class);
+			startActivity(i);
+		} else if(v==rejestracja){
+			Intent i = new Intent(getActivity().getApplicationContext(),
+					RejestracjaActivity.class);
 			startActivity(i);
 		}
 	}

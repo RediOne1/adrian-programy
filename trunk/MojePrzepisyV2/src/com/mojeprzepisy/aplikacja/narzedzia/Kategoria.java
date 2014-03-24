@@ -1,17 +1,17 @@
 package com.mojeprzepisy.aplikacja.narzedzia;
 
+import java.io.Serializable;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mojeprzepisy.aplikacja.R;
 
-public class Kategoria {
+public class Kategoria implements Serializable {
 	public String nazwa;
 	public int ilosc = -1;
 

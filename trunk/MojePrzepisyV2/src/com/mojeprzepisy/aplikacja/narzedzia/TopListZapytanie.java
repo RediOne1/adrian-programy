@@ -131,7 +131,6 @@ public class TopListZapytanie {
 			try{
 			lv.invalidateViews();
 			}catch(Exception e){
-				lv.invalidateViews();
 			}
 		}
 	}
