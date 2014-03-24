@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:text="@string/przepis_dnia"
+                android:text="@string/action_settings"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <include
