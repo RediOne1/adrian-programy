@@ -32,6 +32,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 	private final String URL = "http://softpartner.pl/moje_przepisy2/wyswietl_tytulowy_modul.php";
 	private Przepis przepis;
 	private ImageView zdjecie;
+	private String zdjecieURL;
 	private TextView tytul;
 	private Activity root;
 	private ProgressBar progress;
@@ -70,8 +71,8 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 		new OdswiezDane().execute();
 	}
 
-	public Drawable getImage() {
-		return zdjecie.getDrawable();
+	public String getImage() {
+		return zdjecieURL;
 	}
 
 	public String getTytul() {
@@ -148,6 +149,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 				trudnosc.setText(args[2]);
 				czas.setText(args[3]);
 				kategoria.setText(args[4]);
+				zdjecieURL = args[5];
 				new ImageLoader(root).DisplayImage(args[5], zdjecie);
 				tytul.setText(args[6]);
 			} catch (Exception e) {
