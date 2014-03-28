@@ -1,24 +1,22 @@
 package com.mojeprzepisy.aplikacja.dodaj_przepis;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.mojeprzepisy.aplikacja.R;
-import com.mojeprzepisy.aplikacja.narzedzia.MyTypeFace;
 
 public class DodajSkladniki extends DodajPrzepisActivity implements
 		OnClickListener {
 
 	private View dodajSkladnikButton;
 	public LinearLayout linearLayout;
-	public List<Skladnik> skladniki = new LinkedList<Skladnik>();
+	public List<Skladnik> skladniki = new ArrayList<Skladnik>();
 
 	public DodajSkladniki() {
 
@@ -33,13 +31,22 @@ public class DodajSkladniki extends DodajPrzepisActivity implements
 		dodajSkladnikButton.setOnClickListener(this);
 	}
 
-	public DodajSkladniki(Activity _root, List<Skladnik> skladnikiList) {
+	public DodajSkladniki(Activity _root, String _skladniki) {
 		root = _root;
 		dodajSkladnikButton = (View) root
 				.findViewById(R.id.dodaj_skladnik_button);
 		linearLayout = (LinearLayout) root
 				.findViewById(R.id.skladniki_linearLayout);
-		skladniki=skladnikiList;
+		String temp[] = _skladniki.split(";");
+		for (String s : temp) {
+			if (s.length() < 1)
+				continue;
+			Skladnik skladnik = new Skladnik(root, linearLayout,
+					DodajSkladniki.this, s);
+			skladniki.add(skladnik);
+			linearLayout.addView(skladnik.toView());
+		}
+
 		dodajSkladnikButton.setOnClickListener(this);
 	}
 

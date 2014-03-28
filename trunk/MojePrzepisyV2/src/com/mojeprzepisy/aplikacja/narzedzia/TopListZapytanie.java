@@ -97,6 +97,7 @@ public class TopListZapytanie {
 								tytul, kategoria, ocena, ilosc_ocen, trudnosc,
 								czas, StrZdjecie, skladniki, opis));
 						//adapter.notifyDataSetChanged();
+						
 						publishProgress();
 					}
 				} else {

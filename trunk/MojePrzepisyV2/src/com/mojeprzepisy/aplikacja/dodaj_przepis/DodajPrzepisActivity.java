@@ -18,7 +18,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.mojeprzepisy.aplikacja.Przepis;
 import com.mojeprzepisy.aplikacja.R;
@@ -51,8 +50,11 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.dodaj_przepis_layout);
 		root = DodajPrzepisActivity.this;
 		Bundle bundle = getIntent().getExtras();
-		if (bundle.getBoolean("edytuj", false))
+		if (bundle.getBoolean("edytuj", false)) {
+			przepis = (Przepis) getIntent().getSerializableExtra("przepis");
+			
 			edytuj();
+		}
 		else
 			dodaj();
 		wyslij = (Button) findViewById(R.id.dodaj_przepis_wyslij_button);
@@ -60,11 +62,10 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 	}
 
 	public void edytuj() {
-		przepis = (Przepis) getIntent().getSerializableExtra("przepis");
-		dodajZdjecie = new DodajZdjecie(root, przepis.zdjecieDrawable);
+		dodajZdjecie = new DodajZdjecie(root, przepis.zdjecie);
 		dodajTytul = new DodajTytul(root, przepis.tytul);
-		dodajSkladniki = new DodajSkladniki(root, przepis.skladnikiList);
-		dodajOpis = new DodajOpis(root, przepis.opisList);
+		dodajSkladniki = new DodajSkladniki(root, przepis.skladniki);
+		//dodajOpis = new DodajOpis(root, przepis.opisList);
 		dodatkoweDane = new DodajDodatkoweDane(root, przepis.trudnosc,
 				przepis.kategoria, przepis.kategoria);
 	}

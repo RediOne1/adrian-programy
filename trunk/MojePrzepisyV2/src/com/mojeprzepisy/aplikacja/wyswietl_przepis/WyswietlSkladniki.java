@@ -39,14 +39,20 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 		this.root = _root;
 		linearLayout = (LinearLayout) root
 				.findViewById(R.id.wyswietl_skladniki_linearLayout);
-		progress = (ProgressBar) root.findViewById(R.id.wyswietl_skladniki_progressbar);
+		progress = (ProgressBar) root
+				.findViewById(R.id.wyswietl_skladniki_progressbar);
 		this.przepis = _przepis;
 		skladniki = new ArrayList<Skladnik>();
 		new PobierzSkladniki().execute();
 	}
-	public List<Skladnik> getSkladniki(){
-		return skladniki;
+
+	public String getSkladniki() {
+		String wynik="";
+		for(Skladnik s :skladniki)
+			wynik+=s+";";
+		return wynik;
 	}
+
 	class PobierzSkladniki extends AsyncTask<String, Skladnik, String> {
 		@Override
 		protected void onPreExecute() {
@@ -79,7 +85,7 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 					root.runOnUiThread(new Runnable() {
 						public void run() {
 							for (int i = 0; i < skladniki_tab.length; i++) {
-								publishProgress(new Skladnik("- "+skladniki_tab[i]));
+								publishProgress(new Skladnik(skladniki_tab[i]));
 							}
 						}
 					});

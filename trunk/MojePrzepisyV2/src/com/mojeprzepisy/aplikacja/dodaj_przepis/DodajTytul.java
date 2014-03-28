@@ -1,6 +1,7 @@
 package com.mojeprzepisy.aplikacja.dodaj_przepis;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -31,7 +32,18 @@ public class DodajTytul extends DodajPrzepisActivity implements OnClickListener 
 	}
 
 	public DodajTytul(Activity root, String tytul2) {
-		// TODO Auto-generated constructor stub
+		root = root;
+		tytul_tv = (TextView) root.findViewById(R.id.dodaj_tytul_textview);
+		tytul_et = (EditText) root.findViewById(R.id.dodaj_tytul_edittext);
+		save_image = (ImageView) root.findViewById(R.id.dodaj_tytul_save);
+		save_image.setOnClickListener(this);
+		tytul_tv.setOnClickListener(this);
+		tytul_et.setOnClickListener(this);
+		tytul_tv = (TextView) new MyTypeFace(tytul_tv, root).MyBold();
+		tytul_et.setText(tytul2);
+		tytul_tv.setText(tytul2);
+		tytul_et.setVisibility(View.GONE);
+		save_image.setVisibility(View.GONE);
 	}
 
 	@Override

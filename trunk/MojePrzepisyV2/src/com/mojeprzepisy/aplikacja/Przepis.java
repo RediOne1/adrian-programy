@@ -23,7 +23,6 @@ public class Przepis implements Serializable {
 	public String trudnosc;
 	public String czas;
 	public String zdjecie;
-	public Drawable zdjecieDrawable;
 	public String opis;
 	public String skladniki;
 	public List<Skladnik> skladnikiList;

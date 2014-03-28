@@ -29,7 +29,17 @@ public class Skladnik extends DodajSkladniki implements OnClickListener {
 		root = _root;
 		container = _container;
 	}
-	public Skladnik(String _nazwa){
+
+	public Skladnik(Activity _root, ViewGroup _container,
+			DodajSkladniki _dodajS, String _nazwa) {
+		super();
+		dodajS = _dodajS;
+		root = _root;
+		container = _container;
+		this.nazwa=_nazwa;
+	}
+
+	public Skladnik(String _nazwa) {
 		this.nazwa = _nazwa;
 	}
 
@@ -46,6 +56,8 @@ public class Skladnik extends DodajSkladniki implements OnClickListener {
 		zapisz = (ImageView) v.findViewById(R.id.single_skladnik_save);
 		zapisz.setOnClickListener(this);
 		nazwa_textview.setOnClickListener(this);
+		if(nazwa!=null)
+			nazwa_textview.setText(nazwa);
 		usun.setOnClickListener(this);
 		nazwa_textview = (TextView) new MyTypeFace(nazwa_textview, root)
 				.MyNormal();
@@ -53,7 +65,8 @@ public class Skladnik extends DodajSkladniki implements OnClickListener {
 		zapisz.setVisibility(View.GONE);
 		return v;
 	}
-	public View wyswietl(Activity _root, ViewGroup _container){
+
+	public View wyswietl(Activity _root, ViewGroup _container) {
 		LayoutInflater inflater = (LayoutInflater) _root
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View v = inflater.inflate(R.layout.single_skladnik_layout, _container,
@@ -66,7 +79,7 @@ public class Skladnik extends DodajSkladniki implements OnClickListener {
 		zapisz = (ImageView) v.findViewById(R.id.single_skladnik_save);
 		nazwa_textview = (TextView) new MyTypeFace(nazwa_textview, _root)
 				.MyNormal();
-		nazwa_textview.setText(nazwa);
+		nazwa_textview.setText("- "+nazwa);
 		nazwa_edittext.setVisibility(View.GONE);
 		zapisz.setVisibility(View.GONE);
 		usun.setVisibility(View.GONE);
@@ -78,7 +91,7 @@ public class Skladnik extends DodajSkladniki implements OnClickListener {
 		if (v == usun) {
 			container.removeView((View) v.getParent());
 			dodajS.skladniki.remove(this);
-			//dodajS.wypisz();
+			// dodajS.wypisz();
 		} else if (v == nazwa_textview) {
 			// nazwa = nazwa_textview.getText().toString();
 			nazwa_textview.setVisibility(View.GONE);

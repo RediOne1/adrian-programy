@@ -29,10 +29,10 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 		imageview.setOnClickListener(this);
 	}
 
-	public DodajZdjecie(Activity _root, Drawable zdjecieDrawable) {
+	public DodajZdjecie(Activity _root, String zdjecieURL) {
 		root=_root;
 		imageview = (ImageView) root.findViewById(R.id.dodaj_zdjecie_image);
-		imageview.setImageDrawable(zdjecieDrawable);
+		
 		imageview.setOnClickListener(this);
 		
 	}

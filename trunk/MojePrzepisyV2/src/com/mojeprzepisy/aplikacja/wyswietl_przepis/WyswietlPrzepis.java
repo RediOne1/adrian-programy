@@ -19,7 +19,6 @@ import com.mojeprzepisy.aplikacja.Przepis;
 import com.mojeprzepisy.aplikacja.R;
 import com.mojeprzepisy.aplikacja.dodaj_przepis.DodajPrzepisActivity;
 import com.mojeprzepisy.aplikacja.narzedzia.MyApp;
-import com.mojeprzepisy.aplikacja.narzedzia.Szukaj;
 
 public class WyswietlPrzepis extends Activity implements OnClickListener {
 
@@ -50,14 +49,15 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 
 	public void edytuj() {
 		przepis.tytul = wyswietlTytulowyModul.getTytul();
-		przepis.zdjecieDrawable = wyswietlTytulowyModul.getImage();
+		przepis.zdjecie = wyswietlTytulowyModul.getImage();
 		przepis.kategoria = wyswietlTytulowyModul.getKategoria();
 		przepis.trudnosc = wyswietlTytulowyModul.getTrudnosc();
 		przepis.czas = wyswietlTytulowyModul.getCzas();
-		przepis.skladnikiList = wyswietlSkladniki.getSkladniki();
-		przepis.opisList = wyswietlOpis.getKroki();
-		Intent i = new Intent(WyswietlPrzepis.this, DodajPrzepisActivity.class);
+		przepis.skladniki = wyswietlSkladniki.getSkladniki();
+		//przepis.opisList = wyswietlOpis.getKroki();
+		Intent i = new Intent(this, DodajPrzepisActivity.class);
 		i.putExtra("przepis", przepis);
+		i.putExtra("edytuj", true);
 		startActivity(i);
 	}
 
