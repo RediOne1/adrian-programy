@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,22 +17,26 @@ import android.widget.RatingBar;
 
 import com.mojeprzepisy.aplikacja.Przepis;
 import com.mojeprzepisy.aplikacja.R;
+import com.mojeprzepisy.aplikacja.dodaj_przepis.DodajPrzepisActivity;
+import com.mojeprzepisy.aplikacja.narzedzia.MyApp;
+import com.mojeprzepisy.aplikacja.narzedzia.Szukaj;
 
 public class WyswietlPrzepis extends Activity implements OnClickListener {
 
 	public final int OCEN_DIALOG_ID = 1;
-	private int user_id = 1;
 	private Przepis przepis;
 	public WyswietlTytulowyModul wyswietlTytulowyModul;
 	private WyswietlSkladniki wyswietlSkladniki;
 	private WyswietlOpis wyswietlOpis;
 	private OcenPrzepis ocenPrzepis;
 	private RatingBar rating2;
+	private MyApp app;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.wyswietl_przepis);		
+		setContentView(R.layout.wyswietl_przepis);
+		app = (MyApp) getApplicationContext();
 		przepis = (Przepis) getIntent().getSerializableExtra("przepis");
 		wyswietlTytulowyModul = new WyswietlTytulowyModul(WyswietlPrzepis.this,
 				przepis);
@@ -43,17 +48,37 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 		// showDialog(OCEN_DIALOG_ID);
 	}
 
+	public void edytuj() {
+		przepis.tytul = wyswietlTytulowyModul.getTytul();
+		przepis.zdjecieDrawable = wyswietlTytulowyModul.getImage();
+		przepis.kategoria = wyswietlTytulowyModul.getKategoria();
+		przepis.trudnosc = wyswietlTytulowyModul.getTrudnosc();
+		przepis.czas = wyswietlTytulowyModul.getCzas();
+		przepis.skladnikiList = wyswietlSkladniki.getSkladniki();
+		przepis.opisList = wyswietlOpis.getKroki();
+		Intent i = new Intent(WyswietlPrzepis.this, DodajPrzepisActivity.class);
+		i.putExtra("przepis", przepis);
+		startActivity(i);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.wyswietl_przepis, menu);
-		if (przepis.przepisID == user_id) {
+		if (przepis.autorID == app.getData()) {
 			menu.add("Edytuj").setIcon(android.R.drawable.ic_menu_edit)
 					.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 			menu.add("Usun").setIcon(android.R.drawable.ic_menu_delete)
 					.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		}
 		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.toString() == "Edytuj") {
+			edytuj();
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	protected Dialog onCreateDialog(int id) {

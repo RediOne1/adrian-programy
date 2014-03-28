@@ -30,6 +30,10 @@ public class DodajTytul extends DodajPrzepisActivity implements OnClickListener 
 		save_image.setVisibility(View.GONE);
 	}
 
+	public DodajTytul(Activity root, String tytul2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void onClick(View v) {
 		if (v == tytul_tv) {

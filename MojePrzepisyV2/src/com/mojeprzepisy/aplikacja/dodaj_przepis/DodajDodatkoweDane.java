@@ -21,4 +21,9 @@ public class DodajDodatkoweDane extends DodajPrzepisActivity{
 		czas = (Spinner) root.findViewById(R.id.dodatkowe_dane_czas);
 	}
 
+	public DodajDodatkoweDane(Activity root, String trudnosc2,
+			String kategoria2, String kategoria3) {
+		// TODO Auto-generated constructor stub
+	}
+
 }

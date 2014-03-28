@@ -41,7 +41,9 @@ public class WyswietlOpis extends WyswietlPrzepis {
 		kroki = new ArrayList<Krok>();
 		new PobierzOpis().execute();
 	}
-
+	public List<Krok> getKroki(){
+		return kroki;
+	}
 	class PobierzOpis extends AsyncTask<String, Krok, String> {
 		@Override
 		protected void onPreExecute() {

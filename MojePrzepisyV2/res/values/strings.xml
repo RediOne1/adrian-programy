@@ -69,5 +69,8 @@
     <string name="title_activity_lista_przepisy">Lista_przepisy</string>
     <string name="title_activity_rejestracja">RejestracjaActivity</string>
     <string name="losowy_przepis">Losowy przepis</string>
+    <string name="login">Login</string>
+    <string name="haslo">Hasło</string>
+    <string name="wyloguj">Wyloguj</string>
 
 </resources>
