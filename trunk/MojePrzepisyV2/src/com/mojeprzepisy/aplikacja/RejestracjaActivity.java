@@ -28,10 +28,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.mojeprzepisy.aplikacja.narzedzia.MyApp;
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
 
 public class RejestracjaActivity extends Activity implements OnClickListener {
@@ -252,7 +252,7 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 			pDialog = new ProgressDialog(RejestracjaActivity.this);
 			pDialog.setMessage("Trwa logowanie, proszę czekać...");
 			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(true);
+			pDialog.setCancelable(false);
 			pDialog.show();
 
 		}
@@ -330,7 +330,7 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 			pDialog = new ProgressDialog(RejestracjaActivity.this);
 			pDialog.setMessage("Trwa ponowne wysyłanie linku aktywacyjnego, proszę czekać...");
 			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(true);
+			pDialog.setCancelable(false);
 			pDialog.show();
 
 		}
@@ -377,7 +377,7 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 			pDialog = new ProgressDialog(RejestracjaActivity.this);
 			pDialog.setMessage("Dodawanie użytkownika...");
 			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(true);
+			pDialog.setCancelable(false);
 			pDialog.show();
 		}
 
@@ -409,6 +409,7 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 
 					if (success == 1) {
 						komunikat = json.getString("message");
+						zarejestrowano = true;
 					} else {
 						komunikat = json.getString("message");
 					}

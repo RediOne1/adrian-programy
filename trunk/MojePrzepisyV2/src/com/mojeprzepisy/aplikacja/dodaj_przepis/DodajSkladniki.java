@@ -33,6 +33,16 @@ public class DodajSkladniki extends DodajPrzepisActivity implements
 		dodajSkladnikButton.setOnClickListener(this);
 	}
 
+	public DodajSkladniki(Activity _root, List<Skladnik> skladnikiList) {
+		root = _root;
+		dodajSkladnikButton = (View) root
+				.findViewById(R.id.dodaj_skladnik_button);
+		linearLayout = (LinearLayout) root
+				.findViewById(R.id.skladniki_linearLayout);
+		skladniki=skladnikiList;
+		dodajSkladnikButton.setOnClickListener(this);
+	}
+
 	@Override
 	public void onClick(View v) {
 		if (v == dodajSkladnikButton) {
@@ -40,9 +50,9 @@ public class DodajSkladniki extends DodajPrzepisActivity implements
 					DodajSkladniki.this);
 			skladniki.add(skladnik);
 			linearLayout.addView(skladnik.toView());
-			// wypisz();
 		}
 	}
+
 	@Override
 	public String toString() {
 		String wynik = "";

@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/inMail"
-                android:background="@drawable/przycisk"
+                android:background="@drawable/button_indicator"
                 android:text="@string/StworzButton" />
 
             <TextView
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/stworz"
                 android:layout_toRightOf="@+id/textView6"
-                android:background="@drawable/przycisk"
+                android:background="@drawable/button_indicator"
                 android:text="@string/wyczysc" />
         </RelativeLayout>
     </ScrollView>

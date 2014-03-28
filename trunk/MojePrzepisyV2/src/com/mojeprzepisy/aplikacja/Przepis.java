@@ -1,10 +1,9 @@
 package com.mojeprzepisy.aplikacja;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
+import android.graphics.drawable.Drawable;
 
 import com.mojeprzepisy.aplikacja.dodaj_przepis.Krok;
 import com.mojeprzepisy.aplikacja.dodaj_przepis.Skladnik;
@@ -24,8 +23,11 @@ public class Przepis implements Serializable {
 	public String trudnosc;
 	public String czas;
 	public String zdjecie;
+	public Drawable zdjecieDrawable;
 	public String opis;
 	public String skladniki;
+	public List<Skladnik> skladnikiList;
+	public List<Krok> opisList;
 
 	public Przepis() {
 

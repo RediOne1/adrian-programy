@@ -44,7 +44,9 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 		skladniki = new ArrayList<Skladnik>();
 		new PobierzSkladniki().execute();
 	}
-
+	public List<Skladnik> getSkladniki(){
+		return skladniki;
+	}
 	class PobierzSkladniki extends AsyncTask<String, Skladnik, String> {
 		@Override
 		protected void onPreExecute() {
@@ -72,7 +74,7 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 					dane = json.getJSONArray("dane");
 					JSONObject c = dane.getJSONObject(0);
 					String temp = c.getString("skladniki");
-					Log.d("Wyswietl skladniki", "Pobrano sk³adnik: " + temp);
+					Log.d("Wyswietl skladniki", "Pobrano skï¿½adnik: " + temp);
 					skladniki_tab = temp.split(";");
 					root.runOnUiThread(new Runnable() {
 						public void run() {

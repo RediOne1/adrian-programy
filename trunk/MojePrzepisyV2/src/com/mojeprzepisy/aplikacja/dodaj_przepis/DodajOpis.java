@@ -30,6 +30,10 @@ public class DodajOpis extends DodajPrzepisActivity implements OnClickListener {
 		dodaj_krok.setOnClickListener(this);
 	}
 
+	public DodajOpis(Activity root, List<Krok> opisList) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void onClick(View v) {
 		if (v == dodaj_krok) {

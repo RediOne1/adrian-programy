@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -67,6 +68,26 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 
 	public void odswiez() {
 		new OdswiezDane().execute();
+	}
+
+	public Drawable getImage() {
+		return zdjecie.getDrawable();
+	}
+
+	public String getTytul() {
+		return tytul.getText().toString();
+	}
+
+	public String getKategoria() {
+		return kategoria.getText().toString();
+	}
+
+	public String getTrudnosc() {
+		return trudnosc.getText().toString();
+	}
+
+	public String getCzas() {
+		return czas.getText().toString();
 	}
 
 	class OdswiezDane extends AsyncTask<Float, String, String> {

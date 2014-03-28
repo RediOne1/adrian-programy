@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -21,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.mojeprzepisy.aplikacja.Przepis;
 import com.mojeprzepisy.aplikacja.R;
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
 import com.mojeprzepisy.aplikacja.narzedzia.WyslijZdjecie;
@@ -37,22 +37,39 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 	private JSONParser jParser = new JSONParser();
 	private JSONArray dane = null;
 	public DodajDodatkoweDane dodatkoweDane;
-	public ImageView imageview;
 	public Button wyslij;
 	public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	public static final int REQ_CODE_PICK_IMAGE = 101;
 	public Activity root;
 	private int success;
 	private ProgressDialog pDialog;
+	private Przepis przepis;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dodaj_przepis_layout);
 		root = DodajPrzepisActivity.this;
-		imageview = (ImageView) findViewById(R.id.dodaj_tytul_save);
+		Bundle bundle = getIntent().getExtras();
+		if (bundle.getBoolean("edytuj", false))
+			edytuj();
+		else
+			dodaj();
 		wyslij = (Button) findViewById(R.id.dodaj_przepis_wyslij_button);
 		wyslij.setOnClickListener(this);
+	}
+
+	public void edytuj() {
+		przepis = (Przepis) getIntent().getSerializableExtra("przepis");
+		dodajZdjecie = new DodajZdjecie(root, przepis.zdjecieDrawable);
+		dodajTytul = new DodajTytul(root, przepis.tytul);
+		dodajSkladniki = new DodajSkladniki(root, przepis.skladnikiList);
+		dodajOpis = new DodajOpis(root, przepis.opisList);
+		dodatkoweDane = new DodajDodatkoweDane(root, przepis.trudnosc,
+				przepis.kategoria, przepis.kategoria);
+	}
+
+	public void dodaj() {
 		dodajZdjecie = new DodajZdjecie(root);
 		dodajTytul = new DodajTytul(root);
 		dodajSkladniki = new DodajSkladniki(root);
@@ -136,7 +153,7 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 				}
 				komunikat = json.getString("message");
 			} catch (Exception e) {
-				komunikat = "B³¹d w po³¹czeniu.";
+				komunikat = "Bï¿½ï¿½d w poï¿½ï¿½czeniu.";
 				Log.d("DEBUG_TAG", "" + e);
 			}
 

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mojeprzepisy.aplikacja.narzedzia.MyApp;
 import com.mojeprzepisy.aplikacja.narzedzia.Szukaj;
 
 public class MainActivity extends FragmentActivity implements

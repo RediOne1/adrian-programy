@@ -10,9 +10,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -21,6 +19,7 @@ import android.widget.TextView;
 import com.mojeprzepisy.aplikacja.Przepis;
 import com.mojeprzepisy.aplikacja.R;
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
+import com.mojeprzepisy.aplikacja.narzedzia.MyApp;
 
 public class OcenPrzepis extends WyswietlPrzepis {
 	
@@ -30,7 +29,7 @@ public class OcenPrzepis extends WyswietlPrzepis {
 
 	JSONParser jParser = new JSONParser();
 	public JSONArray dane = null;
-	private int user_id = 1;
+	private int user_id;
 	private ProgressBar progress;
 	private float ocena;
 	private Activity root;
@@ -39,12 +38,15 @@ public class OcenPrzepis extends WyswietlPrzepis {
 	private TextView ocen_tv;
 	private RelativeLayout rl;
 	public RatingBar ocen_ratingbar;
+	private MyApp app;
 
 	public OcenPrzepis(Activity _root, Przepis _przepis,
 			WyswietlPrzepis _wyswietlPrzepis) {
 		this.wyswietlPrzepis = _wyswietlPrzepis;
 		this.root = _root;
 		this.przepis = _przepis;
+		app = (MyApp) root.getApplicationContext();
+		user_id = app.getData();
 		rl = (RelativeLayout) root.findViewById(R.id.ocen_relative_layout);
 		ocen_tv = (TextView) root.findViewById(R.id.ocen_przepis_textview);
 		rl.setOnClickListener(wyswietlPrzepis);

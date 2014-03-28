@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.View;
@@ -26,6 +27,14 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 		root = dodajPrzepisActivity;
 		imageview = (ImageView) root.findViewById(R.id.dodaj_zdjecie_image);
 		imageview.setOnClickListener(this);
+	}
+
+	public DodajZdjecie(Activity _root, Drawable zdjecieDrawable) {
+		root=_root;
+		imageview = (ImageView) root.findViewById(R.id.dodaj_zdjecie_image);
+		imageview.setImageDrawable(zdjecieDrawable);
+		imageview.setOnClickListener(this);
+		
 	}
 
 	@Override
