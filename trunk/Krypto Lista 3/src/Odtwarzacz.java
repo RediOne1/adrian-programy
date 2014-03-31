@@ -20,7 +20,7 @@ public class Odtwarzacz {
 	 * -keypass "audio6030"
 	 */
 	public static void sound(InputStream... args) throws Exception {
-		InputStream in = new FileInputStream(new File("imperial_march.wav"));
+		InputStream in = null;
 		if (args.length != 0)
 			in = args[0];
 		try {
