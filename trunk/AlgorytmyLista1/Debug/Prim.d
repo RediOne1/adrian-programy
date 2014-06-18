@@ -1,0 +1,1 @@
+Prim.d: ../Prim.c
