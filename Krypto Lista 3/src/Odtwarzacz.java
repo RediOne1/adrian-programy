@@ -20,7 +20,7 @@ public class Odtwarzacz {
 	 * -keypass "audio6030"
 	 */
 	public static void sound(InputStream... args) throws Exception {
-		InputStream in = null;
+		InputStream in = new FileInputStream(new File("imperial_march.wav"));
 		if (args.length != 0)
 			in = args[0];
 		try {
@@ -72,7 +72,7 @@ public class Odtwarzacz {
 			final KeyStore keyStore = KeyStore.getInstance("JCEKS");
 			keyStore.load(new FileInputStream(new File(config[0])),
 					config[2].toCharArray());
-			Key key = keyStore.getKey("audioKey", config[2].toCharArray());
+			Key key = keyStore.getKey(config[1], config[2].toCharArray());
 			CrypterAES crypter = new CrypterAES("AES/ECB/PKCS5Padding", null,
 					null);
 			sound(compress(crypter.decryptAudio("zaszyfrowana_piosenka.adi",
