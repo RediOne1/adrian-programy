@@ -39,7 +39,6 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 		przepis = (Przepis) getIntent().getSerializableExtra("przepis");
 		wyswietlTytulowyModul = new WyswietlTytulowyModul(WyswietlPrzepis.this,
 				przepis);
-		wyswietlTytulowyModul.odswiez();
 		wyswietlSkladniki = new WyswietlSkladniki(WyswietlPrzepis.this, przepis);
 		wyswietlOpis = new WyswietlOpis(WyswietlPrzepis.this, przepis);
 		ocenPrzepis = new OcenPrzepis(WyswietlPrzepis.this, przepis,
@@ -54,7 +53,7 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 		przepis.trudnosc = wyswietlTytulowyModul.getTrudnosc();
 		przepis.czas = wyswietlTytulowyModul.getCzas();
 		przepis.skladniki = wyswietlSkladniki.getSkladniki();
-		//przepis.opisList = wyswietlOpis.getKroki();
+		przepis.opis = wyswietlOpis.getOpis();
 		Intent i = new Intent(this, DodajPrzepisActivity.class);
 		i.putExtra("przepis", przepis);
 		i.putExtra("edytuj", true);

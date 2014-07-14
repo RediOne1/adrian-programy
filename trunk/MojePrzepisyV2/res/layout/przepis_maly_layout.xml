@@ -8,7 +8,9 @@
         android:id="@+id/przepis_maly_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shadow_effect" >
+        android:background="@drawable/shadow_effect"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp" >
 
         <ImageView
             android:id="@+id/zdjecie_maly_layout"
@@ -46,7 +48,7 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:numStars="6" />
+                android:numStars="5" />
 
             <TextView
                 android:id="@+id/kategoria_maly_layout"

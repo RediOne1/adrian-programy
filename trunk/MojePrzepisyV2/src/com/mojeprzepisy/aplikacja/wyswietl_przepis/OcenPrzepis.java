@@ -48,6 +48,8 @@ public class OcenPrzepis extends WyswietlPrzepis {
 		app = (MyApp) root.getApplicationContext();
 		user_id = app.getData();
 		rl = (RelativeLayout) root.findViewById(R.id.ocen_relative_layout);
+		if(user_id == -1)
+			rl.setVisibility(View.GONE);
 		ocen_tv = (TextView) root.findViewById(R.id.ocen_przepis_textview);
 		rl.setOnClickListener(wyswietlPrzepis);
 		progress = (ProgressBar) root

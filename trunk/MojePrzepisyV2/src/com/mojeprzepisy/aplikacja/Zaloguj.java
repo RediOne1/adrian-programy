@@ -35,18 +35,17 @@ public class Zaloguj implements OnClickListener {
 	private Button zaloguj_button;
 	MyApp app;
 
-	public Zaloguj(Activity _root) {
+	public Zaloguj(Activity _root, EditText _login, EditText _haslo) {
 		this.root = _root;
 		app = (MyApp) root.getApplicationContext();
 		url_logowanie = root.getString(R.string.url_logowanie);
-		login_layout = (View) root.findViewById(R.id.login_relativelayout);
-		Login = (EditText) root.findViewById(R.id.login_editText);
-		Haslo = (EditText) root.findViewById(R.id.haslo_editText);
-		zaloguj_button = (Button) root.findViewById(R.id.zaloguj_button);
-		zaloguj_button.setOnClickListener(this);
-		Log.d("DEBUG_TAG", "" + app.getData());
-		if (app.getData() != -1)
-			zalogowany();
+		this.Login = _login;
+		this.Haslo = _haslo;
+
+	}
+
+	public void Zaloguj() {
+		new Logowanie().execute();
 	}
 
 	@Override
@@ -58,18 +57,19 @@ public class Zaloguj implements OnClickListener {
 				login_layout.setVisibility(View.GONE);
 		} else if (v == zaloguj_button) {
 			new Logowanie().execute();
+		} else if (v.getId() == R.id.drawer_login_button) {
 		}
 
 	}
 
-	class Logowanie extends AsyncTask<String, String, String> {
+	public class Logowanie extends AsyncTask<String, String, String> {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			komunikat = null;
 			pDialog = new ProgressDialog(root);
 			pDialog.setMessage("Trwa logowanie, proszę czekać...");
 			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(false);
+			pDialog.setCancelable(true);
 			pDialog.show();
 
 		}
@@ -126,11 +126,14 @@ public class Zaloguj implements OnClickListener {
 	}
 
 	public void zalogowany() {
+		root.findViewById(R.id.drawer_zalogujsie_textview).setVisibility(View.GONE);
+		root.findViewById(R.id.drawer_login_module).setVisibility(View.GONE);
 		root.findViewById(R.id.zaloguj_layout).setVisibility(View.GONE);
+		root.findViewById(R.id.drawer_zalogujsie_textview).setVisibility(View.GONE);
+		root.findViewById(R.id.drawer_stworz_konto).setVisibility(View.GONE);
 		root.findViewById(R.id.dodaj_przepis_linearLayout).setVisibility(
 				View.VISIBLE);
 		root.findViewById(R.id.rejestracja_layout).setVisibility(View.GONE);
 		root.findViewById(R.id.wyloguj_layout).setVisibility(View.VISIBLE);
-		login_layout.setVisibility(View.GONE);
 	}
 }

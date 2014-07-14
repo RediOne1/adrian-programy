@@ -29,6 +29,7 @@ public class WyswietlOpis extends WyswietlPrzepis {
 	private String URL = "http://softpartner.pl/moje_przepisy2/pobierz_opis.php";
 	JSONParser jParser = new JSONParser();
 	public JSONArray dane = null;
+	public String opis;
 	private Krok krok;
 	String kroki_tab[];
 
@@ -41,8 +42,8 @@ public class WyswietlOpis extends WyswietlPrzepis {
 		kroki = new ArrayList<Krok>();
 		new PobierzOpis().execute();
 	}
-	public List<Krok> getKroki(){
-		return kroki;
+	public String getOpis(){
+		return opis;
 	}
 	class PobierzOpis extends AsyncTask<String, Krok, String> {
 		@Override
@@ -70,8 +71,8 @@ public class WyswietlOpis extends WyswietlPrzepis {
 				if (success == 1) {
 					dane = json.getJSONArray("dane");
 					JSONObject c = dane.getJSONObject(0);
-					String temp = c.getString("opis");
-					kroki_tab = temp.split(";krok;");
+					opis = c.getString("opis");					
+					kroki_tab = opis.split(";krok;");
 					root.runOnUiThread(new Runnable() {
 						public void run() {
 							for (int i = 0; i < kroki_tab.length; i++) {

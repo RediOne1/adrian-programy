@@ -5,20 +5,29 @@ import java.util.Locale;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
-import com.mojeprzepisy.aplikacja.narzedzia.MyApp;
+import com.mojeprzepisy.aplikacja.narzedzia.DrawerClickListener;
 import com.mojeprzepisy.aplikacja.narzedzia.Szukaj;
 
-public class MainActivity extends FragmentActivity implements
+public class MainActivity extends FragmentActivity implements OnClickListener,
 		ActionBar.TabListener {
 	public int user_id = 0;
 	/**
@@ -35,11 +44,62 @@ public class MainActivity extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	private DrawerLayout mDrawerLayout;
+	private Zaloguj logowanie;
+	private LinearLayout mDrawerLinear;
+	private ActionBarDrawerToggle mDrawerToggle;
+	public EditText login;
+	public EditText haslo;
+	public FrameLayout zaloguj;
+	public ListView lv;
+	public DrawerClickListener drawerListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		login = (EditText) findViewById(R.id.drawer_login);
+		haslo = (EditText) findViewById(R.id.drawer_haslo);
+		zaloguj = (FrameLayout) findViewById(R.id.drawer_login_button);
+		drawerListener = new DrawerClickListener(this);
+		logowanie = new Zaloguj(this, login, haslo);
+		zaloguj.setOnClickListener(this);
+		lv = (ListView) findViewById(R.id.drawer_wybierz_kategorie);
+		lv.setOnItemClickListener(drawerListener);
+		new DrawerKategorie(this, lv);
+
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mDrawerLinear = (LinearLayout) findViewById(R.id.left_linear);
+
+		// set a custom shadow that overlays the main content when the drawer
+		// opens
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+				GravityCompat.START);
+		// enable ActionBar app icon to behave as action to toggle nav drawer
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+
+		// ActionBarDrawerToggle ties together the the proper interactions
+		// between the sliding drawer and the action bar app icon
+		mDrawerToggle = new ActionBarDrawerToggle(this, /* host Activity */
+		mDrawerLayout, /* DrawerLayout object */
+		R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
+		R.string.drawer_open, /* "open drawer" description for accessibility */
+		R.string.drawer_close /* "close drawer" description for accessibility */
+		) {
+			public void onDrawerClosed(View view) {
+				// getActionBar().setTitle(mTitle);
+				// invalidateOptionsMenu(); // creates call to
+				// onPrepareOptionsMenu()
+			}
+
+			public void onDrawerOpened(View drawerView) {
+				// getActionBar().setTitle(mDrawerTitle);
+				// invalidateOptionsMenu(); // creates call to
+				// onPrepareOptionsMenu()
+			}
+		};
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -77,6 +137,25 @@ public class MainActivity extends FragmentActivity implements
 		}
 	}
 
+	/**
+	 * When using the ActionBarDrawerToggle, you must call it during
+	 * onPostCreate() and onConfigurationChanged()...
+	 */
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		// Sync the toggle state after onRestoreInstanceState has occurred.
+		mDrawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		// Pass any configuration change to the drawer toggls
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -87,6 +166,11 @@ public class MainActivity extends FragmentActivity implements
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
+		// The action bar home/up action should open or close the drawer.
+		// ActionBarDrawerToggle will take care of this.
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
 		if (item.toString() == "Szukaj") {
 			Intent i = new Intent(getApplicationContext(), Szukaj.class);
 			i.putExtra("user_id", user_id);
@@ -163,6 +247,14 @@ public class MainActivity extends FragmentActivity implements
 			}
 			return null;
 		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		if (v == zaloguj) {
+			logowanie.Zaloguj();
+		}
+
 	}
 
 }

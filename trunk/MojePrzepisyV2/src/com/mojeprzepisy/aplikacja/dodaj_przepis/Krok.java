@@ -18,14 +18,14 @@ import com.mojeprzepisy.aplikacja.narzedzia.MyTypeFace;
 public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 
 	private DodajOpis dodajO;
-	private ViewGroup container;
+	private ViewGroup container = null;
 	private TextView tittle_tv;
 	private EditText tittle_et;
 	private EditText opis_et;
 	private TextView opis_tv;
 	private ImageView usun;
 	private ImageView zapisz;
-	public String tytul, opis;
+	public String tytul = null, opis = null;
 	private View view;
 
 	public Krok(Activity _dodajOpis, ViewGroup _container, DodajOpis _dodajO) {
@@ -41,6 +41,17 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 		opis = opis.replace("<br>", "\n");
 	}
 
+	public Krok(String _tytul, String _opis, Activity _dodajOpis,
+			ViewGroup _container, DodajOpis _dodajO) {
+		root = _dodajOpis;
+		container = _container;
+		dodajO = _dodajO;
+		this.tytul = _tytul;
+		this.opis = _opis;
+		opis = opis.replace("<br>", "\n");
+
+	}
+
 	public View toView() {
 		LayoutInflater inflater = (LayoutInflater) root
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -48,7 +59,11 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 		view = v;
 		tittle_tv = (TextView) v.findViewById(R.id.krok_tittle_textview);
 		tittle_et = (EditText) v.findViewById(R.id.krok_tittle_edittext);
+		if(tytul!=null)
+			tittle_tv.setText(tytul);
 		opis_et = (EditText) v.findViewById(R.id.krok_opis);
+		if(opis!= null)
+			opis_et.setText(opis);
 		usun = (ImageView) v.findViewById(R.id.krok_tittle_delete);
 		zapisz = (ImageView) v.findViewById(R.id.krok_tittle_save);
 		tittle_tv = (TextView) new MyTypeFace(tittle_tv, root).MyNormal();

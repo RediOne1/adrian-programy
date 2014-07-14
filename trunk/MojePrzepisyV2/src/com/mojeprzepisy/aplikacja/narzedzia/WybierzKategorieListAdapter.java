@@ -15,11 +15,11 @@ import com.mojeprzepisy.aplikacja.R;
 
 public class WybierzKategorieListAdapter extends BaseAdapter {
 	private Activity activity;
-	private List<Kategoria> dane;
+	private String dane[];
 	private static LayoutInflater inflater = null;
 
 	public WybierzKategorieListAdapter(Activity a,
-			List<Kategoria> wszystkieKategorie) {
+			String wszystkieKategorie[]) {
 		activity = a;
 		dane = wszystkieKategorie;
 		inflater = (LayoutInflater) activity
@@ -28,7 +28,7 @@ public class WybierzKategorieListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return dane.size();
+		return dane.length;
 	}
 
 	@Override
@@ -46,13 +46,12 @@ public class WybierzKategorieListAdapter extends BaseAdapter {
 		View vi = convertView;
 
 		if (convertView == null)
-			vi = inflater.inflate(R.layout.kategoria, null);
+			vi = inflater.inflate(R.layout.drawer_list_item, null);
 
-		TextView nazwa = (TextView) vi.findViewById(R.id.nazwa_kategoria_tv);
+		TextView nazwa = (TextView) vi.findViewById(R.id.drawer_list_item_textview);
 
-		Kategoria kategoria = dane.get(position);
-		nazwa.setText(kategoria.toString());
-		vi.setTag(kategoria);
+		nazwa.setText(dane[position]);
+		vi.setTag(dane[position]);
 		return vi;
 	}
 };

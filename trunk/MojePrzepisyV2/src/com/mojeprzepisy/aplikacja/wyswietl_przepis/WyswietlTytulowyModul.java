@@ -32,7 +32,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 	private final String URL = "http://softpartner.pl/moje_przepisy2/wyswietl_tytulowy_modul.php";
 	private Przepis przepis;
 	private ImageView zdjecie;
-	private String zdjecieURL;
+	private String zdjecieURL = "";
 	private TextView tytul;
 	private Activity root;
 	private ProgressBar progress;
@@ -65,6 +65,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 		kategoria = (TextView) new MyTypeFace(kategoria, root).MyNormal();
 		trudnosc = (TextView) new MyTypeFace(trudnosc, root).MyNormal();
 		czas = (TextView) new MyTypeFace(czas, root).MyNormal();
+		odswiez();
 	}
 
 	public void odswiez() {

@@ -35,7 +35,7 @@ public class Lista_przepisy extends ListActivity {
 	private JSONArray dane = null;
 	private ArrayList<Przepis> wszystkiePrzepisy;
 	private ImageView image;
-	private Kategoria kategoria;
+	private String kategoria;
 	private final static int ALERT_DIALOG_ID = 2;
 	private String url_wszystkie_przepisy;
 	private String url_user_przepisy;
@@ -52,7 +52,7 @@ public class Lista_przepisy extends ListActivity {
 		url_wszystkie_przepisy = getString(R.string.url_wszystkie_przepisy);
 		url_user_przepisy = getString(R.string.url_user_przepisy);
 		Bundle bundle = getIntent().getExtras();
-		kategoria = (Kategoria) getIntent().getSerializableExtra("kategoria");
+		kategoria = bundle.getString("kategoria");
 		pseudonim = bundle.getString("pseudonim", null);
 		user_id = bundle.getInt("user_id", 0);
 		wszystkiePrzepisy = new ArrayList<Przepis>();
@@ -121,7 +121,7 @@ public class Lista_przepisy extends ListActivity {
 			dialog = false;
 			// Building Parameters
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("kategoria", kategoria.nazwa));
+			params.add(new BasicNameValuePair("kategoria", kategoria));
 			// getting JSON string from URL
 			try {
 				JSONObject json;
