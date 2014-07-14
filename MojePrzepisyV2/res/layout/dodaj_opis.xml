@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:text="@string/opis" />
 
-    <LinearLayout
+     <LinearLayout
         android:id="@+id/tytul_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,28 +18,15 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <Button
         android:id="@+id/dodaj_opis_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tytul_linearlayout"
         android:background="@drawable/button_indicator"
-        android:gravity="center" >
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_input_add" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nastepny_krok"
-            android:textSize="20dp" />
-
-    </LinearLayout>
+        android:drawableLeft="@android:drawable/ic_input_add"
+        android:text="@string/nastepny_krok"
+        android:textSize="20sp" />
 
 </RelativeLayout>

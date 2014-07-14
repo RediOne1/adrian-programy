@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
 import com.mojeprzepisy.aplikacja.R;
+import com.mojeprzepisy.aplikacja.narzedzia.ImageLoader;
 
 public class DodajZdjecie extends DodajPrzepisActivity implements
 		OnClickListener {
@@ -32,7 +33,8 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 	public DodajZdjecie(Activity _root, String zdjecieURL) {
 		root=_root;
 		imageview = (ImageView) root.findViewById(R.id.dodaj_zdjecie_image);
-		
+		new ImageLoader(root).DisplayImage(zdjecieURL, imageview);
+		new ImageLoader(root).remove(zdjecieURL);
 		imageview.setOnClickListener(this);
 		
 	}

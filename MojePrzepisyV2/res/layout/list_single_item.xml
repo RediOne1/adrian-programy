@@ -28,7 +28,8 @@
             android:layout_height="55dp"
             android:layout_toRightOf="@+id/nr_najwyzej_oceniane"
             android:adjustViewBounds="true"
-            android:paddingBottom="3dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="2dp"
             android:src="@drawable/noimage" />
 
         <TextView

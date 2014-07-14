@@ -30,8 +30,27 @@ public class DodajOpis extends DodajPrzepisActivity implements OnClickListener {
 		dodaj_krok.setOnClickListener(this);
 	}
 
-	public DodajOpis(Activity root, List<Krok> opisList) {
-		// TODO Auto-generated constructor stub
+	public DodajOpis(Activity dodajPrzepisActivity, String opis) {
+		root = dodajPrzepisActivity;
+		dodaj_krok = (View) root.findViewById(R.id.dodaj_opis_button);
+		linearLayout = (LinearLayout) root
+				.findViewById(R.id.tytul_linearlayout);
+		dodaj_krok.setOnClickListener(this);
+		String kroki_tab[] = opis.split(";krok;");
+		for (int i = 0; i < kroki_tab.length; i++) {
+			Krok krok;
+			if (kroki_tab[i].length() == 0)
+				continue;
+			String temp2[] = kroki_tab[i].split(";opis;");
+			if (temp2.length == 1)
+				krok = new Krok("Krok " + (i + 1), temp2[0], root,
+						linearLayout, DodajOpis.this);
+			else
+				krok = new Krok(temp2[0], temp2[1], root, linearLayout,
+						DodajOpis.this);
+			kroki.add(krok);
+			linearLayout.addView(krok.toView());
+		}
 	}
 
 	@Override
@@ -42,6 +61,7 @@ public class DodajOpis extends DodajPrzepisActivity implements OnClickListener {
 			linearLayout.addView(krok.toView());
 		}
 	}
+
 	@Override
 	public String toString() {
 		String wynik = "";

@@ -29,8 +29,6 @@ public class StronaGlowna extends Fragment implements OnClickListener {
 	private View dodajPrzepisButton;
 	private View wybierzKategorie;
 	private View rejestracja;
-	private View zaloguj;
-	private View wyloguj;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,17 +42,12 @@ public class StronaGlowna extends Fragment implements OnClickListener {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Zaloguj logowanie = new Zaloguj(getActivity());
 		LosowyPrzepis losowyPrzepis = new LosowyPrzepis(getActivity());
-		zaloguj = (View) root.findViewById(R.id.zaloguj_layout);
 		rejestracja = (View) root.findViewById(R.id.rejestracja_layout);
 		dodajPrzepisButton = (View) root
 				.findViewById(R.id.dodaj_przepis_linearLayout);
 		wybierzKategorie = (View) root
 				.findViewById(R.id.Wybierz_kategorie_linearLayout);
-		wyloguj = (View) root.findViewById(R.id.wyloguj_layout);
-		wyloguj.setOnClickListener(this);
-		zaloguj.setOnClickListener(logowanie);
 		rejestracja.setOnClickListener(this);
 		wybierzKategorie.setOnClickListener(this);
 		dodajPrzepisButton.setOnClickListener(this);
@@ -67,21 +60,10 @@ public class StronaGlowna extends Fragment implements OnClickListener {
 					DodajPrzepisActivity.class);
 			i.putExtra("edytuj", false);
 			startActivity(i);
-		} else if (v == wybierzKategorie) {
-			Intent i = new Intent(getActivity().getApplicationContext(),
-					WybierzKategorie.class);
-			startActivity(i);
 		} else if (v == rejestracja) {
 			Intent i = new Intent(getActivity().getApplicationContext(),
 					RejestracjaActivity.class);
 			startActivity(i);
-		}else if(v==wyloguj){
-			MyApp app = (MyApp) getActivity().getApplicationContext();
-			app.setData(-1);
-			wyloguj.setVisibility(View.GONE);
-			dodajPrzepisButton.setVisibility(View.GONE);
-			rejestracja.setVisibility(View.VISIBLE);
-			zaloguj.setVisibility(View.VISIBLE);
 		}
 	}
 

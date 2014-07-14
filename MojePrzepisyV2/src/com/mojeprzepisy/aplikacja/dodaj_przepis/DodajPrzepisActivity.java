@@ -23,12 +23,12 @@ import com.mojeprzepisy.aplikacja.Przepis;
 import com.mojeprzepisy.aplikacja.R;
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
 import com.mojeprzepisy.aplikacja.narzedzia.WyslijZdjecie;
+import com.mojeprzepisy.aplikacja.wyswietl_przepis.WyswietlPrzepis;
 
 public class DodajPrzepisActivity extends Activity implements OnClickListener {
 
 	public DodajZdjecie dodajZdjecie;
 	public int user_id = 1;
-	public int przepisID = 0;
 	private String komunikat;
 	public DodajTytul dodajTytul;
 	public DodajSkladniki dodajSkladniki;
@@ -43,19 +43,20 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 	private int success;
 	private ProgressDialog pDialog;
 	private Przepis przepis;
+	private boolean edytuj = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dodaj_przepis_layout);
 		root = DodajPrzepisActivity.this;
+		przepis = new Przepis();
 		Bundle bundle = getIntent().getExtras();
 		if (bundle.getBoolean("edytuj", false)) {
 			przepis = (Przepis) getIntent().getSerializableExtra("przepis");
-			
+			edytuj = true;
 			edytuj();
-		}
-		else
+		} else
 			dodaj();
 		wyslij = (Button) findViewById(R.id.dodaj_przepis_wyslij_button);
 		wyslij.setOnClickListener(this);
@@ -65,9 +66,9 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 		dodajZdjecie = new DodajZdjecie(root, przepis.zdjecie);
 		dodajTytul = new DodajTytul(root, przepis.tytul);
 		dodajSkladniki = new DodajSkladniki(root, przepis.skladniki);
-		//dodajOpis = new DodajOpis(root, przepis.opisList);
+		dodajOpis = new DodajOpis(root, przepis.opis);
 		dodatkoweDane = new DodajDodatkoweDane(root, przepis.trudnosc,
-				przepis.kategoria, przepis.kategoria);
+				przepis.kategoria, przepis.czas);
 	}
 
 	public void dodaj() {
@@ -106,7 +107,10 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			pDialog = new ProgressDialog(DodajPrzepisActivity.this);
-			pDialog.setMessage("Dodawanie przepisu...");
+			if (edytuj)
+				pDialog.setMessage("Edytowanie przepisu...");
+			else
+				pDialog.setMessage("Dodawanie przepisu...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
 			pDialog.show();
@@ -119,7 +123,12 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 
 			// Building Parameters
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("edytuj", "" + edytuj));
 			params.add(new BasicNameValuePair("autorID", "" + user_id));
+			if(edytuj)
+				params.add(new BasicNameValuePair("przepisID", ""+przepis.przepisID));
+			else
+				params.add(new BasicNameValuePair("przepisID", "-1"));
 			params.add(new BasicNameValuePair("tytul", dodajTytul.toString()));
 			params.add(new BasicNameValuePair("kategoria",
 					dodatkoweDane.kategoria.getSelectedItem().toString()));
@@ -144,17 +153,18 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 				success = json.getInt("success");
 
 				if (success == 1) {
-					przepisID = json.getInt("przepisID");
+					przepis.przepisID = json.getInt("przepisID");
 
 					WyslijZdjecie wyslij = new WyslijZdjecie(
-							dodajZdjecie.getBitmap(), "" + przepisID);
-					params.add(new BasicNameValuePair("zdjecie", "" + przepisID));
+							dodajZdjecie.getBitmap(), "" + przepis.przepisID);
+					params.add(new BasicNameValuePair("zdjecie", ""
+							+ przepis.przepisID));
 					wyslij.executeMultipartPost();
 				} else {
 				}
 				komunikat = json.getString("message");
 			} catch (Exception e) {
-				komunikat = "B��d w po��czeniu.";
+				komunikat = "Błąd w połączeniu.";
 				Log.d("DEBUG_TAG", "" + e);
 			}
 
@@ -166,6 +176,12 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 		 * **/
 		protected void onPostExecute(String file_url) {
 			pDialog.dismiss();
+			Log.d("DEBUG_TAG", komunikat);
+			Intent i = new Intent(root, WyswietlPrzepis.class);
+			i.putExtra("przepis", przepis);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			finish();
+			root.startActivity(i);
 		}
 
 		protected void onProgress(Integer... integers) {

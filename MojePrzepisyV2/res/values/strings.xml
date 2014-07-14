@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MojePrzepisy</string>
+    <string name="app_name">Moje Przepisy</string>
     <string name="action_settings">Settings</string>
     <string name="title_section1">Strona główna</string>
     <string name="title_section2">Najwyzej oceniane</string>
@@ -72,5 +72,8 @@
     <string name="login">Login</string>
     <string name="haslo">Hasło</string>
     <string name="wyloguj">Wyloguj</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="ulubione">Ulubione</string>
 
 </resources>

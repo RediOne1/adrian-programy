@@ -6,24 +6,47 @@ import android.app.Activity;
 import android.widget.Spinner;
 import android.widget.Switch;
 
-public class DodajDodatkoweDane extends DodajPrzepisActivity{
-	
+public class DodajDodatkoweDane extends DodajPrzepisActivity {
+
 	public Switch widoczny;
 	public Spinner kategoria;
 	public Spinner trudnosc;
 	public Spinner czas;
-	
-	public DodajDodatkoweDane(Activity dodajPrzepisActivity){
-		root = dodajPrzepisActivity;		
+
+	public DodajDodatkoweDane(Activity dodajPrzepisActivity) {
+		root = dodajPrzepisActivity;
 		widoczny = (Switch) root.findViewById(R.id.dodatkowe_dane_widoczny);
 		kategoria = (Spinner) root.findViewById(R.id.dodatkowe_dane_kategoria);
 		trudnosc = (Spinner) root.findViewById(R.id.dodatkowe_dane_trudnosc);
 		czas = (Spinner) root.findViewById(R.id.dodatkowe_dane_czas);
 	}
 
-	public DodajDodatkoweDane(Activity root, String trudnosc2,
-			String kategoria2, String kategoria3) {
-		// TODO Auto-generated constructor stub
+	public DodajDodatkoweDane(Activity dodajPrzepisActivity, String _trudnosc,
+			String _kategoria, String _czas) {
+
+		root = dodajPrzepisActivity;
+		widoczny = (Switch) root.findViewById(R.id.dodatkowe_dane_widoczny);
+		kategoria = (Spinner) root.findViewById(R.id.dodatkowe_dane_kategoria);
+		trudnosc = (Spinner) root.findViewById(R.id.dodatkowe_dane_trudnosc);
+		czas = (Spinner) root.findViewById(R.id.dodatkowe_dane_czas);
+		for (int i = 0; i < kategoria.getCount(); i++) {
+			if (kategoria.getItemAtPosition(i).toString().equals(_kategoria)) {
+				kategoria.setSelection(i);
+				break;
+			}
+		}
+		for (int i = 0; i < trudnosc.getCount(); i++) {
+			if (trudnosc.getItemAtPosition(i).toString().equals(_trudnosc)) {
+				trudnosc.setSelection(i);
+				break;
+			}
+		}
+		for (int i = 0; i < czas.getCount(); i++) {
+			if (czas.getItemAtPosition(i).toString().equals(_czas)) {
+				czas.setSelection(i);
+				break;
+			}
+		}
 	}
 
 }
