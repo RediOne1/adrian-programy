@@ -29,6 +29,7 @@ public class WyslijZdjecie {
 	private JSONParser jParser = new JSONParser();
 	private String url_zmien_tytul = "http://softpartner.pl/moje_przepisy/zmien_tytul.php";
 	private String url_usun_zdjecie = "http://softpartner.pl/moje_przepisy/usun_zdjecie.php";
+	public boolean gotowe = false;
 
 	public WyslijZdjecie(Bitmap bm, String name) {
 		this.bm = bm;
@@ -43,6 +44,7 @@ public class WyslijZdjecie {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
+					gotowe = false;
 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
 					bm.compress(CompressFormat.JPEG, 100, bos);
 					byte[] data = bos.toByteArray();
@@ -63,14 +65,14 @@ public class WyslijZdjecie {
 									.getContent(), "UTF-8"));
 					String sResponse;
 					StringBuilder s = new StringBuilder();
-
+					gotowe = true;
 					while ((sResponse = reader.readLine()) != null) {
 						s = s.append(sResponse);
 					}
 				} catch (Exception e) {
 					// handle exception here
-					Log.e("Wyslij zdjecie", ""+e);
-					Log.e("Wyslij zdjecie", ""+e.getMessage());
+					Log.e("Wyslij zdjecie", "" + e);
+					Log.e("Wyslij zdjecie", "" + e.getMessage());
 				}
 			}
 		}).start();
