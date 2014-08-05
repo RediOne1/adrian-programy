@@ -58,6 +58,7 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 		i.putExtra("przepis", przepis);
 		i.putExtra("edytuj", true);
 		startActivity(i);
+		finish();
 	}
 
 	@Override

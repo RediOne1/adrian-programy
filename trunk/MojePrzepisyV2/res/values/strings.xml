@@ -46,8 +46,8 @@
     <string name="StworzButton">Stwórz</string>
     <string name="zaloguj">Zaloguj</string>
     <string name="url_multi_complete">http://softpartner.pl/moje_przepisy/multi_complete.php</string>
-    <string name="url_dodaj_przepis">http://softpartner.pl/moje_przepisy/dodaj_przepis.php</string>
-    <string name="url_edytuj_przepis">http://softpartner.pl/moje_przepisy/edytuj_przepis.php</string>
+    <string name="url_dodaj_przepis">http://softpartner.pl/moje_przepisy2/dodaj_przepis.php</string>
+    <string name="url_edytuj_przepis">http://softpartner.pl/moje_przepisy2/edytuj_przepis.php</string>
     <string name="url_wszystkie_przepisy">http://softpartner.pl/moje_przepisy/wszystkie_przepisy.php</string>
     <string name="url_user_przepisy">http://softpartner.pl/moje_przepisy/user_przepisy.php</string>
     <string name="url_najwyzej_oceniane">http://softpartner.pl/moje_przepisy/najwyzej_oceniane.php</string>
@@ -60,9 +60,10 @@
     <string name="url_aktywuj_konto">http://softpartner.pl/moje_przepisy/aktywuj_konto.php</string>
     <string name="url_szukaj_przepis">http://softpartner.pl/moje_przepisy/szukaj_przepis.php</string>
     <string name="url_ulubione">http://softpartner.pl/moje_przepisy/ulubione.php</string>
-    <string name="url_ulubione_online">http://softpartner.pl/moje_przepisy/WyswietlUlubioneOnline.php</string>
+    <string name="url_pobierzUlubione">http://softpartner.pl/moje_przepisy2/pobierzUlubione.php</string>
     <string name="url_ile_przepisow">http://softpartner.pl/moje_przepisy/ile_przepisow.php</string>
     <string name="url_ile_przepisow_user">http://softpartner.pl/moje_przepisy/ile_przepisow_user.php</string>
+    <string name="url_moje_przepisy">http://softpartner.pl/moje_przepisy/user_przepisy.php</string>
     <string name="zaloguj_sie">Zaloguj się</string>
     <string name="wybierz_kategorie">Wybierz kategorie</string>
     <string name="dodaj_przepis">Dodaj przepis</string>
@@ -75,5 +76,8 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="ulubione">Ulubione</string>
+    <string name="moje_przepisy">Moje przepisy</string>
+    <string name="pseudonim_short">Pseudonim</string>
+    <string name="title_activity_ulubione">MainActivity</string>
 
 </resources>

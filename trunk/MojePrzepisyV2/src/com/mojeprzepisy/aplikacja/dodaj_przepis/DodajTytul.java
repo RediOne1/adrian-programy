@@ -68,6 +68,6 @@ public class DodajTytul extends DodajPrzepisActivity implements OnClickListener 
 	}
 	@Override
 	public String toString(){
-		return tytul;
+		return tytul_tv.getText().toString();
 	}
 }

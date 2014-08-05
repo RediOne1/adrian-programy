@@ -20,15 +20,30 @@
 
     </LinearLayout>
 
-    <Button
+    <LinearLayout
         android:id="@+id/dodaj_skladnik_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/skladniki_linearLayout"
-        android:background="@drawable/button_indicator"
-        android:text="@string/dodaj_skladnik"
-        android:drawableLeft="@android:drawable/ic_input_add"
-        android:textSize="20dp" />
+        android:layout_marginLeft="2dp"
+        android:background="@drawable/shadow_effect" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_input_add" />
+
+        <TextView
+            android:id="@+id/drawer_user_pseudonim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="2dp"
+            android:text="@string/dodaj_skladnik"
+            android:textSize="20dp" />
+
+    </LinearLayout>
 
 </RelativeLayout>

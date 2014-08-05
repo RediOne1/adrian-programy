@@ -10,7 +10,9 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +44,9 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 	public Activity root;
 	private int success;
 	private ProgressDialog pDialog;
+	private String dodajPrzepisURL;
+	private String edytujPrzepisURL;
+	public DodajNowyPrzepis dodajPrzepis;
 	private Przepis przepis;
 	private boolean edytuj = false;
 
@@ -49,7 +54,11 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dodaj_przepis_layout);
+		dodajPrzepisURL = getResources().getString(R.string.url_dodaj_przepis);
+		edytujPrzepisURL = getResources()
+				.getString(R.string.url_edytuj_przepis);
 		root = DodajPrzepisActivity.this;
+		dodajPrzepis = new DodajNowyPrzepis();
 		przepis = new Przepis();
 		Bundle bundle = getIntent().getExtras();
 		if (bundle.getBoolean("edytuj", false)) {
@@ -94,7 +103,7 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if (v == wyslij) {
-			new DodajNowyPrzepis().execute();
+			dodajPrzepis.execute();
 		}
 	}
 
@@ -113,6 +122,12 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 				pDialog.setMessage("Dodawanie przepisu...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
+			pDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					dodajPrzepis.cancel(true);
+				}
+			});
 			pDialog.show();
 		}
 
@@ -125,8 +140,9 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("edytuj", "" + edytuj));
 			params.add(new BasicNameValuePair("autorID", "" + user_id));
-			if(edytuj)
-				params.add(new BasicNameValuePair("przepisID", ""+przepis.przepisID));
+			if (edytuj)
+				params.add(new BasicNameValuePair("przepisID", ""
+						+ przepis.przepisID));
 			else
 				params.add(new BasicNameValuePair("przepisID", "-1"));
 			params.add(new BasicNameValuePair("tytul", dodajTytul.toString()));
@@ -141,12 +157,11 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 			params.add(new BasicNameValuePair("opis", dodajOpis.toString()));
 			params.add(new BasicNameValuePair("publiczny", ""
 					+ (dodatkoweDane.widoczny.isChecked() ? 1 : 0)));
+			Log.d("DEBUG_TAG", params.toString());
 			// getting JSON string from URL
 			try {
-				JSONObject json = jParser
-						.makeHttpRequest(
-								"http://softpartner.pl/moje_przepisy2/dodaj_przepis.php",
-								"POST", params);
+				JSONObject json = jParser.makeHttpRequest(dodajPrzepisURL,
+						"POST", params);
 				// Check your log cat for JSON reponse
 
 				// Checking for SUCCESS TAG
@@ -157,9 +172,11 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 
 					WyslijZdjecie wyslij = new WyslijZdjecie(
 							dodajZdjecie.getBitmap(), "" + przepis.przepisID);
-					params.add(new BasicNameValuePair("zdjecie", ""
-							+ przepis.przepisID));
+					// params.add(new BasicNameValuePair("zdjecie", "" +
+					// przepis.przepisID));
 					wyslij.executeMultipartPost();
+					while (!wyslij.gotowe) {
+					}
 				} else {
 				}
 				komunikat = json.getString("message");

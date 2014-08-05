@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import com.mojeprzepisy.aplikacja.narzedzia.EndlessScrollListener;
 import com.mojeprzepisy.aplikacja.narzedzia.MyOnItemClickListener;
 import com.mojeprzepisy.aplikacja.narzedzia.TopListZapytanie;
 
@@ -25,7 +27,7 @@ public class OstatnioDodane extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		lv = getListView();
-		new TopListZapytanie(getActivity(), lv).wykonaj("http://softpartner.pl/moje_przepisy2/ostatnio_dodane.php");
+		lv.setOnScrollListener(new EndlessScrollListener(getActivity(),lv,"http://softpartner.pl/moje_przepisy2/ostatnio_dodane.php"));
 		lv.setOnItemClickListener(new MyOnItemClickListener(getActivity().getApplicationContext()));
 	}
 }

@@ -22,6 +22,7 @@ public class MemoryCache {
     }
   
     public void remove(String url){
+    	if(cache.containsKey(url))
     	cache.remove(url);
     }
     public void clear() {

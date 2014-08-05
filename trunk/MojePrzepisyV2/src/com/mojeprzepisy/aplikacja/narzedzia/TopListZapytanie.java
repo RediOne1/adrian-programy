@@ -56,12 +56,12 @@ public class TopListZapytanie {
 		protected String doInBackground(String... args) {
 			// Building Parameters
 			String URL = args[0];
-			// String minLimit = args[1];
-			// String ilePrzepisow = args[2];
+			String minLimit = args[1];
+			String ilePrzepisow = args[2];
 
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("minLimit", 0 + ""));
-			params.add(new BasicNameValuePair("ilePrzepisow", 100 + ""));
+			params.add(new BasicNameValuePair("minLimit", minLimit));
+			params.add(new BasicNameValuePair("ilePrzepisow", ilePrzepisow));
 			// getting JSON string from URL
 			try {
 				JSONObject json = jParser.makeHttpRequest(URL, "POST", params);
@@ -96,9 +96,6 @@ public class TopListZapytanie {
 						wszystkiePrzepisy.add(new Przepis(autorID, przepisID,
 								tytul, kategoria, ocena, ilosc_ocen, trudnosc,
 								czas, StrZdjecie, skladniki, opis));
-						//adapter.notifyDataSetChanged();
-						
-						publishProgress();
 					}
 				} else {
 					// no products found
@@ -111,8 +108,14 @@ public class TopListZapytanie {
 					 */
 				}
 			} catch (Exception e) {
+		
 			}
 			return null;
+		}
+
+		@Override
+		protected void onCancelled() {
+			super.onCancelled();
 		}
 
 		/**
@@ -120,17 +123,9 @@ public class TopListZapytanie {
 		 * **/
 		@Override
 		protected void onPostExecute(String file_url) {
-			try{
-			lv.invalidateViews();
-			}catch(Exception e){
-			}
-		}
-
-		@Override
-		protected void onProgressUpdate(String... progress) {
-			try{
-			lv.invalidateViews();
-			}catch(Exception e){
+			try {
+				adapter.notifyDataSetChanged();
+			} catch (Exception e) {
 			}
 		}
 	}

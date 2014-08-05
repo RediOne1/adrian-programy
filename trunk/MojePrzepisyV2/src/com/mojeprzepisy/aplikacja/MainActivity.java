@@ -24,7 +24,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.mojeprzepisy.aplikacja.dodaj_przepis.DodajPrzepisActivity;
 import com.mojeprzepisy.aplikacja.narzedzia.DrawerClickListener;
+import com.mojeprzepisy.aplikacja.narzedzia.MojePrzepisy;
 import com.mojeprzepisy.aplikacja.narzedzia.Szukaj;
 
 public class MainActivity extends FragmentActivity implements OnClickListener,
@@ -48,6 +50,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	private Zaloguj logowanie;
 	private LinearLayout mDrawerLinear;
 	private ActionBarDrawerToggle mDrawerToggle;
+	public LinearLayout mPrzepisy, dodajPrzepis, ulubione;
 	public EditText login;
 	public EditText haslo;
 	public FrameLayout zaloguj;
@@ -64,6 +67,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		drawerListener = new DrawerClickListener(this);
 		logowanie = new Zaloguj(this, login, haslo);
 		zaloguj.setOnClickListener(this);
+		mPrzepisy = (LinearLayout) findViewById(R.id.drawer_moje_przepisy);
+		dodajPrzepis = (LinearLayout) findViewById(R.id.drawer_dodaj_przepis);
+		ulubione =(LinearLayout) findViewById(R.id.drawer_ulubione);
+		ulubione.setOnClickListener(this);
+		dodajPrzepis.setOnClickListener(this);
+		mPrzepisy.setOnClickListener(this);
 		lv = (ListView) findViewById(R.id.drawer_wybierz_kategorie);
 		lv.setOnItemClickListener(drawerListener);
 		new DrawerKategorie(this, lv);
@@ -253,6 +262,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	public void onClick(View v) {
 		if (v == zaloguj) {
 			logowanie.Zaloguj();
+		} else if (v == mPrzepisy) {
+			Intent i = new Intent(this, MojePrzepisy.class);
+			startActivity(i);
+		} else if (v == dodajPrzepis){
+			Intent i = new Intent(this, DodajPrzepisActivity.class);
+			i.putExtra("edytuj", false);
+			startActivity(i);
+		} else if (v == ulubione){
+			Intent i = new Intent(this, UlubioneActivity.class);
+			startActivity(i);
 		}
 
 	}

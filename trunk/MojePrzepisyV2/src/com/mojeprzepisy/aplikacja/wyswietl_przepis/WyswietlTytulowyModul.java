@@ -60,7 +60,9 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 		ilosc_ocen.setText("" + przepis.ilosc_ocen);
 		trudnosc.setText(przepis.trudnosc);
 		czas.setText(przepis.czas);
-		new ImageLoader(root).DisplayImage(przepis.zdjecie, zdjecie);
+		ImageLoader imageLoader = new ImageLoader(root);
+		imageLoader.memoryCache.remove(przepis.zdjecie);
+		imageLoader.DisplayImage(przepis.zdjecie, zdjecie);
 		tytul = (TextView) new MyTypeFace(tytul, root).MyBold();
 		kategoria = (TextView) new MyTypeFace(kategoria, root).MyNormal();
 		trudnosc = (TextView) new MyTypeFace(trudnosc, root).MyNormal();
@@ -151,7 +153,8 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 				czas.setText(args[3]);
 				kategoria.setText(args[4]);
 				zdjecieURL = args[5];
-				new ImageLoader(root).DisplayImage(args[5], zdjecie);
+				// new ImageLoader(root).remove(args[5]);
+				// new ImageLoader(root).DisplayImage(args[5], zdjecie);
 				tytul.setText(args[6]);
 			} catch (Exception e) {
 

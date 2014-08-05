@@ -65,6 +65,12 @@
         </activity>
         <activity android:name="com.mojeprzepisy.narzedzia.MyApp" >
         </activity>
+        <activity android:name="com.mojeprzepisy.aplikacja.narzedzia.MojePrzepisy" >
+        </activity>
+        <activity
+            android:name="com.mojeprzepisy.aplikacja.UlubioneActivity"
+            android:label="@string/title_activity_ulubione" >
+        </activity>
     </application>
 
 </manifest>

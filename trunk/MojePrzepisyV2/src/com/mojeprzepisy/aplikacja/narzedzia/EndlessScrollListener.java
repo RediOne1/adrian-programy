@@ -13,17 +13,17 @@ public class EndlessScrollListener implements OnScrollListener {
 	private int previousTotal = 0;
 	private int przepisow_na_strone = 10;
 	private boolean loading = false;
+	private TopListZapytanie zapytanie;
 	private Activity a;
 	private ListView lv;
-	private TopListZapytanie top_list_zapytanie;
 	String params[];
 
 	public EndlessScrollListener(Activity _a, ListView _lv, String adresURL) {
 		this.lv = _lv;
 		this.a = _a;
-		top_list_zapytanie = new TopListZapytanie(a, lv);
 		params = new String[3];
 		params[0] = adresURL;
+		zapytanie = new TopListZapytanie(a, lv);
 	}
 
 	public EndlessScrollListener(int visibleThreshold) {
@@ -33,7 +33,6 @@ public class EndlessScrollListener implements OnScrollListener {
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		Log.d("DEBUG_TAG","onScroll");
 		if (loading) {
 			if (totalItemCount > previousTotal) {
 				loading = false;
@@ -45,9 +44,13 @@ public class EndlessScrollListener implements OnScrollListener {
 				&& (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
 			// I load the next page of gigs using a background task,
 			// but you can call any function here.
+
 			params[1] = "" + (przepisow_na_strone * currentPage);
 			params[2] = "" + (przepisow_na_strone);
-			top_list_zapytanie.wykonaj(params);
+			Log.d("DEBUG_TAG", "Wczytaj przepisy "
+					+ (przepisow_na_strone * currentPage) + "-"
+					+ (przepisow_na_strone * currentPage + przepisow_na_strone));
+			zapytanie.wykonaj(params);
 			loading = true;
 		}
 	}

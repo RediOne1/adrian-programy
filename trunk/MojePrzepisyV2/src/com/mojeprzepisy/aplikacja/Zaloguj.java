@@ -10,12 +10,14 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.mojeprzepisy.aplikacja.narzedzia.AlertDialogManager;
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
@@ -33,6 +35,8 @@ public class Zaloguj implements OnClickListener {
 	private String url_logowanie;
 	private View login_layout;
 	private Button zaloguj_button;
+	public Logowanie logowanie;
+	String pseudonim = "";
 	MyApp app;
 
 	public Zaloguj(Activity _root, EditText _login, EditText _haslo) {
@@ -41,22 +45,21 @@ public class Zaloguj implements OnClickListener {
 		url_logowanie = root.getString(R.string.url_logowanie);
 		this.Login = _login;
 		this.Haslo = _haslo;
+		if(app.getData()!=-1)
+			zalogowany();
 
 	}
 
 	public void Zaloguj() {
-		new Logowanie().execute();
+		logowanie = new Logowanie();
+		logowanie.execute();
 	}
 
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.zaloguj_layout) {
-			if (login_layout.getVisibility() == View.GONE)
-				login_layout.setVisibility(View.VISIBLE);
-			else
-				login_layout.setVisibility(View.GONE);
-		} else if (v == zaloguj_button) {
-			new Logowanie().execute();
+		if (v == zaloguj_button) {
+			logowanie = new Logowanie();
+			logowanie.execute();
 		} else if (v.getId() == R.id.drawer_login_button) {
 		}
 
@@ -70,8 +73,12 @@ public class Zaloguj implements OnClickListener {
 			pDialog.setMessage("Trwa logowanie, proszę czekać...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
+			pDialog.setOnCancelListener(new OnCancelListener(){
+	             @Override
+	             public void onCancel(DialogInterface dialog){
+	                logowanie.cancel(true);
+	          }});
 			pDialog.show();
-
 		}
 
 		protected String doInBackground(String... args) {
@@ -93,7 +100,7 @@ public class Zaloguj implements OnClickListener {
 
 					for (int i = 0; i < products.length(); i++) {
 						JSONObject c = products.getJSONObject(i);
-						String pseudonim = c.getString("pseudonim");
+						pseudonim = c.getString("pseudonim");
 						int aktywny = c.getInt("aktywny");
 						if (aktywny == 1) {
 							user_id = c.getInt("id");
@@ -121,19 +128,25 @@ public class Zaloguj implements OnClickListener {
 		@Override
 		protected void onProgressUpdate(String... progress) {
 			app.setData(user_id);
+			app.setPseudonim(pseudonim);
 			zalogowany();
 		}
 	}
 
 	public void zalogowany() {
-		root.findViewById(R.id.drawer_zalogujsie_textview).setVisibility(View.GONE);
+		root.findViewById(R.id.drawer_zalogujsie_textview).setVisibility(
+				View.GONE);
 		root.findViewById(R.id.drawer_login_module).setVisibility(View.GONE);
-		root.findViewById(R.id.zaloguj_layout).setVisibility(View.GONE);
-		root.findViewById(R.id.drawer_zalogujsie_textview).setVisibility(View.GONE);
 		root.findViewById(R.id.drawer_stworz_konto).setVisibility(View.GONE);
-		root.findViewById(R.id.dodaj_przepis_linearLayout).setVisibility(
+		root.findViewById(R.id.drawer_user_pseudonim).setVisibility(
 				View.VISIBLE);
-		root.findViewById(R.id.rejestracja_layout).setVisibility(View.GONE);
-		root.findViewById(R.id.wyloguj_layout).setVisibility(View.VISIBLE);
+		root.findViewById(R.id.drawer_moje_przepisy)
+				.setVisibility(View.VISIBLE);
+		root.findViewById(R.id.drawer_logout_button)
+				.setVisibility(View.VISIBLE);
+		root.findViewById(R.id.drawer_dodaj_przepis)
+				.setVisibility(View.VISIBLE);
+		((TextView) (root.findViewById(R.id.drawer_user_pseudonim)))
+				.setText(app.getPseudonim());
 	}
 }
