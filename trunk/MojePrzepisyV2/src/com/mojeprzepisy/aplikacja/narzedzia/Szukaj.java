@@ -59,7 +59,6 @@ public class Szukaj extends ListActivity {
 		user_id = bundle.getInt("user_id");
 		szukaj = (EditText) findViewById(R.id.wyszukiwarka);
 		szukajButton = (Button) findViewById(R.id.szukaj_button);
-		szukajButton = (Button) new MyTypeFace(szukajButton,Szukaj.this).MyBold();
 		szukajButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				tag = szukaj.getText().toString();

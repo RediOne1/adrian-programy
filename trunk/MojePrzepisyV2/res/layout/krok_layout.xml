@@ -26,7 +26,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/krok_tittle_delete"
                 android:text="@string/krok"
-                android:textSize="25dp" />
+                android:textSize="22sp" />
 
             <EditText
                 android:id="@+id/krok_tittle_edittext"
@@ -70,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/krok_tittle"
             android:layout_margin="5dp"
+                android:textSize="18sp"
             android:text="" />
 
     </RelativeLayout>

@@ -33,7 +33,6 @@ public class Zaloguj implements OnClickListener {
 	private String komunikat;
 	private final String TAG_SUCCESS = "success";
 	private String url_logowanie;
-	private View login_layout;
 	private Button zaloguj_button;
 	public Logowanie logowanie;
 	String pseudonim = "";
@@ -50,9 +49,26 @@ public class Zaloguj implements OnClickListener {
 
 	}
 
-	public void Zaloguj() {
+	public void zaloguj() {
 		logowanie = new Logowanie();
 		logowanie.execute();
+	}
+	
+	public void wyloguj(){
+		app.setData(-1);
+		root.findViewById(R.id.drawer_zalogujsie_textview).setVisibility(
+				View.VISIBLE);
+		root.findViewById(R.id.drawer_login_module).setVisibility(View.VISIBLE);
+		root.findViewById(R.id.drawer_stworz_konto).setVisibility(View.VISIBLE);
+		root.findViewById(R.id.drawer_user_pseudonim).setVisibility(
+				View.GONE);
+		root.findViewById(R.id.drawer_moje_przepisy)
+				.setVisibility(View.GONE);
+		root.findViewById(R.id.drawer_logout_button)
+				.setVisibility(View.GONE);
+		root.findViewById(R.id.drawer_dodaj_przepis)
+				.setVisibility(View.GONE);
+		
 	}
 
 	@Override

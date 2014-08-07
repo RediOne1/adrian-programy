@@ -40,7 +40,7 @@ public class WyslijZdjecie {
 
 	}
 
-	public void executeMultipartPost() throws Exception {
+	public void executeMultipartPost() {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
@@ -60,20 +60,13 @@ public class WyslijZdjecie {
 					// reqEntity.addPart("podpis", new StringBody("sfsdfsdf"));
 					postRequest.setEntity(reqEntity);
 					HttpResponse response = httpClient.execute(postRequest);
-					BufferedReader reader = new BufferedReader(
-							new InputStreamReader(response.getEntity()
-									.getContent(), "UTF-8"));
-					String sResponse;
-					StringBuilder s = new StringBuilder();
-					gotowe = true;
-					while ((sResponse = reader.readLine()) != null) {
-						s = s.append(sResponse);
-					}
 				} catch (Exception e) {
 					// handle exception here
+					gotowe = true;
 					Log.e("Wyslij zdjecie", "" + e);
 					Log.e("Wyslij zdjecie", "" + e.getMessage());
 				}
+				gotowe = true;
 			}
 		}).start();
 	}

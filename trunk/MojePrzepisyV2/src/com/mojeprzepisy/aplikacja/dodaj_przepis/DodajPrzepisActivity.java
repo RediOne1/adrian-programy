@@ -5,14 +5,13 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +22,9 @@ import android.widget.Button;
 
 import com.mojeprzepisy.aplikacja.Przepis;
 import com.mojeprzepisy.aplikacja.R;
+import com.mojeprzepisy.aplikacja.narzedzia.ImageLoader;
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
+import com.mojeprzepisy.aplikacja.narzedzia.MyApp;
 import com.mojeprzepisy.aplikacja.narzedzia.WyslijZdjecie;
 import com.mojeprzepisy.aplikacja.wyswietl_przepis.WyswietlPrzepis;
 
@@ -36,7 +37,6 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 	public DodajSkladniki dodajSkladniki;
 	public DodajOpis dodajOpis;
 	private JSONParser jParser = new JSONParser();
-	private JSONArray dane = null;
 	public DodajDodatkoweDane dodatkoweDane;
 	public Button wyslij;
 	public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
@@ -45,7 +45,6 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 	private int success;
 	private ProgressDialog pDialog;
 	private String dodajPrzepisURL;
-	private String edytujPrzepisURL;
 	public DodajNowyPrzepis dodajPrzepis;
 	private Przepis przepis;
 	private boolean edytuj = false;
@@ -55,11 +54,10 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dodaj_przepis_layout);
 		dodajPrzepisURL = getResources().getString(R.string.url_dodaj_przepis);
-		edytujPrzepisURL = getResources()
-				.getString(R.string.url_edytuj_przepis);
 		root = DodajPrzepisActivity.this;
 		dodajPrzepis = new DodajNowyPrzepis();
 		przepis = new Przepis();
+		// this.recreate();
 		Bundle bundle = getIntent().getExtras();
 		if (bundle.getBoolean("edytuj", false)) {
 			przepis = (Przepis) getIntent().getSerializableExtra("przepis");
@@ -98,6 +96,8 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		dodajZdjecie.dodajPrzepisActivityResult(requestCode, resultCode, data);
+		Log.d("DEBUG_TAG", przepis.zdjecie);
+		new ImageLoader(root).remove(przepis.zdjecie);
 	}
 
 	@Override
@@ -169,13 +169,16 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 
 				if (success == 1) {
 					przepis.przepisID = json.getInt("przepisID");
+					if (dodajZdjecie.getBitmap() != null) {
+						WyslijZdjecie wyslij = new WyslijZdjecie(
+								dodajZdjecie.getBitmap(), ""
+										+ przepis.przepisID);
+						// params.add(new BasicNameValuePair("zdjecie", "" +
+						// przepis.przepisID));
 
-					WyslijZdjecie wyslij = new WyslijZdjecie(
-							dodajZdjecie.getBitmap(), "" + przepis.przepisID);
-					// params.add(new BasicNameValuePair("zdjecie", "" +
-					// przepis.przepisID));
-					wyslij.executeMultipartPost();
-					while (!wyslij.gotowe) {
+						wyslij.executeMultipartPost();
+						while (!wyslij.gotowe) {
+						}
 					}
 				} else {
 				}
@@ -197,7 +200,9 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 			Intent i = new Intent(root, WyswietlPrzepis.class);
 			i.putExtra("przepis", przepis);
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			finish();
+			MyApp app = (MyApp) root.getApplicationContext();
+			app.reloadActivity();
+			root.finish();
 			root.startActivity(i);
 		}
 

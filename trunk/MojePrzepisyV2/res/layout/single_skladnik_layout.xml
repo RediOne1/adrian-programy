@@ -12,7 +12,7 @@
         android:layout_marginLeft="5dp"
         android:layout_toLeftOf="@+id/skladnik_usun_button"
         android:text="@string/dotknij_aby_edytowac"
-        android:textSize="15dp" />
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/skladnik_usun_button"

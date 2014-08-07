@@ -43,7 +43,7 @@ public class DodajOpis extends DodajPrzepisActivity implements OnClickListener {
 				continue;
 			String temp2[] = kroki_tab[i].split(";opis;");
 			if (temp2.length == 1)
-				krok = new Krok("Krok " + (i + 1), temp2[0], root,
+				krok = new Krok("Opis", temp2[0], root,
 						linearLayout, DodajOpis.this);
 			else
 				krok = new Krok(temp2[0], temp2[1], root, linearLayout,

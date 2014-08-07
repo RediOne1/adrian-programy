@@ -162,6 +162,8 @@ public class OcenPrzepis extends WyswietlPrzepis {
 		@Override
 		protected void onPostExecute(String file_url) {
 			ocen_ratingbar.setRating(ocena);
+			MyApp app = (MyApp) root.getApplicationContext();
+			app.reloadActivity();
 			wyswietlPrzepis.wyswietlTytulowyModul.odswiez();
 		}
 	}

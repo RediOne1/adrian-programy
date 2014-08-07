@@ -35,7 +35,7 @@
                 android:gravity="center"
                 android:text=""
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -56,21 +56,24 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ratingbar_maly_layout"
                 android:text=""
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/ilosc_ocen_maly_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/ratingbar_maly_layout"
-                android:text="0" />
+                android:text="0"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/trudnosc_maly_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="" />
+                android:text=""
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/czas_maly_layout"
@@ -78,7 +81,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/trudnosc_maly_layout"
-                android:text="" />
+                android:text=""
+                android:textSize="15sp" />
 
             <ProgressBar
                 android:id="@+id/przepis_tytulowy_modul_progressbar"

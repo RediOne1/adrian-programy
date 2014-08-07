@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.mojeprzepisy.aplikacja.narzedzia.EndlessScrollListener;
+import com.mojeprzepisy.aplikacja.narzedzia.MyApp;
 import com.mojeprzepisy.aplikacja.narzedzia.MyOnItemClickListener;
 
 public class NajwyzejOceniane extends ListFragment {
@@ -21,12 +22,27 @@ public class NajwyzejOceniane extends ListFragment {
 	}
 
 	ListView lv;
+	MyApp app;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		app = (MyApp) getActivity().getApplicationContext();
+		app.no = this;
+		loadActivity();
+	}
+
+	@Override
+	public void onDestroyView() {
+		app.no=null;
+		super.onDestroyView();
+	}
+
+	public void loadActivity() {
 		lv = getListView();
-		lv.setOnScrollListener(new EndlessScrollListener(getActivity(),lv,"http://softpartner.pl/moje_przepisy2/najwyzej_oceniane.php"));
-		lv.setOnItemClickListener(new MyOnItemClickListener(getActivity().getApplicationContext()));
+		lv.setOnScrollListener(new EndlessScrollListener(getActivity(), lv,
+				"http://softpartner.pl/moje_przepisy2/najwyzej_oceniane.php"));
+		lv.setOnItemClickListener(new MyOnItemClickListener(getActivity()
+				.getApplicationContext()));
 	}
 }

@@ -122,7 +122,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/inMail"
-                android:background="@drawable/button_indicator"
+                android:background="@drawable/shadow_effect"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="@string/StworzButton" />
 
             <TextView
@@ -139,7 +141,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/stworz"
                 android:layout_toRightOf="@+id/textView6"
-                android:background="@drawable/button_indicator"
+                android:background="@drawable/shadow_effect"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="@string/wyczysc" />
         </RelativeLayout>
     </ScrollView>

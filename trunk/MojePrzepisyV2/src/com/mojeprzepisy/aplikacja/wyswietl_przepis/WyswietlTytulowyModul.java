@@ -32,7 +32,6 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 	private final String URL = "http://softpartner.pl/moje_przepisy2/wyswietl_tytulowy_modul.php";
 	private Przepis przepis;
 	private ImageView zdjecie;
-	private String zdjecieURL = "";
 	private TextView tytul;
 	private Activity root;
 	private ProgressBar progress;
@@ -54,19 +53,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 		czas = (TextView) root.findViewById(R.id.czas_maly_layout);
 		progress = (ProgressBar) root
 				.findViewById(R.id.przepis_tytulowy_modul_progressbar);
-		tytul.setText(przepis.tytul);
-		kategoria.setText(przepis.kategoria);
-		ocena.setRating(przepis.ocena);
-		ilosc_ocen.setText("" + przepis.ilosc_ocen);
-		trudnosc.setText(przepis.trudnosc);
-		czas.setText(przepis.czas);
-		ImageLoader imageLoader = new ImageLoader(root);
-		imageLoader.memoryCache.remove(przepis.zdjecie);
-		imageLoader.DisplayImage(przepis.zdjecie, zdjecie);
 		tytul = (TextView) new MyTypeFace(tytul, root).MyBold();
-		kategoria = (TextView) new MyTypeFace(kategoria, root).MyNormal();
-		trudnosc = (TextView) new MyTypeFace(trudnosc, root).MyNormal();
-		czas = (TextView) new MyTypeFace(czas, root).MyNormal();
 		odswiez();
 	}
 
@@ -75,7 +62,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 	}
 
 	public String getImage() {
-		return zdjecieURL;
+		return przepis.zdjecie;
 	}
 
 	public String getTytul() {
@@ -121,15 +108,14 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 					// looping through All Products
 					for (int i = 0; i < dane.length(); i++) {
 						JSONObject c = dane.getJSONObject(i);
-						String ocena = c.getString("ocena");
-						String ilosc_ocen = c.getString("ilosc_ocen");
-						String trudnosc = c.getString("trudnosc");
-						String czas = c.getString("czas");
-						String kategoria = c.getString("kategoria");
-						String zdjecie = c.getString("zdjecie");
-						String tytul = c.getString("tytul");
-						publishProgress(ocena, ilosc_ocen, trudnosc, czas,
-								kategoria, zdjecie, tytul);
+						przepis.ocena = Float.parseFloat(c.getString("ocena"));
+						przepis.ilosc_ocen = Integer.parseInt(c
+								.getString("ilosc_ocen"));
+						przepis.trudnosc = c.getString("trudnosc");
+						przepis.czas = c.getString("czas");
+						przepis.kategoria = c.getString("kategoria");
+						przepis.zdjecie = c.getString("zdjecie");
+						przepis.tytul = c.getString("tytul");
 					}
 				} else {
 				}
@@ -141,24 +127,14 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 
 		@Override
 		protected void onPostExecute(String file_url) {
+			tytul.setText(przepis.tytul);
+			kategoria.setText(przepis.kategoria);
+			ocena.setRating(przepis.ocena);
+			ilosc_ocen.setText("" + przepis.ilosc_ocen);
+			trudnosc.setText(przepis.trudnosc);
+			czas.setText(przepis.czas);
+			new ImageLoader(root).DisplayImage(przepis.zdjecie, zdjecie);
 			progress.setVisibility(View.GONE);
-		}
-
-		@Override
-		protected void onProgressUpdate(String... args) {
-			try {
-				ocena.setRating(Float.parseFloat(args[0]));
-				ilosc_ocen.setText("" + Integer.parseInt(args[1]));
-				trudnosc.setText(args[2]);
-				czas.setText(args[3]);
-				kategoria.setText(args[4]);
-				zdjecieURL = args[5];
-				// new ImageLoader(root).remove(args[5]);
-				// new ImageLoader(root).DisplayImage(args[5], zdjecie);
-				tytul.setText(args[6]);
-			} catch (Exception e) {
-
-			}
 
 		}
 	}

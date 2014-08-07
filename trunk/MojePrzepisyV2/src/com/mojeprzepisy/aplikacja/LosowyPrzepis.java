@@ -62,8 +62,7 @@ public class LosowyPrzepis implements OnClickListener{
 							przepis = new Przepis(autorID, przepisID, null,	null, null, null, null, null, null, null,null);
 							mHandler.post(new Runnable() {
 								public void run() {
-									new WyswietlTytulowyModul(root, przepis)
-											.odswiez();
+									new WyswietlTytulowyModul(root, przepis);
 									include.setTag(przepis);
 								}
 							});
