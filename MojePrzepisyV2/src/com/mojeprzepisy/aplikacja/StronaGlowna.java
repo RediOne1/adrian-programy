@@ -35,11 +35,23 @@ public class StronaGlowna extends Fragment implements OnClickListener {
 		this.root = rootView;
 		return rootView;
 	}
-
+private MyApp app;
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		LosowyPrzepis losowyPrzepis = new LosowyPrzepis(getActivity());
+		app = (MyApp) getActivity().getApplicationContext();
+		app.sg = this;
+		loadActivity();
+	}
+
+	@Override
+	public void onDestroyView() {
+		app.sg=null;
+		super.onDestroyView();
+	}
+
+	public void loadActivity() {
+		new LosowyPrzepis(getActivity());
 	}
 
 	@Override

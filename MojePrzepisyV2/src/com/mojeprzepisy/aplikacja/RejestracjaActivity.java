@@ -71,8 +71,6 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 		url_rejestracja = getString(R.string.url_rejestracja);
 		url_logowanie = getString(R.string.url_logowanie);
 		url_aktywuj_konto = getString(R.string.url_aktywuj_konto);
-		Typeface MyNormal = Typeface.createFromAsset(getBaseContext()
-				.getAssets(), "fonts/SEGOEPR.TTF");
 		Typeface MyBold = Typeface.createFromAsset(
 				getBaseContext().getAssets(), "fonts/SEGOEPRB.TTF");
 		ustawienia = getSharedPreferences("MyCustomSharedPreferences", 0);
@@ -114,10 +112,7 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 					int count) {
 			}
 		});
-		zgodnosc.setTypeface(MyNormal);
 		stworz_konto_text = (TextView) findViewById(R.id.stworz_konto_text);
-		wyczysc.setTypeface(MyBold);
-		stworz.setTypeface(MyBold);
 		stworz_konto_text.setTypeface(MyBold);
 	}
 

@@ -59,8 +59,6 @@ public class Skladnik extends DodajSkladniki implements OnClickListener {
 		if(nazwa!=null)
 			nazwa_textview.setText(nazwa);
 		usun.setOnClickListener(this);
-		nazwa_textview = (TextView) new MyTypeFace(nazwa_textview, root)
-				.MyNormal();
 		nazwa_edittext.setVisibility(View.GONE);
 		zapisz.setVisibility(View.GONE);
 		return v;
@@ -77,8 +75,6 @@ public class Skladnik extends DodajSkladniki implements OnClickListener {
 		nazwa_edittext = (EditText) v
 				.findViewById(R.id.single_skladnik_edittext);
 		zapisz = (ImageView) v.findViewById(R.id.single_skladnik_save);
-		nazwa_textview = (TextView) new MyTypeFace(nazwa_textview, _root)
-				.MyNormal();
 		nazwa_textview.setText("- "+nazwa);
 		nazwa_edittext.setVisibility(View.GONE);
 		zapisz.setVisibility(View.GONE);

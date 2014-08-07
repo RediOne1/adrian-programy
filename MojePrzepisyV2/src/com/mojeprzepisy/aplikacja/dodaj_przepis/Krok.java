@@ -73,8 +73,7 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 		opis_et.addTextChangedListener(this);
 		zapisz.setVisibility(View.GONE);
 		tittle_et.setVisibility(View.GONE);
-		tytul = root.getResources().getString(R.string.krok) + " "
-				+ dodajO.kroki.size();
+		tytul = root.getResources().getString(R.string.dotknij_aby_edytowac);
 		tittle_tv.setText(tytul);
 		return v;
 	}
@@ -90,8 +89,6 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 		opis_tv = (TextView) v.findViewById(R.id.krok_opis_textview);
 		usun = (ImageView) v.findViewById(R.id.krok_tittle_delete);
 		zapisz = (ImageView) v.findViewById(R.id.krok_tittle_save);
-		tittle_tv = (TextView) new MyTypeFace(tittle_tv, _root).MyNormal();
-		opis_tv = (TextView) new MyTypeFace(opis_tv, _root).MyNormal();
 		zapisz.setVisibility(View.GONE);
 		tittle_et.setVisibility(View.GONE);
 		usun.setVisibility(View.GONE);

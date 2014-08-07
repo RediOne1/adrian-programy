@@ -25,7 +25,7 @@
     <string name="czas">Czas</string>
     <string name="dodatkowe_dane">Dodatkowe dane:</string>
     <string name="krok">Krok</string>
-    <string name="nastepny_krok">Dodaj krok</string>
+    <string name="nastepny_krok">Dodaj element</string>
     <string name="opis">Opis:</string>
     <string name="wyslij_przepis">Wyślij przepis</string>
     <string name="title_activity_wyswietl_przepis">Moje Przepisy</string>
@@ -53,7 +53,7 @@
     <string name="url_najwyzej_oceniane">http://softpartner.pl/moje_przepisy/najwyzej_oceniane.php</string>
     <string name="url_ostatnio_dodane">http://softpartner.pl/moje_przepisy/ostatnio_dodane.php</string>
     <string name="url_przepis">http://softpartner.pl/moje_przepisy/przepis.php</string>
-    <string name="url_usun_przepis">http://softpartner.pl/moje_przepisy/usun_przepis.php</string>
+    <string name="url_usun_przepis">http://softpartner.pl/moje_przepisy2/usun_przepis.php</string>
     <string name="url_ocen">http://softpartner.pl/moje_przepisy/ocen.php</string>
     <string name="url_rejestracja">http://softpartner.pl/moje_przepisy/rejestracja.php</string>
     <string name="url_logowanie">http://softpartner.pl/moje_przepisy/logowanie.php</string>
@@ -61,9 +61,11 @@
     <string name="url_szukaj_przepis">http://softpartner.pl/moje_przepisy/szukaj_przepis.php</string>
     <string name="url_ulubione">http://softpartner.pl/moje_przepisy/ulubione.php</string>
     <string name="url_pobierzUlubione">http://softpartner.pl/moje_przepisy2/pobierzUlubione.php</string>
-    <string name="url_ile_przepisow">http://softpartner.pl/moje_przepisy/ile_przepisow.php</string>
+    <string name="url_pobierz_przepis">http://softpartner.pl/moje_przepisy2/pobierzPrzepis.php</string>
+    <string name="url_ile_przepisow">http://softpartner.pl/moje_przepisy2/ile_przepisow.php</string>
     <string name="url_ile_przepisow_user">http://softpartner.pl/moje_przepisy/ile_przepisow_user.php</string>
     <string name="url_moje_przepisy">http://softpartner.pl/moje_przepisy/user_przepisy.php</string>
+    <string name="url_czyUlubiony">http://softpartner.pl/moje_przepisy2/url_czyUlubiony.php</string>
     <string name="zaloguj_sie">Zaloguj się</string>
     <string name="wybierz_kategorie">Wybierz kategorie</string>
     <string name="dodaj_przepis">Dodaj przepis</string>

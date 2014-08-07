@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 public class EndlessScrollListener implements OnScrollListener {
 
-	private int visibleThreshold = 1;
+	private int visibleThreshold = 3;
 	private int currentPage = 0;
 	private int previousTotal = 0;
 	private int przepisow_na_strone = 10;

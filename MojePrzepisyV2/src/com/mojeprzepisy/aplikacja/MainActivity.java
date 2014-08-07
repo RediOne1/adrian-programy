@@ -50,10 +50,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	private Zaloguj logowanie;
 	private LinearLayout mDrawerLinear;
 	private ActionBarDrawerToggle mDrawerToggle;
-	public LinearLayout mPrzepisy, dodajPrzepis, ulubione;
+	public LinearLayout mPrzepisy, dodajPrzepis, ulubione, stworzKonto;
 	public EditText login;
 	public EditText haslo;
-	public FrameLayout zaloguj;
+	public FrameLayout zaloguj, wyloguj;
 	public ListView lv;
 	public DrawerClickListener drawerListener;
 
@@ -64,12 +64,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		login = (EditText) findViewById(R.id.drawer_login);
 		haslo = (EditText) findViewById(R.id.drawer_haslo);
 		zaloguj = (FrameLayout) findViewById(R.id.drawer_login_button);
+		wyloguj = (FrameLayout) findViewById(R.id.drawer_logout_button);
 		drawerListener = new DrawerClickListener(this);
 		logowanie = new Zaloguj(this, login, haslo);
 		zaloguj.setOnClickListener(this);
+		wyloguj.setOnClickListener(this);
 		mPrzepisy = (LinearLayout) findViewById(R.id.drawer_moje_przepisy);
 		dodajPrzepis = (LinearLayout) findViewById(R.id.drawer_dodaj_przepis);
-		ulubione =(LinearLayout) findViewById(R.id.drawer_ulubione);
+		ulubione = (LinearLayout) findViewById(R.id.drawer_ulubione);
+		stworzKonto = (LinearLayout) findViewById(R.id.drawer_stworz_konto);
+		stworzKonto.setOnClickListener(this);
 		ulubione.setOnClickListener(this);
 		dodajPrzepis.setOnClickListener(this);
 		mPrzepisy.setOnClickListener(this);
@@ -261,18 +265,24 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 		if (v == zaloguj) {
-			logowanie.Zaloguj();
+			logowanie.zaloguj();
+		} else if (v == wyloguj) {
+			logowanie.wyloguj();
 		} else if (v == mPrzepisy) {
 			Intent i = new Intent(this, MojePrzepisy.class);
 			startActivity(i);
-		} else if (v == dodajPrzepis){
+		} else if (v == dodajPrzepis) {
 			Intent i = new Intent(this, DodajPrzepisActivity.class);
 			i.putExtra("edytuj", false);
 			startActivity(i);
-		} else if (v == ulubione){
+		} else if (v == ulubione) {
 			Intent i = new Intent(this, UlubioneActivity.class);
 			startActivity(i);
+		} else if (v == stworzKonto) {
+			Intent i = new Intent(this, RejestracjaActivity.class);
+			startActivity(i);
 		}
+		mDrawerLayout.closeDrawer(mDrawerLinear);
 
 	}
 

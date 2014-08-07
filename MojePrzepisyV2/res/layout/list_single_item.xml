@@ -71,7 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/single_item_kategoria"
             android:layout_toRightOf="@id/single_item_image"
-            android:numStars="6" />
+            android:numStars="5"
+            android:stepSize="0.25" />
 
         <TextView
             android:id="@+id/single_item_ocena"
