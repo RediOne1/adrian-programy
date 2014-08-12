@@ -29,7 +29,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 	JSONParser jParser = new JSONParser();
 	public JSONArray dane = null;
 
-	private final String URL = "http://softpartner.pl/moje_przepisy2/wyswietl_tytulowy_modul.php";
+	private final String url_wyswietl_tytulowy_modul;
 	private Przepis przepis;
 	private ImageView zdjecie;
 	private TextView tytul;
@@ -53,6 +53,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 		czas = (TextView) root.findViewById(R.id.czas_maly_layout);
 		progress = (ProgressBar) root
 				.findViewById(R.id.przepis_tytulowy_modul_progressbar);
+		url_wyswietl_tytulowy_modul = root.getResources().getString(R.string.url_wyswietl_tytulowy_modul);
 		tytul = (TextView) new MyTypeFace(tytul, root).MyBold();
 		odswiez();
 	}
@@ -95,7 +96,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 					+ przepis.przepisID));
 			// getting JSON string from URL
 			try {
-				JSONObject json = jParser.makeHttpRequest(URL, "POST", params);
+				JSONObject json = jParser.makeHttpRequest(url_wyswietl_tytulowy_modul, "POST", params);
 
 				// Check your log cat for JSON reponse
 

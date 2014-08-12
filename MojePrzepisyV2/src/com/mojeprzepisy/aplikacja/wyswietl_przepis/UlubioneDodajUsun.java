@@ -93,7 +93,7 @@ public class UlubioneDodajUsun {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			pDialog = new ProgressDialog(root);
-			if (ulubiony)
+			if (!ulubiony)
 				pDialog.setMessage("Trwa dodawanie do ulubionych...");
 			else
 				pDialog.setMessage("Trwa usuwanie z ulubionych...");
@@ -116,7 +116,7 @@ public class UlubioneDodajUsun {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("przepisID", "" + args[0]));
 			params.add(new BasicNameValuePair("autorID", "" + app.getData()));
-			params.add(new BasicNameValuePair("lubie", "" + ulubiony));
+			params.add(new BasicNameValuePair("lubie", "" + !ulubiony));
 			// getting JSON string from URL
 			try {
 				JSONObject json = jParser.makeHttpRequest(url_ulubione, "POST",
@@ -128,8 +128,6 @@ public class UlubioneDodajUsun {
 				int success = json.getInt("success");
 				if (success == 1) {
 				} else {
-					// komunikat =
-					// "Nie uda�o si� doda� przepisu do ulubionych.";
 				}
 			} catch (Exception e) {
 				Log.d("DEBUG_TAG", "" + e);
@@ -144,8 +142,8 @@ public class UlubioneDodajUsun {
 		 * After completing background task Dismiss the progress dialog
 		 * **/
 		protected void onPostExecute(String file_url) {
-			app.reloadUlubione();
 			ulubiony = !ulubiony;
+			app.reloadUlubione();
 			pDialog.dismiss();
 			if (ulubiony)
 				Toast.makeText(root, "Dodano do ulubionych", Toast.LENGTH_SHORT)
@@ -153,7 +151,7 @@ public class UlubioneDodajUsun {
 			else
 				Toast.makeText(root, "Usunięto z ulubionych.",
 						Toast.LENGTH_SHORT).show();
-
+			root.invalidateOptionsMenu();
 		}
 	}
 
@@ -173,7 +171,7 @@ public class UlubioneDodajUsun {
 		protected String doInBackground(String... args) {
 			// Building Parameters
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("przepisID", "" + args[0]));
+			params.add(new BasicNameValuePair("przepisID", args[0]));
 			params.add(new BasicNameValuePair("autorID", "" + app.getData()));
 			// getting JSON string from URL
 			try {
@@ -189,10 +187,9 @@ public class UlubioneDodajUsun {
 				} else {
 					ulubiony = false;
 				}
+				Log.d("DEBUG_TAG",json.getString("success"));
 			} catch (Exception e) {
 				Log.d("DEBUG_TAG", "" + e);
-				// dialog = true;
-				// komunikat = "B��d w po��czeniu.";
 			}
 
 			return null;
@@ -202,6 +199,7 @@ public class UlubioneDodajUsun {
 		 * After completing background task Dismiss the progress dialog
 		 * **/
 		protected void onPostExecute(String file_url) {
+			Log.d("DEBUG_TAG", "Ulubiony: " + ulubiony);
 			root.invalidateOptionsMenu();
 		}
 	}

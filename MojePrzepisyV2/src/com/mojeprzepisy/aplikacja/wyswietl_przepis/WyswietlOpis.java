@@ -26,7 +26,7 @@ public class WyswietlOpis extends WyswietlPrzepis {
 	private Activity root;
 	private ProgressBar progress;
 	private List<Krok> kroki;
-	private String URL = "http://softpartner.pl/moje_przepisy2/pobierz_opis.php";
+	private String url_pobierz_opis;
 	JSONParser jParser = new JSONParser();
 	public JSONArray dane = null;
 	public String opis;
@@ -38,6 +38,7 @@ public class WyswietlOpis extends WyswietlPrzepis {
 		linearLayout = (LinearLayout) root
 				.findViewById(R.id.wyswietl_opis_linearLayout);
 		progress = (ProgressBar) root.findViewById(R.id.wyswietl_opis_progressbar);
+		url_pobierz_opis = root.getResources().getString(R.string.url_pobierz_opis);
 		this.przepis = _przepis;
 		kroki = new ArrayList<Krok>();
 		new PobierzOpis().execute();
@@ -62,7 +63,7 @@ public class WyswietlOpis extends WyswietlPrzepis {
 					+ przepis.przepisID));
 			// getting JSON string from URL
 			try {
-				JSONObject json = jParser.makeHttpRequest(URL, "POST", params);
+				JSONObject json = jParser.makeHttpRequest(url_pobierz_opis, "POST", params);
 				// Check your log cat for JSON reponse
 
 				// Checking for SUCCESS TAG

@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Moje Przepisy</string>
-    <string name="action_settings">Ustawienia</string>
+    <string name="action_settings">Settings</string>
     <string name="title_section1">Strona główna</string>
     <string name="title_section2">Najwyzej oceniane</string>
     <string name="title_section3">Ostatnio dodane</string>
@@ -14,6 +14,7 @@
     <string name="title_activity_dodaj_przepis">Dodaj przepis</string>
     <string name="dodaj_tytul">Dodaj tytuł</string>
     <string name="dodaj_skladnik">Dodaj składnik</string>
+    <string name="dodaj_opis">Dodaj opis</string>
     <string name="dotknij_aby_edytowac">Dotknij aby edytować</string>
     <string name="tytul">Tytuł:</string>
     <string name="skladniki">Składniki:</string>
@@ -25,7 +26,7 @@
     <string name="czas">Czas</string>
     <string name="dodatkowe_dane">Dodatkowe dane:</string>
     <string name="krok">Krok</string>
-    <string name="nastepny_krok">Dodaj krok</string>
+    <string name="nastepny_krok">Dodaj element</string>
     <string name="opis">Opis:</string>
     <string name="wyslij_przepis">Wyślij przepis</string>
     <string name="title_activity_wyswietl_przepis">Moje Przepisy</string>
@@ -41,18 +42,54 @@
     <string name="Mail">Mail:</string>
     <string name="powtorzHaslo">Powtórz hasło:</string>
     <string name="zgodnoscHasel"></string>
+    <string name="haslaOK">Hasła OK</string>
+    <string name="haslaZLE">Hasła nie są identyczne</string>
     <string name="wyczysc">Wyczyść</string>
     <string name="pseudonim">Pseudonim: (max: 20 znaków)</string>
     <string name="StworzButton">Stwórz</string>
     <string name="zaloguj">Zaloguj</string>
+    <string name="url_multi_complete">http://softpartner.pl/MojePrzepisy/PL/multi_complete.php</string>
+    <string name="url_dodaj_przepis">http://softpartner.pl/MojePrzepisy/PL/dodaj_przepis.php</string>
+    <string name="url_wszystkie_przepisy">http://softpartner.pl/MojePrzepisy/PL/wszystkie_przepisy.php</string>
+    <string name="url_user_przepisy">http://softpartner.pl/MojePrzepisy/PL/user_przepisy.php</string>
+    <string name="url_losowy_przepis">http://softpartner.pl/MojePrzepisy/PL/losowy_przepis.php</string>
+    <string name="url_najwyzej_oceniane">http://softpartner.pl/MojePrzepisy/PL/najwyzej_oceniane.php</string>
+    <string name="url_ostatnio_dodane">http://softpartner.pl/MojePrzepisy/PL/ostatnio_dodane.php</string>
+    <string name="url_przepis">http://softpartner.pl/MojePrzepisy/PL/przepis.php</string>
+    <string name="url_usun_przepis">http://softpartner.pl/MojePrzepisy/PL/usun_przepis.php</string>
+    <string name="url_ocen">http://softpartner.pl/MojePrzepisy/PL/ocen.php</string>
+    <string name="url_rejestracja">http://softpartner.pl/MojePrzepisy/PL/rejestracja.php</string>
+    <string name="url_logowanie">http://softpartner.pl/MojePrzepisy/PL/logowanie.php</string>
+    <string name="url_aktywuj_konto">http://softpartner.pl/MojePrzepisy/PL/aktywuj_konto.php</string>
+    <string name="url_szukaj_przepis">http://softpartner.pl/MojePrzepisy/PL/szukaj_przepis.php</string>
+    <string name="url_ulubione">http://softpartner.pl/MojePrzepisy/PL/ulubione.php</string>
+    <string name="url_pobierzUlubione">http://softpartner.pl/MojePrzepisy/PL/pobierzUlubione.php</string>
+    <string name="url_pobierz_przepis">http://softpartner.pl/MojePrzepisy/PL/pobierzPrzepis.php</string>
+    <string name="url_ile_przepisow">http://softpartner.pl/MojePrzepisy/PL/ile_przepisow.php</string>
+    <string name="url_czyUlubiony">http://softpartner.pl/MojePrzepisy/PL/czyUlubiony.php</string>
+    <string name="url_wyslij_zdjecie">http://softpartner.pl/MojePrzepisy/PL/wyslijZdjecie.php</string>
+    <string name="url_usun_zdjecie">"http://softpartner.pl/MojePrzepisy/PL/usun_zdjecie.php"</string>
+    <string name="url_zmien_tytul">http://softpartner.pl/MojePrzepisy/PL/zmien_tytul.php</string>
+    <string name="url_pobierz_opis">http://softpartner.pl/MojePrzepisy/PL/pobierz_opis.php</string>
+    <string name="url_pobierz_ocene">http://softpartner.pl/MojePrzepisy/PL/pobierz_ocene_uzytkownika.php</string>
+    <string name="url_wyslij_ocene">http://softpartner.pl/MojePrzepisy/PL/wyslij_ocene.php</string>
+    <string name="url_pobierz_skladniki">http://softpartner.pl/MojePrzepisy/PL/pobierz_skladniki.php</string>
+    <string name="url_wyswietl_tytulowy_modul">http://softpartner.pl/MojePrzepisy/PL/wyswietl_tytulowy_modul.php</string>
+    <string name="bladPolaczenia">Błąd połączenia</string>
     <string name="zaloguj_sie">Zaloguj się</string>
     <string name="wybierz_kategorie">Wybierz kategorie</string>
     <string name="dodaj_przepis">Dodaj przepis</string>
-    <string name="title_activity_lista_przepisy">Lista_przepisy</string>
-    <string name="title_activity_rejestracja">RejestracjaActivity</string>
+    <string name="title_activity_lista_przepisy">Moje Przepisy</string>
+    <string name="title_activity_rejestracja">Rejestracja</string>
     <string name="losowy_przepis">Losowy przepis</string>
     <string name="login">Login</string>
     <string name="haslo">Hasło</string>
     <string name="wyloguj">Wyloguj</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="ulubione">Ulubione</string>
+    <string name="moje_przepisy">Moje przepisy</string>
+    <string name="pseudonim_short">Pseudonim</string>
+    <string name="title_activity_ulubione">Ulubione</string>
 
 </resources>

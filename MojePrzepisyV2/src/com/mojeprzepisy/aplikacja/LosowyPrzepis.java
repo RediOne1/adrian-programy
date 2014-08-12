@@ -14,9 +14,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
 import com.mojeprzepisy.aplikacja.wyswietl_przepis.WyswietlPrzepis;
@@ -28,17 +25,14 @@ public class LosowyPrzepis implements OnClickListener{
 	JSONParser jParser = new JSONParser();
 	private Handler mHandler = new Handler();
 	public JSONArray dane = null;
-	private ImageView zdjecie;
 	private Przepis przepis = null;
-	private TextView tytul2;
-	private TextView kategoria2;
-	private RatingBar rate;
 	private Activity root;
 	private View include;
-	private final String URL = "http://softpartner.pl/moje_przepisy2/losowy_przepis.php";
+	private String url_losowy_przepis;
 
 	public LosowyPrzepis(Activity _root) {
 		this.root = _root;
+		url_losowy_przepis = root.getResources().getString(R.string.url_losowy_przepis);
 		include = (View) root.findViewById(R.id.include6);
 		include.setOnClickListener(this);
 		new Thread(new Runnable() {
@@ -47,7 +41,7 @@ public class LosowyPrzepis implements OnClickListener{
 
 				// getting JSON string from URL
 				try {
-					JSONObject json = jParser.makeHttpRequest(URL, "POST",
+					JSONObject json = jParser.makeHttpRequest(url_losowy_przepis, "POST",
 							params);
 					int success = json.getInt("success");
 

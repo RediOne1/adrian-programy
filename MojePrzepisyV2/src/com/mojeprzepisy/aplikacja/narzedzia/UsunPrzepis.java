@@ -70,7 +70,7 @@ public class UsunPrzepis {
 					+ przepis.przepisID));
 			// getting JSON string from URL
 			try {
-				WyslijZdjecie wyslij = new WyslijZdjecie();
+				WyslijZdjecie wyslij = new WyslijZdjecie(root);
 				jParser.makeHttpRequest(url_usun_przepis, "POST", params);
 				wyslij.usunZdjecie("" + przepis.przepisID);
 			} catch (Exception e) {

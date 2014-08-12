@@ -8,10 +8,10 @@ import android.widget.ListView;
 
 public class EndlessScrollListener implements OnScrollListener {
 
-	private int visibleThreshold = 3;
+	private int visibleThreshold = 5;
 	private int currentPage = 0;
 	private int previousTotal = 0;
-	private int przepisow_na_strone = 10;
+	private int przepisow_na_strone = 15;
 	private boolean loading = false;
 	private TopListZapytanie zapytanie;
 	private Activity a;
