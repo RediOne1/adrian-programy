@@ -59,22 +59,22 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 		view = v;
 		tittle_tv = (TextView) v.findViewById(R.id.krok_tittle_textview);
 		tittle_et = (EditText) v.findViewById(R.id.krok_tittle_edittext);
-		if(tytul!=null)
+		if (tytul != null)
 			tittle_tv.setText(tytul);
+		else
+			tittle_tv.setText(root.getResources().getString(
+					R.string.dotknij_aby_edytowac));
 		opis_et = (EditText) v.findViewById(R.id.krok_opis);
-		if(opis!= null)
+		if (opis != null)
 			opis_et.setText(opis);
 		usun = (ImageView) v.findViewById(R.id.krok_tittle_delete);
 		zapisz = (ImageView) v.findViewById(R.id.krok_tittle_save);
-		tittle_tv = (TextView) new MyTypeFace(tittle_tv, root).MyNormal();
 		tittle_tv.setOnClickListener(this);
 		usun.setOnClickListener(this);
 		zapisz.setOnClickListener(this);
 		opis_et.addTextChangedListener(this);
 		zapisz.setVisibility(View.GONE);
 		tittle_et.setVisibility(View.GONE);
-		tytul = root.getResources().getString(R.string.dotknij_aby_edytowac);
-		tittle_tv.setText(tytul);
 		return v;
 	}
 
@@ -119,6 +119,11 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 			tittle_tv.setVisibility(View.VISIBLE);
 			tittle_tv.setText(tytul);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return opis_tv.getText().toString();
 	}
 
 	@Override

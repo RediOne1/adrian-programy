@@ -62,6 +62,7 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 	Button wyczysc;
 	SharedPreferences ustawienia;
 	public boolean zarejestrowano = false;
+	private String hasloOK,hasloZLE;
 	boolean dialog;
 
 	@Override
@@ -70,6 +71,8 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_rejestracja);
 		url_rejestracja = getString(R.string.url_rejestracja);
 		url_logowanie = getString(R.string.url_logowanie);
+		hasloOK = getString(R.string.haslaOK);
+		hasloZLE = getString(R.string.haslaZLE);
 		url_aktywuj_konto = getString(R.string.url_aktywuj_konto);
 		Typeface MyBold = Typeface.createFromAsset(
 				getBaseContext().getAssets(), "fonts/SEGOEPRB.TTF");
@@ -93,10 +96,10 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 				String strPass1 = inHaslo.getText().toString();
 				String strPass2 = inHaslo2.getText().toString();
 				if (strPass1.equals(strPass2)) {
-					zgodnosc.setText("Hasła prawidłowe.");
+					zgodnosc.setText(hasloOK);
 					zgodnoscBool = true;
 				} else {
-					zgodnosc.setText("Hasła nie pasuja.");
+					zgodnosc.setText(hasloZLE);
 					zgodnoscBool = false;
 				}
 			}

@@ -43,13 +43,13 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 		przepis = (Przepis) getIntent().getSerializableExtra("przepis");
 		wyswietlTytulowyModul = new WyswietlTytulowyModul(WyswietlPrzepis.this,
 				przepis);
+		ulub = new UlubioneDodajUsun(this);
+		ulub.sprawdz("" + przepis.przepisID);
 		wyswietlSkladniki = new WyswietlSkladniki(WyswietlPrzepis.this, przepis);
 		wyswietlOpis = new WyswietlOpis(WyswietlPrzepis.this, przepis);
 		ocenPrzepis = new OcenPrzepis(WyswietlPrzepis.this, przepis,
 				WyswietlPrzepis.this);
 		usunPrzepis = new UsunPrzepis(WyswietlPrzepis.this, przepis);
-		ulub = new UlubioneDodajUsun(this);
-		ulub.sprawdz(""+przepis.przepisID);
 		// showDialog(OCEN_DIALOG_ID);
 	}
 
@@ -85,7 +85,7 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// If the nav drawer is open, hide action items related to the content
 		// view
-		boolean ulubiony =ulub.getUlub();
+		boolean ulubiony = ulub.getUlub();
 		menu.findItem(R.id.heart).setVisible(ulubiony);
 		menu.findItem(R.id.heart_bw).setVisible(!ulubiony);
 		return super.onPrepareOptionsMenu(menu);
@@ -100,7 +100,7 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 		else if (item.getItemId() == R.id.heart_bw)
 			ulub.dodaj("" + przepis.przepisID);
 		else if (item.getItemId() == R.id.heart)
-			ulub.usun(""+przepis.przepisID);
+			ulub.usun("" + przepis.przepisID);
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -132,9 +132,9 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 					new DialogInterface.OnClickListener() {
 						@SuppressWarnings("deprecation")
 						public void onClick(DialogInterface dialog, int which) {
-							removeDialog(OCEN_DIALOG_ID);
 							float ocena = rating2.getRating();
 							ocenPrzepis.ocen(ocena);
+							removeDialog(OCEN_DIALOG_ID);
 						}
 					});
 			// Twrozymy obiekt AlertDialog i zwracamy go.

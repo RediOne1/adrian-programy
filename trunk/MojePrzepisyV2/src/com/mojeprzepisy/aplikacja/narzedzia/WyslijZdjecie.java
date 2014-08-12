@@ -1,8 +1,6 @@
 package com.mojeprzepisy.aplikacja.narzedzia;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +15,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import com.mojeprzepisy.aplikacja.R;
+
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.AsyncTask;
@@ -27,17 +28,21 @@ public class WyslijZdjecie {
 	Bitmap bm;
 	String name;
 	private JSONParser jParser = new JSONParser();
-	private String url_zmien_tytul = "http://softpartner.pl/moje_przepisy/zmien_tytul.php";
-	private String url_usun_zdjecie = "http://softpartner.pl/moje_przepisy/usun_zdjecie.php";
+	private String url_zmien_tytul,url_usun_zdjecie, url_wyslij_zdjecie;
 	public boolean gotowe = false;
 
-	public WyslijZdjecie(Bitmap bm, String name) {
+	public WyslijZdjecie(Activity root, Bitmap bm, String name) {
 		this.bm = bm;
 		this.name = name;
+		url_zmien_tytul = root.getResources().getString(R.string.url_zmien_tytul);
+		url_usun_zdjecie = root.getResources().getString(R.string.url_usun_zdjecie);
+		url_wyslij_zdjecie = root.getResources().getString(R.string.url_wyslij_zdjecie);
 	}
 
-	WyslijZdjecie() {
-
+	WyslijZdjecie(Activity root) {
+		url_zmien_tytul = root.getResources().getString(R.string.url_zmien_tytul);
+		url_usun_zdjecie = root.getResources().getString(R.string.url_usun_zdjecie);
+		url_wyslij_zdjecie = root.getResources().getString(R.string.url_wyslij_zdjecie);
 	}
 
 	public void executeMultipartPost() {
@@ -50,7 +55,7 @@ public class WyslijZdjecie {
 					byte[] data = bos.toByteArray();
 					HttpClient httpClient = new DefaultHttpClient();
 					HttpPost postRequest = new HttpPost(
-							"http://softpartner.pl/moje_przepisy2/wyslijZdjecie.php");
+							url_wyslij_zdjecie);
 					ByteArrayBody bab = new ByteArrayBody(data, name);
 					// File file= new File("/mnt/sdcard/forest.png");
 					// FileBody bin = new FileBody(file);

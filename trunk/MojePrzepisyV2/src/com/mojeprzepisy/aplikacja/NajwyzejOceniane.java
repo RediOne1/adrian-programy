@@ -23,6 +23,7 @@ public class NajwyzejOceniane extends ListFragment {
 
 	ListView lv;
 	MyApp app;
+	private String url_najwyzej_oceniane;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -39,9 +40,10 @@ public class NajwyzejOceniane extends ListFragment {
 	}
 
 	public void loadActivity() {
+		url_najwyzej_oceniane = getResources().getString(R.string.url_najwyzej_oceniane);
 		lv = getListView();
 		lv.setOnScrollListener(new EndlessScrollListener(getActivity(), lv,
-				"http://softpartner.pl/moje_przepisy2/najwyzej_oceniane.php"));
+				url_najwyzej_oceniane));
 		lv.setOnItemClickListener(new MyOnItemClickListener(getActivity()
 				.getApplicationContext()));
 	}

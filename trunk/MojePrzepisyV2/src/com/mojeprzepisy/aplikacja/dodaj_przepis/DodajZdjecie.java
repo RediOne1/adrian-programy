@@ -31,12 +31,12 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 	}
 
 	public DodajZdjecie(Activity _root, String zdjecieURL) {
-		root=_root;
+		root = _root;
 		imageview = (ImageView) root.findViewById(R.id.dodaj_zdjecie_image);
-		//new ImageLoader(root).remove(zdjecieURL);
+		// new ImageLoader(root).remove(zdjecieURL);
 		new ImageLoader(root).DisplayImage(zdjecieURL, imageview);
 		imageview.setOnClickListener(this);
-		
+
 	}
 
 	@Override
@@ -83,8 +83,8 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 				o2.inSampleSize = scale;
 				Bitmap yourSelectedImage2 = BitmapFactory.decodeFile(filePath,
 						o2);
-				imageview.setImageBitmap(yourSelectedImage2);				
-				zdjecie_bitmap = yourSelectedImage2;				
+				imageview.setImageBitmap(yourSelectedImage2);
+				zdjecie_bitmap = yourSelectedImage2;
 			}
 			break;
 
@@ -105,7 +105,8 @@ public class DodajZdjecie extends DodajPrzepisActivity implements
 			break;
 		}
 	}
-	public Bitmap getBitmap(){
+
+	public Bitmap getBitmap() {
 		return zdjecie_bitmap;
 	}
 }

@@ -23,7 +23,9 @@ public class OstatnioDodane extends ListFragment {
 	}
 
 	ListView lv;
-private MyApp app;
+	private MyApp app;
+	private String url_ostatnio_dodane;
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -34,12 +36,17 @@ private MyApp app;
 
 	@Override
 	public void onDestroyView() {
-		app.od=null;
+		app.od = null;
 		super.onDestroyView();
 	}
-	public void loadActivity(){
+
+	public void loadActivity() {
+		url_ostatnio_dodane = getResources().getString(
+				R.string.url_ostatnio_dodane);
 		lv = getListView();
-		lv.setOnScrollListener(new EndlessScrollListener(getActivity(),lv,"http://softpartner.pl/moje_przepisy2/ostatnio_dodane.php"));
-		lv.setOnItemClickListener(new MyOnItemClickListener(getActivity().getApplicationContext()));
+		lv.setOnScrollListener(new EndlessScrollListener(getActivity(), lv,
+				url_ostatnio_dodane));
+		lv.setOnItemClickListener(new MyOnItemClickListener(getActivity()
+				.getApplicationContext()));
 	}
 }

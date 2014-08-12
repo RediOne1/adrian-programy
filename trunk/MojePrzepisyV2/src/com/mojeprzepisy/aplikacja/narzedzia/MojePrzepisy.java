@@ -48,7 +48,7 @@ public class MojePrzepisy extends ListActivity {
 		znalezionePrzepisy = new ArrayList<Przepis>();
 		adapter = new MyListAdapter(MojePrzepisy.this, znalezionePrzepisy);
 		lv.setAdapter(adapter);
-		url_moje_przepisy = getString(R.string.url_moje_przepisy);
+		url_moje_przepisy = getString(R.string.url_user_przepisy);
 		setProgressBarIndeterminateVisibility(false);
 		MyApp mApp = (MyApp) getApplicationContext();
 		user_id = mApp.getData();

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mojeprzepisy.aplikacja"
-    android:versionCode="22"
-    android:versionName="2.0" >
+    android:versionCode="24"
+    android:versionName="3.0.1/13.08.2014" >
 
     <uses-sdk
-        android:minSdkVersion="10"
+        android:minSdkVersion="14"
         android:targetSdkVersion="16" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,12 +15,13 @@
     <application
         android:name="com.mojeprzepisy.aplikacja.narzedzia.MyApp"
         android:allowBackup="true"
-        android:icon="@drawable/app_icon"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme" >
         <activity
             android:name="com.mojeprzepisy.aplikacja.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,31 +30,38 @@
         </activity>
         <activity
             android:name="com.mojeprzepisy.aplikacja.NajwyzejOceniane"
-            android:label="@string/title_activity_najwyzej_oceniane" >
+            android:label="@string/title_activity_najwyzej_oceniane"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.mojeprzepisy.aplikacja.WybierzKategorie"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.mojeprzepisy.aplikacja.OstatnioDodane"
-            android:label="@string/title_activity_ostatnio_dodane" >
+            android:label="@string/title_activity_ostatnio_dodane"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.mojeprzepisy.aplikacja.przepis.Przepis"
-            android:label="@string/title_activity_przepis" >
+            android:label="@string/title_activity_przepis"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.mojeprzepisy.aplikacja.dodaj_przepis.DodajPrzepisActivity"
-            android:label="@string/title_activity_dodaj_przepis" >
+            android:label="@string/title_activity_dodaj_przepis"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.mojeprzepisy.aplikacja.wyswietl_przepis.WyswietlPrzepis"
-            android:label="@string/title_activity_wyswietl_przepis" >
+            android:label="@string/title_activity_wyswietl_przepis" 
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.mojeprzepisy.aplikacja.narzedzia.Szukaj"
-            android:label="@string/szukaj" >
+            android:label="@string/szukaj"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.mojeprzepisy.aplikacja.Lista_przepisy"
@@ -61,15 +69,19 @@
         </activity>
         <activity
             android:name="com.mojeprzepisy.aplikacja.RejestracjaActivity"
-            android:label="@string/title_activity_rejestracja" >
+            android:label="@string/title_activity_rejestracja"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.mojeprzepisy.narzedzia.MyApp" >
+        <activity android:name="com.mojeprzepisy.narzedzia.MyApp"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.mojeprzepisy.aplikacja.narzedzia.MojePrzepisy" >
+        <activity android:name="com.mojeprzepisy.aplikacja.narzedzia.MojePrzepisy"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.mojeprzepisy.aplikacja.UlubioneActivity"
-            android:label="@string/title_activity_ulubione" >
+            android:label="@string/title_activity_ulubione"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

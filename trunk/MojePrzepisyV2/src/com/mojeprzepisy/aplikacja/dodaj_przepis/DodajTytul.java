@@ -16,7 +16,7 @@ public class DodajTytul extends DodajPrzepisActivity implements OnClickListener 
 	private TextView tytul_tv;
 	private EditText tytul_et;
 	private ImageView save_image;
-	public String tytul;
+	public String tytul="";
 
 	public DodajTytul(Activity dodajPrzepisActivity) {
 		root = dodajPrzepisActivity;
@@ -32,7 +32,7 @@ public class DodajTytul extends DodajPrzepisActivity implements OnClickListener 
 	}
 
 	public DodajTytul(Activity root, String tytul2) {
-		root = root;
+		this.root = root;
 		tytul_tv = (TextView) root.findViewById(R.id.dodaj_tytul_textview);
 		tytul_et = (EditText) root.findViewById(R.id.dodaj_tytul_edittext);
 		save_image = (ImageView) root.findViewById(R.id.dodaj_tytul_save);
@@ -68,6 +68,6 @@ public class DodajTytul extends DodajPrzepisActivity implements OnClickListener 
 	}
 	@Override
 	public String toString(){
-		return tytul_tv.getText().toString();
+		return ""+tytul;
 	}
 }

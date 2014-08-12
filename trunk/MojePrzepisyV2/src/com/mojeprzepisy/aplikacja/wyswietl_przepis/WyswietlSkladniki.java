@@ -29,7 +29,7 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 	private ProgressBar progress;
 	private Handler mHandler = new Handler();
 	private List<Skladnik> skladniki;
-	private String URL = "http://softpartner.pl/moje_przepisy2/pobierz_skladniki.php";
+	private String url_pobierz_skladniki;
 	JSONParser jParser = new JSONParser();
 	public JSONArray dane = null;
 	private Skladnik skladnik;
@@ -43,6 +43,7 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 				.findViewById(R.id.wyswietl_skladniki_progressbar);
 		this.przepis = _przepis;
 		skladniki = new ArrayList<Skladnik>();
+		url_pobierz_skladniki = root.getResources().getString(R.string.url_pobierz_skladniki);
 		new PobierzSkladniki().execute();
 	}
 
@@ -70,7 +71,7 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 					+ przepis.przepisID));
 			// getting JSON string from URL
 			try {
-				JSONObject json = jParser.makeHttpRequest(URL, "POST", params);
+				JSONObject json = jParser.makeHttpRequest(url_pobierz_skladniki, "POST", params);
 				// Check your log cat for JSON reponse
 
 				// Checking for SUCCESS TAG

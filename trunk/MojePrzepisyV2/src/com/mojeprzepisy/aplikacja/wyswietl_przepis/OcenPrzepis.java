@@ -24,8 +24,8 @@ import com.mojeprzepisy.aplikacja.narzedzia.MyApp;
 public class OcenPrzepis extends WyswietlPrzepis {
 	
 
-	private final String URL = "http://softpartner.pl/moje_przepisy2/pobierz_ocene_uzytkownika.php";
-	private final String URL2 = "http://softpartner.pl/moje_przepisy2/wyslij_ocene.php";
+	private final String url_pobierz_ocene;
+	private final String url_wyslij_ocene;
 
 	JSONParser jParser = new JSONParser();
 	public JSONArray dane = null;
@@ -47,6 +47,8 @@ public class OcenPrzepis extends WyswietlPrzepis {
 		this.przepis = _przepis;
 		app = (MyApp) root.getApplicationContext();
 		user_id = app.getData();
+		url_pobierz_ocene = root.getResources().getString(R.string.url_pobierz_ocene);
+		url_wyslij_ocene = root.getResources().getString(R.string.url_wyslij_ocene);
 		rl = (RelativeLayout) root.findViewById(R.id.ocen_relative_layout);
 		if(user_id == -1)
 			rl.setVisibility(View.GONE);
@@ -81,7 +83,7 @@ public class OcenPrzepis extends WyswietlPrzepis {
 					+ przepis.przepisID));
 			// getting JSON string from URL
 			try {
-				JSONObject json = jParser.makeHttpRequest(URL, "POST", params);
+				JSONObject json = jParser.makeHttpRequest(url_pobierz_ocene, "POST", params);
 
 				// Check your log cat for JSON reponse
 
@@ -141,7 +143,7 @@ public class OcenPrzepis extends WyswietlPrzepis {
 			params.add(new BasicNameValuePair("ocena", "" + args[0]));
 			// getting JSON string from URL
 			try {
-				JSONObject json = jParser.makeHttpRequest(URL2, "POST", params);
+				JSONObject json = jParser.makeHttpRequest(url_wyslij_ocene, "POST", params);
 
 				// Check your log cat for JSON reponse
 
