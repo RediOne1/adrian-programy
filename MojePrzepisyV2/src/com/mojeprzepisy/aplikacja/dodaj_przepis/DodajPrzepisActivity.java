@@ -76,7 +76,7 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 		dodajSkladniki = new DodajSkladniki(root, przepis.skladniki);
 		dodajOpis = new DodajOpis(root, przepis.opis);
 		dodatkoweDane = new DodajDodatkoweDane(root, przepis.trudnosc,
-				przepis.kategoria, przepis.czas);
+				przepis.kategoria, przepis.czas, przepis.publiczny);
 	}
 
 	public void dodaj() {
@@ -196,7 +196,7 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 				komunikat = json.getString("message");
 			} catch (Exception e) {
 				komunikat = getString(R.string.bladPolaczenia);
-				Log.d("DEBUG_TAG", "" + e);
+				Log.e("DEBUG_TAG", "" + e);
 			}
 
 			return null;

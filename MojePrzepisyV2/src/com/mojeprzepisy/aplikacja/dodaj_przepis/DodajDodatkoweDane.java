@@ -22,13 +22,14 @@ public class DodajDodatkoweDane extends DodajPrzepisActivity {
 	}
 
 	public DodajDodatkoweDane(Activity dodajPrzepisActivity, String _trudnosc,
-			String _kategoria, String _czas) {
+			String _kategoria, String _czas, boolean publiczny) {
 
 		root = dodajPrzepisActivity;
 		widoczny = (Switch) root.findViewById(R.id.dodatkowe_dane_widoczny);
 		kategoria = (Spinner) root.findViewById(R.id.dodatkowe_dane_kategoria);
 		trudnosc = (Spinner) root.findViewById(R.id.dodatkowe_dane_trudnosc);
 		czas = (Spinner) root.findViewById(R.id.dodatkowe_dane_czas);
+			widoczny.setChecked(publiczny);
 		for (int i = 0; i < kategoria.getCount(); i++) {
 			if (kategoria.getItemAtPosition(i).toString().equals(_kategoria)) {
 				kategoria.setSelection(i);

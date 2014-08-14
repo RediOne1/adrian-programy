@@ -106,6 +106,8 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 			// dodajS.wypisz();
 		} else if (v == tittle_tv) {
 			tytul = tittle_tv.getText().toString();
+			if (tytul.equals(root.getString(R.string.dotknij_aby_edytowac)))
+				tytul = null;
 			tittle_tv.setVisibility(View.GONE);
 			tittle_et.setVisibility(View.VISIBLE);
 			zapisz.setVisibility(View.VISIBLE);

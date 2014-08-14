@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <pytania>
+        <pytanie name="Płeć?" type="radio">
+            <odpowiedz>Kobieta</odpowiedz>
+            <odpowiedz>Mężczyzna</odpowiedz>
+            <odpowiedz>dasda</odpowiedz>
+            <odpowiedz>12345</odpowiedz>
+        </pytanie>
+        <pytanie name="Ile masz lat?" type="radio">
+            <odpowiedz>0-10</odpowiedz>
+            <odpowiedz>11-30</odpowiedz>
+            <odpowiedz>11-30</odpowiedz>
+            <odpowiedz>dupa</odpowiedz>
+        </pytanie>
+        <pytanie name="Płeć?" type="radio">
+            <odpowiedz>Kobieta</odpowiedz>
+            <odpowiedz>Mężczyzna</odpowiedz>
+            <odpowiedz>Mężczsad</odpowiedz>
+            <odpowiedz>Mę1235</odpowiedz>
+        </pytanie>
+        <pytanie name="Stan konta?" type="radio">
+            <odpowiedz>10</odpowiedz>
+            <odpowiedz>1000</odpowiedz>
+            <odpowiedz>100000</odpowiedz>
+            <odpowiedz>10000000
+                sdsad</odpowiedz>
+        </pytanie>
+        <pytanie name="Płeć?" type="radio">
+            <odpowiedz>Kobieta</odpowiedz>
+            <odpowiedz>Mężczyzna</odpowiedz>
+            <odpowiedz>Kobieta</odpowiedz>
+            <odpowiedz>Mężczyzna</odpowiedz>
+        </pytanie>
+        <pytanie name="Płeć?" type="radio">
+            <odpowiedz>Kobieta</odpowiedz>
+            <odpowiedz>Mężczyzna</odpowiedz>
+            <odpowiedz>Kobieta</odpowiedz>
+            <odpowiedz>Mężczyzna</odpowiedz>
+        </pytanie>
+    </pytania>    
+</resources>

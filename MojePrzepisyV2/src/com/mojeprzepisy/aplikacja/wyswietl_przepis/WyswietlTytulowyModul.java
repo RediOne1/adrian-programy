@@ -53,7 +53,8 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 		czas = (TextView) root.findViewById(R.id.czas_maly_layout);
 		progress = (ProgressBar) root
 				.findViewById(R.id.przepis_tytulowy_modul_progressbar);
-		url_wyswietl_tytulowy_modul = root.getResources().getString(R.string.url_wyswietl_tytulowy_modul);
+		url_wyswietl_tytulowy_modul = root.getResources().getString(
+				R.string.url_wyswietl_tytulowy_modul);
 		tytul = (TextView) new MyTypeFace(tytul, root).MyBold();
 		odswiez();
 	}
@@ -96,7 +97,8 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 					+ przepis.przepisID));
 			// getting JSON string from URL
 			try {
-				JSONObject json = jParser.makeHttpRequest(url_wyswietl_tytulowy_modul, "POST", params);
+				JSONObject json = jParser.makeHttpRequest(
+						url_wyswietl_tytulowy_modul, "POST", params);
 
 				// Check your log cat for JSON reponse
 
@@ -109,9 +111,16 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 					// looping through All Products
 					for (int i = 0; i < dane.length(); i++) {
 						JSONObject c = dane.getJSONObject(i);
-						przepis.ocena = Float.parseFloat(c.getString("ocena"));
-						przepis.ilosc_ocen = Integer.parseInt(c
-								.getString("ilosc_ocen"));
+						String ocena = c.getString("ocena");
+						if (ocena.equalsIgnoreCase("NULL"))
+							ocena = "0";
+						przepis.ocena = Float.parseFloat(ocena);
+						String ilosc_ocen = c.getString("ilosc_ocen");
+						if (ilosc_ocen.equalsIgnoreCase("NULL"))
+							ilosc_ocen = "0";
+						przepis.ilosc_ocen = Integer.parseInt(ilosc_ocen);
+						przepis.publiczny = c.getInt("publiczny") == 1 ? true
+								: false;
 						przepis.trudnosc = c.getString("trudnosc");
 						przepis.czas = c.getString("czas");
 						przepis.kategoria = c.getString("kategoria");
@@ -121,7 +130,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 				} else {
 				}
 			} catch (Exception e) {
-				Log.d("DEBUG_TAG", "Wyswietl tytulowy modul: " + e);
+				Log.e("DEBUG_TAG", "Wyswietl tytulowy modul: " + e);
 			}
 			return null;
 		}
