@@ -65,7 +65,7 @@ public class LosowyPrzepis implements OnClickListener{
 					}
 
 				} catch (Exception e) {
-					Log.d("DEBUG_TAG", "Losowy_przepis: " + e);
+					Log.e("DEBUG_TAG", "Losowy_przepis: " + e);
 				}
 			}
 		}).start();

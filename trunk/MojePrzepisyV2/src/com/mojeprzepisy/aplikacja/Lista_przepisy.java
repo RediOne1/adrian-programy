@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -22,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
-import com.mojeprzepisy.aplikacja.narzedzia.Kategoria;
 import com.mojeprzepisy.aplikacja.narzedzia.MyListAdapter;
 import com.mojeprzepisy.aplikacja.narzedzia.MyOnItemClickListener;
 import com.mojeprzepisy.aplikacja.narzedzia.Szukaj;
@@ -163,8 +163,9 @@ public class Lista_przepisy extends ListActivity {
 				} else {
 				}
 			} catch (Exception e) {
+				Log.e("DEBUG_TAG", "" + e);
 				dialog = true;
-				komunikat = "B��d w po��czeniu." + e;
+				komunikat = "Błąd w połączeniu." + e;
 			}
 
 			return null;
@@ -175,11 +176,13 @@ public class Lista_przepisy extends ListActivity {
 		 * **/
 		protected void onPostExecute(String file_url) {
 			setProgressBarIndeterminateVisibility(false);
-		}@Override
+		}
+
+		@Override
 		protected void onProgressUpdate(String... progress) {
-			try{
-			lv.invalidateViews();
-			}catch(Exception e){
+			try {
+				lv.invalidateViews();
+			} catch (Exception e) {
 			}
 		}
 	}

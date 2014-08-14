@@ -25,6 +25,7 @@ public class Przepis implements Serializable {
 	public String zdjecie;
 	public String opis;
 	public String skladniki;
+	public boolean publiczny = true;
 	public List<Skladnik> skladnikiList;
 	public List<Krok> opisList;
 

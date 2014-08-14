@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Podrywacz</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="nastepny">Następny</string>
+    <string name="poprzedni">Poprzedni</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="zadania">Zadania</string>
+    <string name="pytania_pomocnicze">Pytania pomocnicze</string>
+    <string name="zakoncz_ankiete">Zakończ</string>
+    <string name="aktualne_zadanie">Aktualne zadanie</string>
+    <string name="aktualny_poradnik">Aktualny poradnik</string>
+    <string name="strona_glowna">Strona główna</string>
+
+</resources>

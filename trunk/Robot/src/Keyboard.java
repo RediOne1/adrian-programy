@@ -507,7 +507,7 @@ public class Keyboard {
 	private static Color startColor = new Color(11, 97, 164);
 	private static Color endColor = new Color(232, 238, 247);
 	
-	private static final int ILOSC = 3;
+	private static final int ILOSC = 10;
 	private static final int OCZEKIWANIE = 300;
 
 	public static void main(String... args) throws Exception {
