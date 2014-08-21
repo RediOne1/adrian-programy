@@ -32,14 +32,10 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 	private final String url_wyswietl_tytulowy_modul;
 	private Przepis przepis;
 	private ImageView zdjecie;
-	private TextView tytul;
+	private TextView tytul, kategoria, ilosc_ocen, trudnosc, czas;
 	private Activity root;
 	private ProgressBar progress;
-	private TextView kategoria;
 	private RatingBar ocena;
-	private TextView ilosc_ocen;
-	private TextView trudnosc;
-	private TextView czas;
 
 	public WyswietlTytulowyModul(Activity _root, Przepis _przepis) {
 		this.przepis = _przepis;
@@ -144,6 +140,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 			trudnosc.setText(przepis.trudnosc);
 			czas.setText(przepis.czas);
 			new ImageLoader(root).DisplayImage(przepis.zdjecie, zdjecie);
+			root.invalidateOptionsMenu();
 			progress.setVisibility(View.GONE);
 
 		}

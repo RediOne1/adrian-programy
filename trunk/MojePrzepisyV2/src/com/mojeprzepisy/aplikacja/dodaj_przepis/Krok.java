@@ -127,6 +127,11 @@ public class Krok extends DodajOpis implements OnClickListener, TextWatcher {
 	public String toString() {
 		return opis_tv.getText().toString();
 	}
+	public String toShare(){
+		String wynik="";
+		wynik+=tytul+":\n"+opis+"\n";
+		return wynik;
+	}
 
 	@Override
 	public void afterTextChanged(Editable s) {

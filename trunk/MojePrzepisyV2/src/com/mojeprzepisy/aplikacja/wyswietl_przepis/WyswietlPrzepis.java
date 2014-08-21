@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
+import android.widget.ShareActionProvider;
 
 import com.mojeprzepisy.aplikacja.Przepis;
 import com.mojeprzepisy.aplikacja.R;
@@ -43,13 +45,13 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 		przepis = (Przepis) getIntent().getSerializableExtra("przepis");
 		wyswietlTytulowyModul = new WyswietlTytulowyModul(WyswietlPrzepis.this,
 				przepis);
-		ulub = new UlubioneDodajUsun(this);
-		ulub.sprawdz("" + przepis.przepisID);
 		wyswietlSkladniki = new WyswietlSkladniki(WyswietlPrzepis.this, przepis);
 		wyswietlOpis = new WyswietlOpis(WyswietlPrzepis.this, przepis);
 		ocenPrzepis = new OcenPrzepis(WyswietlPrzepis.this, przepis,
 				WyswietlPrzepis.this);
 		usunPrzepis = new UsunPrzepis(WyswietlPrzepis.this, przepis);
+		ulub = new UlubioneDodajUsun(this);
+		ulub.sprawdz("" + przepis.przepisID);
 		// showDialog(OCEN_DIALOG_ID);
 	}
 
@@ -81,13 +83,40 @@ public class WyswietlPrzepis extends Activity implements OnClickListener {
 		return true;
 	}
 
+	private String toShare() {
+		String wynik = "";
+		wynik += przepis.tytul + "\n\n";
+		wynik += getString(R.string.skladniki) + "\n";
+		wynik += wyswietlSkladniki.toShare() + "\n";
+		wynik += wyswietlOpis.toShare() + "\n";
+		wynik += "https://play.google.com/store/apps/details?id=com.mojeprzepisy.aplikacja&hl=pl";
+		return wynik;
+	}
+
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// If the nav drawer is open, hide action items related to the content
 		// view
+		if (przepis.tytul != null && przepis.skladniki != null
+				&& przepis.opis != null) {
+			MenuItem item = menu.findItem(R.id.menu_item_share);
+			item.setVisible(true);
+			ShareActionProvider myShareActionProvider = (ShareActionProvider) item
+					.getActionProvider();
+			Intent myIntent = new Intent();
+			myIntent.setAction(Intent.ACTION_SEND);
+			myIntent.putExtra(Intent.EXTRA_SUBJECT, przepis.tytul);
+			myIntent.putExtra(Intent.EXTRA_TEXT, toShare());
+			myIntent.setType("text/plain");
+			myShareActionProvider.setShareIntent(myIntent);
+		} else {
+			MenuItem item = menu.findItem(R.id.menu_item_share);
+			item.setVisible(false);
+		}
 		boolean ulubiony = ulub.getUlub();
 		menu.findItem(R.id.heart).setVisible(ulubiony);
 		menu.findItem(R.id.heart_bw).setVisible(!ulubiony);
+
 		return super.onPrepareOptionsMenu(menu);
 	}
 

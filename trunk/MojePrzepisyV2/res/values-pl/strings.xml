@@ -75,7 +75,7 @@
     <string name="url_wyslij_ocene">http://softpartner.pl/MojePrzepisy/PL/wyslij_ocene.php</string>
     <string name="url_pobierz_skladniki">http://softpartner.pl/MojePrzepisy/PL/pobierz_skladniki.php</string>
     <string name="url_wyswietl_tytulowy_modul">http://softpartner.pl/MojePrzepisy/PL/wyswietl_tytulowy_modul.php</string>
-    <string name="bladPolaczenia">Błąd połączenia</string>
+    <string name="dostepne_update">Dostępna nowsza wersja aplikacji, czy chcesz ją pobrać teraz?</string>
     <string name="zaloguj_sie">Zaloguj się</string>
     <string name="wybierz_kategorie">Wybierz kategorie</string>
     <string name="dodaj_przepis">Dodaj przepis</string>
@@ -91,5 +91,12 @@
     <string name="moje_przepisy">Moje przepisy</string>
     <string name="pseudonim_short">Pseudonim</string>
     <string name="title_activity_ulubione">Ulubione</string>
+    <string name="wyszukaj_przepis">Wyszukaj przepis</string>    
+    <string name="trwa_logowanie">Trwa logowanie, proszę czekać &#8230;</string>    
+    <string name="dodawanie_uzytkownika">Dodawanie użytkownika &#8230;</string>
+    <string name="brak_polaczenia">Brak połączenia z internetem.</string>
+    <string name="dodawanie_przepisu">Dodawanie przepisu &#8230;</string>
+    <string name="edytowanie_przepisu">Edytowanie przepisu &#8230;</string>
+    <string name="konto_nieaktywne">Konto nie jest aktywne, sprawdź email aby aktywować konto.</string>
 
 </resources>
