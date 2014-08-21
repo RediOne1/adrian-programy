@@ -128,9 +128,9 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 			super.onPreExecute();
 			pDialog = new ProgressDialog(DodajPrzepisActivity.this);
 			if (edytuj)
-				pDialog.setMessage("Edytowanie przepisu...");
+				pDialog.setMessage(DodajPrzepisActivity.this.getString(R.string.edytowanie_przepisu));
 			else
-				pDialog.setMessage("Dodawanie przepisu...");
+				pDialog.setMessage(DodajPrzepisActivity.this.getString(R.string.dodawanie_przepisu));
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
 			pDialog.setOnCancelListener(new OnCancelListener() {
@@ -195,7 +195,7 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 				}
 				komunikat = json.getString("message");
 			} catch (Exception e) {
-				komunikat = getString(R.string.bladPolaczenia);
+				komunikat = getString(R.string.brak_polaczenia);
 				Log.e("DEBUG_TAG", "" + e);
 			}
 

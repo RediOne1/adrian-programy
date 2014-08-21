@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -27,7 +26,6 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 	private Przepis przepis;
 	private Activity root;
 	private ProgressBar progress;
-	private Handler mHandler = new Handler();
 	private List<Skladnik> skladniki;
 	private String url_pobierz_skladniki;
 	JSONParser jParser = new JSONParser();
@@ -43,14 +41,22 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 				.findViewById(R.id.wyswietl_skladniki_progressbar);
 		this.przepis = _przepis;
 		skladniki = new ArrayList<Skladnik>();
-		url_pobierz_skladniki = root.getResources().getString(R.string.url_pobierz_skladniki);
+		url_pobierz_skladniki = root.getResources().getString(
+				R.string.url_pobierz_skladniki);
 		new PobierzSkladniki().execute();
 	}
 
 	public String getSkladniki() {
-		String wynik="";
-		for(Skladnik s :skladniki)
-			wynik+=s+";";
+		String wynik = "";
+		for (Skladnik s : skladniki)
+			wynik += s + ";";
+		return wynik;
+	}
+
+	public String toShare() {
+		String wynik = "";
+		for (Skladnik s : skladniki) 
+			wynik += "- " + s + "\n";
 		return wynik;
 	}
 
@@ -71,7 +77,8 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 					+ przepis.przepisID));
 			// getting JSON string from URL
 			try {
-				JSONObject json = jParser.makeHttpRequest(url_pobierz_skladniki, "POST", params);
+				JSONObject json = jParser.makeHttpRequest(
+						url_pobierz_skladniki, "POST", params);
 				// Check your log cat for JSON reponse
 
 				// Checking for SUCCESS TAG
@@ -81,6 +88,7 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 					dane = json.getJSONArray("dane");
 					JSONObject c = dane.getJSONObject(0);
 					String temp = c.getString("skladniki");
+					przepis.skladniki = temp;
 					Log.d("Wyswietl skladniki", "Pobrano sk�adnik: " + temp);
 					skladniki_tab = temp.split(";");
 					root.runOnUiThread(new Runnable() {
@@ -105,6 +113,7 @@ public class WyswietlSkladniki extends WyswietlPrzepis {
 		@Override
 		protected void onPostExecute(String file_url) {
 			progress.setVisibility(View.GONE);
+			root.invalidateOptionsMenu();
 		}
 
 		@Override

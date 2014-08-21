@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="3dp"
         android:layout_toLeftOf="@+id/szukaj_button"
-        android:hint="Wyszukaj przepis" />
+        android:hint="@string/wyszukaj_przepis" />
 
     <Button
         android:id="@+id/szukaj_button"

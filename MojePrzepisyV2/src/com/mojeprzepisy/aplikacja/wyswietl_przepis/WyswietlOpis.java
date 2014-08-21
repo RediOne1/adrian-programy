@@ -37,15 +37,26 @@ public class WyswietlOpis extends WyswietlPrzepis {
 		this.root = _root;
 		linearLayout = (LinearLayout) root
 				.findViewById(R.id.wyswietl_opis_linearLayout);
-		progress = (ProgressBar) root.findViewById(R.id.wyswietl_opis_progressbar);
-		url_pobierz_opis = root.getResources().getString(R.string.url_pobierz_opis);
+		progress = (ProgressBar) root
+				.findViewById(R.id.wyswietl_opis_progressbar);
+		url_pobierz_opis = root.getResources().getString(
+				R.string.url_pobierz_opis);
 		this.przepis = _przepis;
 		kroki = new ArrayList<Krok>();
 		new PobierzOpis().execute();
 	}
-	public String getOpis(){
+
+	public String toShare() {
+		String wynik = "";
+		for (Krok k : kroki)
+			wynik += k.toShare();
+		return wynik;
+	}
+
+	public String getOpis() {
 		return opis;
 	}
+
 	class PobierzOpis extends AsyncTask<String, Krok, String> {
 		@Override
 		protected void onPreExecute() {
@@ -63,7 +74,8 @@ public class WyswietlOpis extends WyswietlPrzepis {
 					+ przepis.przepisID));
 			// getting JSON string from URL
 			try {
-				JSONObject json = jParser.makeHttpRequest(url_pobierz_opis, "POST", params);
+				JSONObject json = jParser.makeHttpRequest(url_pobierz_opis,
+						"POST", params);
 				// Check your log cat for JSON reponse
 
 				// Checking for SUCCESS TAG
@@ -72,7 +84,7 @@ public class WyswietlOpis extends WyswietlPrzepis {
 				if (success == 1) {
 					dane = json.getJSONArray("dane");
 					JSONObject c = dane.getJSONObject(0);
-					opis = c.getString("opis");					
+					opis = c.getString("opis");
 					kroki_tab = opis.split(";krok;");
 					root.runOnUiThread(new Runnable() {
 						public void run() {
@@ -81,15 +93,14 @@ public class WyswietlOpis extends WyswietlPrzepis {
 									continue;
 								String temp2[] = kroki_tab[i].split(";opis;");
 								if (temp2.length == 1)
-									publishProgress(new Krok("Opis",
-											temp2[0]));
+									publishProgress(new Krok("Opis", temp2[0]));
 								else
 									publishProgress(new Krok(temp2[0], temp2[1]));
 							}
 						}
 
 					});
-
+					przepis.opis = opis;
 				} else {
 				}
 			} catch (Exception e) {
@@ -109,10 +120,11 @@ public class WyswietlOpis extends WyswietlPrzepis {
 		@Override
 		protected void onProgressUpdate(Krok... progress) {
 			krok = progress[0];
+			kroki.add(krok);
 			root.runOnUiThread(new Runnable() {
 				public void run() {
-					kroki.add(krok);
 					linearLayout.addView(krok.wyswietl(root, linearLayout));
+					root.invalidateOptionsMenu();
 				}
 			});
 		}

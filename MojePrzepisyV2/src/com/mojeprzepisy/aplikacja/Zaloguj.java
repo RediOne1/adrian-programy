@@ -86,7 +86,7 @@ public class Zaloguj implements OnClickListener {
 			super.onPreExecute();
 			komunikat = null;
 			pDialog = new ProgressDialog(root);
-			pDialog.setMessage("Trwa logowanie, proszę czekać...");
+			pDialog.setMessage(root.getString(R.string.trwa_logowanie));
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
 			pDialog.setOnCancelListener(new OnCancelListener(){
@@ -122,7 +122,7 @@ public class Zaloguj implements OnClickListener {
 							user_id = c.getInt("id");
 							publishProgress();
 						} else {
-							komunikat = "Konto nie jest aktywne, sprawdź email aby aktywować konto.";
+							komunikat = root.getString(R.string.konto_nieaktywne);
 						}
 					}
 				} else {

@@ -16,15 +16,15 @@ public class Przepis implements Serializable {
 	private static final long serialVersionUID = 8822754243233192174L;
 	public int autorID;
 	public int przepisID;
-	public String tytul;
+	public String tytul=null;
 	public String kategoria;
 	public float ocena;
 	public int ilosc_ocen;
 	public String trudnosc;
 	public String czas;
 	public String zdjecie;
-	public String opis;
-	public String skladniki;
+	public String opis=null;
+	public String skladniki=null;
 	public boolean publiczny = true;
 	public List<Skladnik> skladnikiList;
 	public List<Krok> opisList;

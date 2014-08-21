@@ -1,11 +1,22 @@
 package com.mojeprzepisy.aplikacja;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -15,6 +26,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +37,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.mojeprzepisy.aplikacja.dodaj_przepis.DodajPrzepisActivity;
+import com.mojeprzepisy.aplikacja.dodaj_przepis.Krok;
+import com.mojeprzepisy.aplikacja.narzedzia.AlertDialogManager;
 import com.mojeprzepisy.aplikacja.narzedzia.DrawerClickListener;
+import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
 import com.mojeprzepisy.aplikacja.narzedzia.MojePrzepisy;
 import com.mojeprzepisy.aplikacja.narzedzia.Szukaj;
 
@@ -56,15 +71,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	public FrameLayout zaloguj, wyloguj;
 	public ListView lv;
 	public DrawerClickListener drawerListener;
+	private int versionCode, version;
+	JSONParser jParser = new JSONParser();
+	public JSONArray dane = null;
+	private String url_sprawdz_wersje;
+	private Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		context = this;
 		login = (EditText) findViewById(R.id.drawer_login);
 		haslo = (EditText) findViewById(R.id.drawer_haslo);
 		zaloguj = (FrameLayout) findViewById(R.id.drawer_login_button);
 		wyloguj = (FrameLayout) findViewById(R.id.drawer_logout_button);
+		url_sprawdz_wersje = getString(R.string.url_sprawdz_wersje);
 		drawerListener = new DrawerClickListener(this);
 		logowanie = new Zaloguj(this, login, haslo);
 		zaloguj.setOnClickListener(this);
@@ -79,7 +101,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		mPrzepisy.setOnClickListener(this);
 		lv = (ListView) findViewById(R.id.drawer_wybierz_kategorie);
 		lv.setOnItemClickListener(drawerListener);
+		new SprawdzUpdate().execute();
+
 		new DrawerKategorie(this, lv);
+		try {
+			PackageManager manager = this.getPackageManager();
+			PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+			this.versionCode = info.versionCode;
+		} catch (NameNotFoundException e) {
+			this.versionCode = 0;
+		}
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerLinear = (LinearLayout) findViewById(R.id.left_linear);
@@ -147,6 +178,32 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 			actionBar.addTab(actionBar.newTab()
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
+		}
+	}
+
+	class SprawdzUpdate extends AsyncTask<String, Krok, String> {
+		@Override
+		protected String doInBackground(String... args) {
+			try {
+				List<NameValuePair> params = new ArrayList<NameValuePair>();
+				JSONObject json = jParser.makeHttpRequest(url_sprawdz_wersje,
+						"POST", params);
+				int success = json.getInt("success");
+				if (success == 1) {
+					version = json.getInt("version");
+				} else {
+					version = versionCode;
+				}
+			} catch (Exception e) {
+				Log.e("DEBUG_TAG", "" + e);
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String file_url) {
+			if (version > versionCode)
+				new AlertDialogManager().showUpdateDialog(context, null,context.getString(R.string.dostepne_update));
 		}
 	}
 
