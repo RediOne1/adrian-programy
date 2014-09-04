@@ -12,6 +12,7 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -57,6 +58,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	 */
 	SectionsPagerAdapter mSectionsPagerAdapter;
 
+	private final int OCEN_ILE_URUCHOMIEN = 15;
+	
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
@@ -102,6 +105,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		lv = (ListView) findViewById(R.id.drawer_wybierz_kategorie);
 		lv.setOnItemClickListener(drawerListener);
 		new SprawdzUpdate().execute();
+		licznikUruchomien();
 
 		new DrawerKategorie(this, lv);
 		try {
@@ -181,6 +185,21 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		}
 	}
 
+	public void licznikUruchomien() {
+		SharedPreferences ocen = getSharedPreferences("ocen", 0);
+		SharedPreferences.Editor edytorPref = ocen.edit();
+		int uruchomien=ocen.getInt("uruchomien", 0);
+		
+		if(uruchomien>OCEN_ILE_URUCHOMIEN && !ocen.getBoolean("oceniono", false)){
+			new AlertDialogManager().showUpdateDialog(context, null,context.getString(R.string.ocen_aplikacje));
+			uruchomien =-1;
+		}
+		uruchomien++;
+		edytorPref.putInt("uruchomien", uruchomien);
+		edytorPref.commit();
+		
+	}
+
 	class SprawdzUpdate extends AsyncTask<String, Krok, String> {
 		@Override
 		protected String doInBackground(String... args) {
@@ -203,7 +222,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		@Override
 		protected void onPostExecute(String file_url) {
 			if (version > versionCode)
-				new AlertDialogManager().showUpdateDialog(context, null,context.getString(R.string.dostepne_update));
+				new AlertDialogManager().showUpdateDialog(context, null,
+						context.getString(R.string.dostepne_update));
 		}
 	}
 

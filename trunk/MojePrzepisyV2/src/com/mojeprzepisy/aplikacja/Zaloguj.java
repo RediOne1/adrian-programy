@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,21 +31,31 @@ public class Zaloguj implements OnClickListener {
 	private Activity root;
 	private ProgressDialog pDialog;
 	private EditText Login, Haslo;
+	private String loginStr, hasloStr;
 	private String komunikat;
 	private final String TAG_SUCCESS = "success";
 	private String url_logowanie;
 	private Button zaloguj_button;
 	public Logowanie logowanie;
+	private SharedPreferences loginData;
 	String pseudonim = "";
 	MyApp app;
 
 	public Zaloguj(Activity _root, EditText _login, EditText _haslo) {
 		this.root = _root;
+		loginData = root.getSharedPreferences("logowanie", 0);
 		app = (MyApp) root.getApplicationContext();
 		url_logowanie = root.getString(R.string.url_logowanie);
 		this.Login = _login;
 		this.Haslo = _haslo;
-		if(app.getData()!=-1)
+		loginStr = loginData.getString("login", null);
+		hasloStr = loginData.getString("haslo", null);
+		if (loginStr != null && hasloStr != null) {
+			Login.setText(loginStr);
+			Haslo.setText(hasloStr);
+			zaloguj();
+		}
+		if (app.getData() != -1)
 			zalogowany();
 
 	}
@@ -53,22 +64,21 @@ public class Zaloguj implements OnClickListener {
 		logowanie = new Logowanie();
 		logowanie.execute();
 	}
-	
-	public void wyloguj(){
+
+	public void wyloguj() {
+		SharedPreferences.Editor edytorPref = loginData.edit();
+		edytorPref.clear();
+		edytorPref.commit();
 		app.setData(-1);
 		root.findViewById(R.id.drawer_zalogujsie_textview).setVisibility(
 				View.VISIBLE);
 		root.findViewById(R.id.drawer_login_module).setVisibility(View.VISIBLE);
 		root.findViewById(R.id.drawer_stworz_konto).setVisibility(View.VISIBLE);
-		root.findViewById(R.id.drawer_user_pseudonim).setVisibility(
-				View.GONE);
-		root.findViewById(R.id.drawer_moje_przepisy)
-				.setVisibility(View.GONE);
-		root.findViewById(R.id.drawer_logout_button)
-				.setVisibility(View.GONE);
-		root.findViewById(R.id.drawer_dodaj_przepis)
-				.setVisibility(View.GONE);
-		
+		root.findViewById(R.id.drawer_user_pseudonim).setVisibility(View.GONE);
+		root.findViewById(R.id.drawer_moje_przepisy).setVisibility(View.GONE);
+		root.findViewById(R.id.drawer_logout_button).setVisibility(View.GONE);
+		root.findViewById(R.id.drawer_dodaj_przepis).setVisibility(View.GONE);
+
 	}
 
 	@Override
@@ -89,21 +99,21 @@ public class Zaloguj implements OnClickListener {
 			pDialog.setMessage(root.getString(R.string.trwa_logowanie));
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
-			pDialog.setOnCancelListener(new OnCancelListener(){
-	             @Override
-	             public void onCancel(DialogInterface dialog){
-	                logowanie.cancel(true);
-	          }});
+			pDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					logowanie.cancel(true);
+				}
+			});
 			pDialog.show();
 		}
 
 		protected String doInBackground(String... args) {
-			String login, haslo;
-			login = Login.getText().toString();
-			haslo = Haslo.getText().toString();
+			loginStr = Login.getText().toString();
+			hasloStr = Haslo.getText().toString();
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("login", login));
-			params.add(new BasicNameValuePair("haslo", haslo));
+			params.add(new BasicNameValuePair("login", loginStr));
+			params.add(new BasicNameValuePair("haslo", hasloStr));
 			JSONArray products = null;
 			JSONObject json = jsonParser.makeHttpRequest(url_logowanie, "POST",
 					params);
@@ -122,7 +132,8 @@ public class Zaloguj implements OnClickListener {
 							user_id = c.getInt("id");
 							publishProgress();
 						} else {
-							komunikat = root.getString(R.string.konto_nieaktywne);
+							komunikat = root
+									.getString(R.string.konto_nieaktywne);
 						}
 					}
 				} else {
@@ -150,6 +161,10 @@ public class Zaloguj implements OnClickListener {
 	}
 
 	public void zalogowany() {
+		SharedPreferences.Editor edytorPref = loginData.edit();
+		edytorPref.putString("login", loginStr);
+		edytorPref.putString("haslo", hasloStr);
+		edytorPref.commit();
 		root.findViewById(R.id.drawer_zalogujsie_textview).setVisibility(
 				View.GONE);
 		root.findViewById(R.id.drawer_login_module).setVisibility(View.GONE);

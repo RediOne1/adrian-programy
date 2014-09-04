@@ -32,7 +32,7 @@ import com.mojeprzepisy.aplikacja.wyswietl_przepis.WyswietlPrzepis;
 public class DodajPrzepisActivity extends Activity implements OnClickListener {
 
 	public DodajZdjecie dodajZdjecie;
-	public int user_id = 1;
+	public int user_id;
 	private String komunikat;
 	public DodajTytul dodajTytul;
 	public DodajSkladniki dodajSkladniki;
@@ -49,11 +49,14 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 	public DodajNowyPrzepis dodajPrzepis;
 	private Przepis przepis;
 	private boolean edytuj = false;
+	private MyApp app;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dodaj_przepis_layout);
+		app = (MyApp) getApplicationContext();
+		user_id = app.getData();
 		dodajPrzepisURL = getResources().getString(R.string.url_dodaj_przepis);
 		root = DodajPrzepisActivity.this;
 		dodajPrzepis = new DodajNowyPrzepis();
