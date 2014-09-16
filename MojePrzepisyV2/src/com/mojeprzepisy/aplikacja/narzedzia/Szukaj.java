@@ -179,8 +179,8 @@ public class Szukaj extends ListActivity {
 		 * **/
 		protected void onPostExecute(String file_url) {
 			// dismiss the dialog after getting all products
+			adapter.notifyDataSetChanged();
 			setProgressBarIndeterminateVisibility(false);
-			lv.invalidateViews();
 		}
 	}
 }

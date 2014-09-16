@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.mojeprzepisy.aplikacja.Przepis;
 import com.mojeprzepisy.aplikacja.R;
 import com.mojeprzepisy.aplikacja.narzedzia.AlertDialogManager;
+import com.mojeprzepisy.aplikacja.narzedzia.ImageLoader;
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
 import com.mojeprzepisy.aplikacja.narzedzia.MyApp;
 import com.mojeprzepisy.aplikacja.narzedzia.WyslijZdjecie;
@@ -100,8 +101,11 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		dodajZdjecie.dodajPrzepisActivityResult(requestCode, resultCode, data);
-		// Log.d("DEBUG_TAG", przepis.zdjecie);
-		// new ImageLoader(root).remove(przepis.zdjecie);
+		try {
+			new ImageLoader(root).remove(przepis.zdjecie);
+		} catch (Exception e) {
+			Log.e("DEBUG_TAG", "" + e);
+		}
 	}
 
 	@Override
@@ -131,9 +135,11 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 			super.onPreExecute();
 			pDialog = new ProgressDialog(DodajPrzepisActivity.this);
 			if (edytuj)
-				pDialog.setMessage(DodajPrzepisActivity.this.getString(R.string.edytowanie_przepisu));
+				pDialog.setMessage(DodajPrzepisActivity.this
+						.getString(R.string.edytowanie_przepisu));
 			else
-				pDialog.setMessage(DodajPrzepisActivity.this.getString(R.string.dodawanie_przepisu));
+				pDialog.setMessage(DodajPrzepisActivity.this
+						.getString(R.string.dodawanie_przepisu));
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
 			pDialog.setOnCancelListener(new OnCancelListener() {
@@ -183,17 +189,7 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 
 				if (success == 1) {
 					przepis.przepisID = json.getInt("przepisID");
-					if (dodajZdjecie.getBitmap() != null) {
-						WyslijZdjecie wyslij = new WyslijZdjecie(root,
-								dodajZdjecie.getBitmap(), ""
-										+ przepis.przepisID);
-						// params.add(new BasicNameValuePair("zdjecie", "" +
-						// przepis.przepisID));
 
-						wyslij.executeMultipartPost();
-						while (!wyslij.gotowe) {
-						}
-					}
 				} else {
 				}
 				komunikat = json.getString("message");
@@ -209,9 +205,15 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 		 * After completing background task Dismiss the progress dialog
 		 * **/
 		protected void onPostExecute(String file_url) {
-			pDialog.dismiss();
 			if (success == 1) {
 				Log.d("DEBUG_TAG", komunikat);
+				if (dodajZdjecie.getBitmap() != null) {
+					WyslijZdjecie wyslij = new WyslijZdjecie(root,
+							dodajZdjecie.getBitmap(), "" + przepis.przepisID);
+					// params.add(new BasicNameValuePair("zdjecie", "" +
+					// przepis.przepisID));
+					wyslij.execute();
+				}
 				Intent i = new Intent(root, WyswietlPrzepis.class);
 				i.putExtra("przepis", przepis);
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -222,10 +224,7 @@ public class DodajPrzepisActivity extends Activity implements OnClickListener {
 			} else {
 				Toast.makeText(root, komunikat, Toast.LENGTH_SHORT).show();
 			}
-		}
-
-		protected void onProgress(Integer... integers) {
-			pDialog.setProgress(integers[0]);
+			pDialog.dismiss();
 		}
 	}
 }

@@ -11,9 +11,12 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.mojeprzepisy.aplikacja.Przepis;
+import com.mojeprzepisy.aplikacja.R;
 
 public class TopListZapytanie {
 
@@ -108,7 +111,7 @@ public class TopListZapytanie {
 					 */
 				}
 			} catch (Exception e) {
-		
+
 			}
 			return null;
 		}
