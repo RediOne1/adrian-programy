@@ -57,7 +57,6 @@
     <string name="url_ostatnio_dodane">http://softpartner.pl/MojePrzepisy/PL/ostatnio_dodane.php</string>
     <string name="url_przepis">http://softpartner.pl/MojePrzepisy/PL/przepis.php</string>
     <string name="url_usun_przepis">http://softpartner.pl/MojePrzepisy/PL/usun_przepis.php</string>
-    <string name="url_ocen">http://softpartner.pl/MojePrzepisy/PL/ocen.php</string>
     <string name="url_rejestracja">http://softpartner.pl/MojePrzepisy/PL/rejestracja.php</string>
     <string name="url_logowanie">http://softpartner.pl/MojePrzepisy/PL/logowanie.php</string>
     <string name="url_aktywuj_konto">http://softpartner.pl/MojePrzepisy/PL/aktywuj_konto.php</string>

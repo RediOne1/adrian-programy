@@ -93,7 +93,9 @@ public class WyswietlOpis extends WyswietlPrzepis {
 									continue;
 								String temp2[] = kroki_tab[i].split(";opis;");
 								if (temp2.length == 1)
-									publishProgress(new Krok("Opis", temp2[0]));
+									publishProgress(new Krok("", temp2[0]));
+								else if(temp2[0].equals("null"))
+									publishProgress(new Krok("", temp2[1]));
 								else
 									publishProgress(new Krok(temp2[0], temp2[1]));
 							}

@@ -16,76 +16,62 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import com.mojeprzepisy.aplikacja.R;
+import com.mojeprzepisy.aplikacja.dodaj_przepis.DodajPrzepisActivity;
+import com.mojeprzepisy.aplikacja.wyswietl_przepis.WyswietlPrzepis;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.DialogInterface.OnCancelListener;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 public class WyslijZdjecie {
 
 	Bitmap bm;
-	String name;
+	String name, stary;
 	private JSONParser jParser = new JSONParser();
-	private String url_zmien_tytul,url_usun_zdjecie, url_wyslij_zdjecie;
-	public boolean gotowe = false;
+	private String url_zmien_tytul, url_usun_zdjecie, url_wyslij_zdjecie;
+	private ExecuteMultipartPost executeMultipartPost;
 
 	public WyslijZdjecie(Activity root, Bitmap bm, String name) {
 		this.bm = bm;
 		this.name = name;
-		url_zmien_tytul = root.getResources().getString(R.string.url_zmien_tytul);
-		url_usun_zdjecie = root.getResources().getString(R.string.url_usun_zdjecie);
-		url_wyslij_zdjecie = root.getResources().getString(R.string.url_wyslij_zdjecie);
+		url_zmien_tytul = root.getResources().getString(
+				R.string.url_zmien_tytul);
+		url_usun_zdjecie = root.getResources().getString(
+				R.string.url_usun_zdjecie);
+		url_wyslij_zdjecie = root.getResources().getString(
+				R.string.url_wyslij_zdjecie);
+		executeMultipartPost = new ExecuteMultipartPost();
 	}
 
-	WyslijZdjecie(Activity root) {
-		url_zmien_tytul = root.getResources().getString(R.string.url_zmien_tytul);
-		url_usun_zdjecie = root.getResources().getString(R.string.url_usun_zdjecie);
-		url_wyslij_zdjecie = root.getResources().getString(R.string.url_wyslij_zdjecie);
+	public WyslijZdjecie(Activity root) {
+		url_zmien_tytul = root.getResources().getString(
+				R.string.url_zmien_tytul);
+		url_usun_zdjecie = root.getResources().getString(
+				R.string.url_usun_zdjecie);
+		url_wyslij_zdjecie = root.getResources().getString(
+				R.string.url_wyslij_zdjecie);
+		executeMultipartPost = new ExecuteMultipartPost();
 	}
 
-	public void executeMultipartPost() {
-		new Thread(new Runnable() {
-			public void run() {
-				try {
-					gotowe = false;
-					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					bm.compress(CompressFormat.JPEG, 100, bos);
-					byte[] data = bos.toByteArray();
-					HttpClient httpClient = new DefaultHttpClient();
-					HttpPost postRequest = new HttpPost(
-							url_wyslij_zdjecie);
-					ByteArrayBody bab = new ByteArrayBody(data, name);
-					// File file= new File("/mnt/sdcard/forest.png");
-					// FileBody bin = new FileBody(file);
-					MultipartEntity reqEntity = new MultipartEntity(
-							HttpMultipartMode.BROWSER_COMPATIBLE);
-					reqEntity.addPart("file", bab);
-					// reqEntity.addPart("podpis", new StringBody("sfsdfsdf"));
-					postRequest.setEntity(reqEntity);
-					HttpResponse response = httpClient.execute(postRequest);
-				} catch (Exception e) {
-					// handle exception here
-					gotowe = true;
-					Log.e("Wyslij zdjecie", "" + e);
-					Log.e("Wyslij zdjecie", "" + e.getMessage());
-				}
-				gotowe = true;
-			}
-		}).start();
+	public String execute() {
+		String result = "";
+		try {
+			result = executeMultipartPost.execute().get();
+		} catch (Exception e) {
+			Log.e("Wyslij zdjecie", "" + e);
+		}
+		Log.d("DEBUG_TAG",result);
+		return result;
 	}
 
-	private String stary;
-	private String nowy;
-
-	public void zmienTytul(String stary, String nowy) {
-		this.stary = stary;
-		this.nowy = nowy;
-		new zmienTytulClass().execute();
-	}
-
-	class zmienTytulClass extends AsyncTask<String, String, String> {
+	class ExecuteMultipartPost extends AsyncTask<String, Integer, String> {
 
 		/**
 		 * Before starting background thread Show Progress Dialog
@@ -99,26 +85,30 @@ public class WyslijZdjecie {
 		 * getting All products from url
 		 * */
 		protected String doInBackground(String... args) {
-			// Building Parameters
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("stary", stary));
-			params.add(new BasicNameValuePair("nowy", nowy));
-
 			try {
-				JSONObject json = jParser.makeHttpRequest(url_zmien_tytul,
-						"POST", params);
-
+				ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				bm.compress(CompressFormat.JPEG, 100, bos);
+				byte[] data = bos.toByteArray();
+				HttpClient httpClient = new DefaultHttpClient();
+				HttpPost postRequest = new HttpPost(url_wyslij_zdjecie);
+				ByteArrayBody bab = new ByteArrayBody(data, name);
+				MultipartEntity reqEntity = new MultipartEntity(
+						HttpMultipartMode.BROWSER_COMPATIBLE);
+				reqEntity.addPart("file", bab);
+				// reqEntity.addPart("podpis", new StringBody("sfsdfsdf"));
+				postRequest.setEntity(reqEntity);
+				HttpResponse response = httpClient.execute(postRequest);
 			} catch (Exception e) {
+				Log.e("Wyslij zdjecie", "" + e);
+				Log.e("Wyslij zdjecie", "" + e.getMessage());
 			}
-
-			return null;
+			return "wysłano zdjecie";
 		}
 
 		/**
 		 * After completing background task Dismiss the progress dialog
 		 * **/
 		protected void onPostExecute(String file_url) {
-
 		}
 	}
 
