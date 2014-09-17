@@ -67,6 +67,7 @@ public class GoogleLogin implements OnClickListener, ConnectionCallbacks,
 	private SignInButton btnSignIn;
 	private Button btnSignOut, btnRevokeAccess;
 	private LinearLayout llProfileLayout;
+	private View skaner_layout;
 	MyApp app;
 
 	public GoogleLogin(Activity root) {
@@ -77,6 +78,7 @@ public class GoogleLogin implements OnClickListener, ConnectionCallbacks,
 		btnSignIn = (SignInButton) root.findViewById(R.id.btn_sign_in);
 		btnSignOut = (Button) root.findViewById(R.id.btn_sign_out);
 		btnRevokeAccess = (Button) root.findViewById(R.id.btn_revoke_access);
+		skaner_layout = (View) root.findViewById(R.id.skaner_layout);
 
 		llProfileLayout = (LinearLayout) root.findViewById(R.id.llProfile);
 
@@ -150,11 +152,13 @@ public class GoogleLogin implements OnClickListener, ConnectionCallbacks,
 			btnSignOut.setVisibility(View.VISIBLE);
 			btnRevokeAccess.setVisibility(View.VISIBLE);
 			llProfileLayout.setVisibility(View.VISIBLE);
+			skaner_layout.setVisibility(View.VISIBLE);
 		} else {
 			btnSignIn.setVisibility(View.VISIBLE);
 			btnSignOut.setVisibility(View.GONE);
 			btnRevokeAccess.setVisibility(View.GONE);
 			llProfileLayout.setVisibility(View.GONE);
+			skaner_layout.setVisibility(View.GONE);
 		}
 	}
 
@@ -304,8 +308,7 @@ public class GoogleLogin implements OnClickListener, ConnectionCallbacks,
 		}
 
 		protected void onPostExecute(String result) {
-			Intent i = new Intent(root, SkanerActivity.class);
-			root.startActivity(i);
+			pDialog.dismiss();
 		}
 	}
 }

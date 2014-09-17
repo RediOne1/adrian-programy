@@ -14,7 +14,7 @@
     <string name="scan">Skanuj</string>
     <string name="abc">123&#8230;abc&#8230;</string>
     <string name="ilosc">"Ilość: "</string>
-    <string name="waga">Waga: </string>
+    <string name="waga">"Waga: "</string>
     <string name="cena">"Cena: "</string>
     <string name="nazwa">Nazwa</string>
     <string name="logowanie">Trwa logowanie, proszę czekać&#8230;</string>
@@ -26,5 +26,8 @@
     <string name="dodac_nowy">dodać nowy produkt?</string>
     <string name="wyloguj">Wyloguj</string>
     <string name="revokeAccess">Revoke Access</string>
+    <string name="title_activity_wyswietl_produkt">Produkt</string>
+    <string name="kod_kreskowy">"Kod kreskowy: "</string>
+    <string name="opis">"Opis: "</string>
 
 </resources>

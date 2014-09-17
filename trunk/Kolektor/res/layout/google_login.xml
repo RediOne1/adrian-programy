@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <include
+        android:id="@+id/skaner_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/activity_skaner"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/llProfile"
         android:layout_width="fill_parent"
