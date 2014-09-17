@@ -73,6 +73,13 @@ public class Skaner implements OnClickListener, TextWatcher {
 		searchEdit.addTextChangedListener(this);
 		dodaj_istniejacy.setOnClickListener(this);
 		dodaj_nowy.setOnClickListener(this);
+		app.skaner=this;
+	}
+	public void szukaj(){
+		if (executed)
+			szukajProduktow.cancel(true);
+		szukajProduktow = new SzukajProduktow();
+		szukajProduktow.execute();
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -105,8 +112,13 @@ public class Skaner implements OnClickListener, TextWatcher {
 					Toast.LENGTH_LONG).show();
 
 		} else if (v == dodaj_nowy) {
-
+			Intent i = new Intent(root, DodajProdukt.class);
+			Produkt p = new Produkt();
+			p.dodajKod(searchEdit.getText().toString());
+			i.putExtra("produkt", p);
+			root.startActivity(i);
 		}
+		searchEdit.setText(null);
 	}
 
 	@Override
@@ -123,10 +135,7 @@ public class Skaner implements OnClickListener, TextWatcher {
 
 	@Override
 	public void afterTextChanged(Editable s) {
-		if (executed)
-			szukajProduktow.cancel(true);
-		szukajProduktow = new SzukajProduktow();
-		szukajProduktow.execute();
+		szukaj();
 	}
 
 	private class SzukajProduktow extends AsyncTask<String, Void, String> {
