@@ -8,12 +8,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ListActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -36,7 +34,7 @@ public class Skaner implements OnClickListener, TextWatcher {
 
 	JSONParser jParser = new JSONParser();
 	public JSONArray dane = null;
-	private ListActivity root;
+	private FragmentActivity root;
 	private Button scanBtn;
 	private EditText searchEdit;
 	private ListView lv;
@@ -51,8 +49,8 @@ public class Skaner implements OnClickListener, TextWatcher {
 	private boolean executed = false;
 	MyApp app;
 
-	public Skaner(ListActivity root) {
-		this.root = root;
+	public Skaner(ListFragment _root) {
+		this.root = _root.getActivity();
 		app = (MyApp) root.getApplicationContext();
 		produkty = new ArrayList<Produkt>();
 		adapter = new MyListAdapter(root, produkty);
@@ -65,7 +63,7 @@ public class Skaner implements OnClickListener, TextWatcher {
 		dodaj_nowy = (TextView) root.findViewById(R.id.dodaj_nowy);
 		dodaj_button_layout = (View) root
 				.findViewById(R.id.include_dodaj_button);
-		lv = root.getListView();
+		lv = _root.getListView();
 		szukajProduktow = new SzukajProduktow();
 		// szukajProduktow.execute();
 
