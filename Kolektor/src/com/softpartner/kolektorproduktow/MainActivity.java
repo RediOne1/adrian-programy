@@ -1,21 +1,21 @@
 package com.softpartner.kolektorproduktow;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
 
 	private GoogleLogin googleLogin;
-	private MyApp app;
+	private Skaner skaner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
 		googleLogin = new GoogleLogin(this);
+		skaner = new Skaner(this);
 	}
 
 	protected void onStart() {
