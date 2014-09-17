@@ -64,10 +64,7 @@ public class MyListAdapter extends BaseAdapter {
 		produktID.setText(produkt.ID);
 		nr.setText((position + 1) + ".");
 		nazwa.setText(produkt.nazwa);
-		String kody_kreskowe = "";
-		for (String k : produkt.kody_kreskowe)
-			kody_kreskowe += k + "\n";
-		kody.setText(kody_kreskowe);
+		kody.setText(produkt.getKody());
 		waga.setText(activity.getString(R.string.waga) + produkt.waga);
 		ilosc.setText(activity.getString(R.string.ilosc) + produkt.ilosc);
 		cena.setText(activity.getString(R.string.cena) + produkt.cena);
