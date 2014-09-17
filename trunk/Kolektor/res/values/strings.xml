@@ -7,5 +7,24 @@
     <!-- Button text -->
     <string name="btn_logout_from_google">Logout from Google</string>
     <string name="btn_revoke_access">Revoke Access</string>
+    <string name="title_activity_google_login">GoogleLoginActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="btn_scan">Skanuj</string>
+    <string name="title_activity_skaner">Skaner</string>
+    <string name="scan">Skanuj</string>
+    <string name="abc">123&#8230;abc&#8230;</string>
+    <string name="ilosc">"Ilość: "</string>
+    <string name="waga">Waga: </string>
+    <string name="cena">"Cena: "</string>
+    <string name="nazwa">Nazwa</string>
+    <string name="logowanie">Trwa logowanie, proszę czekać&#8230;</string>
+    <string name="brak_skanu">Brak skanu</string>
+    <string name="url_login">http://softpartner.pl/kolektor/login.php</string>
+    <string name="url_szukaj_produktow">http://softpartner.pl/kolektor/szukaj_produkty.php</string>
+    <string name="brak_produktu">Brak produktu o danym kodzie.\nCzy chcesz</string>
+    <string name="przypisac_do_istniejacego">przypisać kod do\nistniejącego produktu?</string>
+    <string name="dodac_nowy">dodać nowy produkt?</string>
+    <string name="wyloguj">Wyloguj</string>
+    <string name="revokeAccess">Revoke Access</string>
 
 </resources>
