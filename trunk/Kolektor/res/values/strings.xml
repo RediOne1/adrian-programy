@@ -21,6 +21,7 @@
     <string name="brak_skanu">Brak skanu</string>
     <string name="url_login">http://softpartner.pl/kolektor/login.php</string>
     <string name="url_szukaj_produktow">http://softpartner.pl/kolektor/szukaj_produkty.php</string>
+    <string name="url_dodaj_kod">http://softpartner.pl/kolektor/dodaj_kod.php</string>
     <string name="brak_produktu">Brak produktu o danym kodzie.\nCzy chcesz</string>
     <string name="przypisac_do_istniejacego">przypisać kod do\nistniejącego produktu?</string>
     <string name="dodac_nowy">dodać nowy produkt?</string>
@@ -32,9 +33,13 @@
     <string name="zapamietano_kod">"Zapamiętano kod: "</string>
     <string name="znajdz_aby_dodac">"Znajdz produkt do którego chcesz dodać ten kod."</string>
     <string name="komunikat">Komunikat</string>
-    <string name="czy_dodac1">"Czy chcesz dodać kod "</string>
-    <string name="czy_dodac2">" do tego produktu?"</string>
+    <string name="czy_dodac1">"Czy chcesz dodać kod \""</string>
+    <string name="czy_dodac2">"\" do tego produktu?"</string>
+    <string name="dodawanie_kodu">Trwa dodawanie kodu&#8230;</string>
     <string name="tak">"Tak"</string>
     <string name="nie">"Nie"</string>
+    <string name="dodano_kod">Pomyślnie dodano kod</string>
+    <string name="nie_dodano_kodu">Nie udało się dodać kodu</string>
+    <string name="profile_image">Profile image</string>
 
 </resources>

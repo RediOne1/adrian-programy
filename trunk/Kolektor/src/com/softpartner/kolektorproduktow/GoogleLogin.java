@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.os.AsyncTask;
 import android.os.Bundle;
