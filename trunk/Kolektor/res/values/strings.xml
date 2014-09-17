@@ -29,5 +29,12 @@
     <string name="title_activity_wyswietl_produkt">Produkt</string>
     <string name="kod_kreskowy">"Kod kreskowy: "</string>
     <string name="opis">"Opis: "</string>
+    <string name="zapamietano_kod">"Zapamiętano kod: "</string>
+    <string name="znajdz_aby_dodac">"Znajdz produkt do którego chcesz dodać ten kod."</string>
+    <string name="komunikat">Komunikat</string>
+    <string name="czy_dodac1">"Czy chcesz dodać kod "</string>
+    <string name="czy_dodac2">" do tego produktu?"</string>
+    <string name="tak">"Tak"</string>
+    <string name="nie">"Nie"</string>
 
 </resources>

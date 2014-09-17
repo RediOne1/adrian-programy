@@ -8,7 +8,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.Editable;
@@ -53,8 +56,7 @@ public class Skaner implements OnClickListener, TextWatcher {
 		app = (MyApp) root.getApplicationContext();
 		produkty = new ArrayList<Produkt>();
 		adapter = new MyListAdapter(root, produkty);
-		myOnItemClickListener = new MyOnItemClickListener(
-				root.getApplicationContext());
+		myOnItemClickListener = new MyOnItemClickListener(root);
 		pBar = (ProgressBar) root.findViewById(R.id.szukaj_progress_bar);
 		url_szukaj_produktow = root.getString(R.string.url_szukaj_produktow);
 		scanBtn = (Button) root.findViewById(R.id.scan_button);
@@ -96,6 +98,13 @@ public class Skaner implements OnClickListener, TextWatcher {
 			IntentIntegrator scanIntegrator = new IntentIntegrator(root);
 			scanIntegrator.initiateScan();
 		} else if (v == dodaj_istniejacy) {
+			app.schowek = searchEdit.getText().toString();
+			Toast.makeText(root.getApplicationContext(),
+					root.getString(R.string.zapamietano_kod) + app.schowek,
+					Toast.LENGTH_SHORT).show();
+			Toast.makeText(root.getApplicationContext(),
+					root.getString(R.string.znajdz_aby_dodac),
+					Toast.LENGTH_LONG).show();
 
 		} else if (v == dodaj_nowy) {
 
@@ -167,7 +176,7 @@ public class Skaner implements OnClickListener, TextWatcher {
 							p.dodajKod(kody.getString(j));
 						}
 						if (!produkty.contains(p))
-						produkty.add(p);
+							produkty.add(p);
 					}
 				} else {
 					// no products found

@@ -6,6 +6,7 @@ public class MyApp extends Application {
 	private String data = "-1";
 	private boolean premium = false;
 	public GoogleLogin gl = null;
+	public String schowek = null;
 
 	public String getData() {
 		return data;
