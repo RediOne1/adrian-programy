@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
@@ -45,12 +46,12 @@
             android:label="@string/title_activity_wyswietl_produkt" >
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
-        <activity
             android:name=".DodajProdukt"
             android:label="@string/title_activity_dodaj_produkt" >
+        </activity>
+        <activity
+            android:name=".Scandit"
+            android:label="@string/title_activity_scandit" >
         </activity>
     </application>
 

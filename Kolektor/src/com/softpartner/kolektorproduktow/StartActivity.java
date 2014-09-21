@@ -8,16 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mirasense.scanditsdk.ScanditSDKAutoAdjustingBarcodePicker;
+import com.mirasense.scanditsdk.interfaces.ScanditSDKListener;
+
 public class StartActivity extends ListFragment {
 
 	private GoogleLogin googleLogin;
 	private Skaner skaner;
+	View rootView;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.activity_start, container,
-				false);
+		rootView = inflater.inflate(R.layout.activity_start, container, false);
 		return rootView;
 	}
 
@@ -25,7 +28,7 @@ public class StartActivity extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		googleLogin = new GoogleLogin(getActivity());
-		skaner = new Skaner(this);		
+		skaner = new Skaner(this);
 		googleLogin.mGoogleApiClient.connect();
 	}
 
