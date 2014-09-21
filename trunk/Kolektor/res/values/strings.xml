@@ -61,5 +61,6 @@
     <string name="wyslij">Wyślij</string>
     <string name="uzupelnij_dane">Uzupełnij wszystkie dane</string>
     <string name="title_activity_scandit">Scandit</string>
+    <string name="szukaj">Search</string>
 
 </resources>

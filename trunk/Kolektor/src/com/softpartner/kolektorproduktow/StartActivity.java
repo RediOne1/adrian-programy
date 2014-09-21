@@ -8,9 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mirasense.scanditsdk.ScanditSDKAutoAdjustingBarcodePicker;
-import com.mirasense.scanditsdk.interfaces.ScanditSDKListener;
-
 public class StartActivity extends ListFragment {
 
 	private GoogleLogin googleLogin;

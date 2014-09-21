@@ -4,37 +4,42 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mirasense.scanditsdk.ScanditSDKAutoAdjustingBarcodePicker;
 import com.mirasense.scanditsdk.ScanditSDKBarcodePicker;
 import com.mirasense.scanditsdk.interfaces.ScanditSDKListener;
 
-public class Scandit extends Activity implements ScanditSDKListener {
+public class Scandit extends Activity implements ScanditSDKListener,
+		OnClickListener {
 
 	private MyApp app;
 	ScanditSDKAutoAdjustingBarcodePicker picker;
-	TextView tv;
+	private Button scanBtn;
+	private EditText searchBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Instantiate the default barcode picker
+		loadUI();
+	}
+	private void loadUI(){
 		setContentView(R.layout.activity_scandit);
 		app = (MyApp) getApplicationContext();
 		picker = new ScanditSDKAutoAdjustingBarcodePicker(this,
 				app.ScanditAppKey, ScanditSDKBarcodePicker.CAMERA_FACING_BACK);
-		picker.getOverlayView().addListener(this);
-		tv = (TextView) findViewById(R.id.scandit_tv);
-
+		scanBtn = (Button) findViewById(R.id.scandit_scanBtn);
+		searchBar = (EditText) findViewById(R.id.scandit_searchBar);
+		
+		scanBtn.setOnClickListener(this);		
 	}
 
 	@Override
 	protected void onResume() {
-		setContentView(picker);
-		// Specify the object that will receive the callback events
-		picker.startScanning();
 		super.onResume();
 	}
 
@@ -79,9 +84,16 @@ public class Scandit extends Activity implements ScanditSDKListener {
 
 	@Override
 	public void didScanBarcode(String barcode, String symbology) {
-		Toast.makeText(this, barcode + "\n" + symbology, Toast.LENGTH_SHORT).show();
-		tv.setText(barcode + "\n" + symbology);
-		setContentView(R.layout.activity_scandit);
+		loadUI();
+		searchBar.setText(barcode);
+	}
 
+	@Override
+	public void onClick(View v) {
+		if (v == scanBtn) {
+			setContentView(picker);
+			picker.getOverlayView().addListener(this);
+			picker.startScanning();
+		}
 	}
 }

@@ -8,13 +8,39 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.softpartner.kolektorproduktow.Scandit" >
 
-    <TextView
-        android:id="@+id/scandit_tv"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/scandit_searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:hint="@string/abc"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/szukaj"
+            android:src="@android:drawable/ic_menu_search" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/scandit_scanBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout1"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="test"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="@string/scan" />
 
 </RelativeLayout>
