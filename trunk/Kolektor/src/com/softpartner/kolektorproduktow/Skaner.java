@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,11 +27,14 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.mirasense.scanditsdk.ScanditSDKAutoAdjustingBarcodePicker;
+import com.mirasense.scanditsdk.ScanditSDKBarcodePicker;
+import com.mirasense.scanditsdk.interfaces.ScanditSDKListener;
 import com.softpartner.kolektorproduktow.narzedzia.JSONParser;
 import com.softpartner.kolektorproduktow.narzedzia.MyListAdapter;
 import com.softpartner.kolektorproduktow.narzedzia.MyOnItemClickListener;
 
-public class Skaner implements OnClickListener, TextWatcher {
+public class Skaner implements OnClickListener, TextWatcher, ScanditSDKListener {
 
 	JSONParser jParser = new JSONParser();
 	public JSONArray dane = null;
@@ -48,6 +52,8 @@ public class Skaner implements OnClickListener, TextWatcher {
 	private TextView dodaj_istniejacy, dodaj_nowy;
 	private boolean executed = false;
 	MyApp app;
+	LinearLayout rootView;
+	ScanditSDKAutoAdjustingBarcodePicker picker;
 
 	public Skaner(ListFragment _root) {
 		this.root = _root.getActivity();
@@ -61,21 +67,26 @@ public class Skaner implements OnClickListener, TextWatcher {
 		searchEdit = (EditText) root.findViewById(R.id.search_edittext);
 		dodaj_istniejacy = (TextView) root.findViewById(R.id.dodaj_istniejacy);
 		dodaj_nowy = (TextView) root.findViewById(R.id.dodaj_nowy);
+		rootView = (LinearLayout) root.findViewById(R.id.skaner_rootView);
 		dodaj_button_layout = (View) root
 				.findViewById(R.id.include_dodaj_button);
 		lv = _root.getListView();
 		szukajProduktow = new SzukajProduktow();
 		// szukajProduktow.execute();
+		picker = new ScanditSDKAutoAdjustingBarcodePicker(root,
+				app.ScanditAppKey, ScanditSDKBarcodePicker.CAMERA_FACING_BACK);
 
+		picker.getOverlayView().addListener(this);
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(myOnItemClickListener);
 		scanBtn.setOnClickListener(this);
 		searchEdit.addTextChangedListener(this);
 		dodaj_istniejacy.setOnClickListener(this);
 		dodaj_nowy.setOnClickListener(this);
-		app.skaner=this;
+		app.skaner = this;
 	}
-	public void szukaj(){
+
+	public void szukaj() {
 		if (executed)
 			szukajProduktow.cancel(true);
 		szukajProduktow = new SzukajProduktow();
@@ -100,8 +111,11 @@ public class Skaner implements OnClickListener, TextWatcher {
 	@Override
 	public void onClick(View v) {
 		if (v == scanBtn) {
-			IntentIntegrator scanIntegrator = new IntentIntegrator(root);
-			scanIntegrator.initiateScan();
+			// IntentIntegrator scanIntegrator = new IntentIntegrator(root);
+			// scanIntegrator.initiateScan();
+			Intent i = new Intent(root, Scandit.class);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			root.startActivity(i);
 		} else if (v == dodaj_istniejacy) {
 			app.schowek = searchEdit.getText().toString();
 			Toast.makeText(root.getApplicationContext(),
@@ -214,5 +228,23 @@ public class Skaner implements OnClickListener, TextWatcher {
 			executed = false;
 			super.onCancelled();
 		}
+	}
+
+	@Override
+	public void didCancel() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void didManualSearch(String arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void didScanBarcode(String arg0, String arg1) {
+		// TODO Auto-generated method stub
+
 	}
 }

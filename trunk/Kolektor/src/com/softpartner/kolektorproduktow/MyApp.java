@@ -8,6 +8,7 @@ public class MyApp extends Application {
 	public GoogleLogin gl = null;
 	public String schowek = null;
 	public Skaner skaner = null;
+	public String ScanditAppKey = "glj58kBJEeSXVKyDbqPqsHoqWN7zUuzIX5XFcleldjE";
 
 	public String getData() {
 		return data;

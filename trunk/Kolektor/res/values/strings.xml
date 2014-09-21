@@ -19,6 +19,7 @@
     <string name="nazwa">Nazwa</string>
     <string name="logowanie">Trwa logowanie, proszę czekać&#8230;</string>
     <string name="brak_skanu">Brak skanu</string>
+    <string name="url_opisy_produktow">http://opisyproduktow.pl/webapi10/xml/</string>
     <string name="url_login">http://softpartner.pl/kolektor/login.php</string>
     <string name="url_szukaj_produktow">http://softpartner.pl/kolektor/szukaj_produkty.php</string>
     <string name="url_dodaj_kod">http://softpartner.pl/kolektor/dodaj_kod.php</string>
@@ -59,5 +60,6 @@
     <string name="wpisz_tekst">Wpisz tekst&#8230;</string>
     <string name="wyslij">Wyślij</string>
     <string name="uzupelnij_dane">Uzupełnij wszystkie dane</string>
+    <string name="title_activity_scandit">Scandit</string>
 
 </resources>
