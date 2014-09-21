@@ -11,12 +11,9 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import com.mojeprzepisy.aplikacja.Przepis;
-import com.mojeprzepisy.aplikacja.R;
 
 public class TopListZapytanie {
 
@@ -46,7 +43,7 @@ public class TopListZapytanie {
 	/**
 	 * Before starting background thread Show Progress Dialog
 	 * */
-	class NajwyzejOcenianeZapytania extends AsyncTask<String, String, String> {
+	class NajwyzejOcenianeZapytania extends AsyncTask<String, Przepis, String> {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -95,8 +92,8 @@ public class TopListZapytanie {
 						String czas = c.getString("czas");
 						String skladniki = c.getString("skladniki");
 						String opis = c.getString("opis");
-
-						wszystkiePrzepisy.add(new Przepis(autorID, przepisID,
+						
+						publishProgress(new Przepis(autorID, przepisID,
 								tytul, kategoria, ocena, ilosc_ocen, trudnosc,
 								czas, StrZdjecie, skladniki, opis));
 					}
@@ -115,9 +112,15 @@ public class TopListZapytanie {
 			}
 			return null;
 		}
+		@Override
+		protected void onProgressUpdate(Przepis...przepisy){
+			wszystkiePrzepisy.add(przepisy[0]);
+			adapter.notifyDataSetChanged();
+		}
 
 		@Override
 		protected void onCancelled() {
+			adapter.notifyDataSetChanged();
 			super.onCancelled();
 		}
 
@@ -126,10 +129,7 @@ public class TopListZapytanie {
 		 * **/
 		@Override
 		protected void onPostExecute(String file_url) {
-			try {
-				adapter.notifyDataSetChanged();
-			} catch (Exception e) {
-			}
+			adapter.notifyDataSetChanged();
 		}
 	}
 }
