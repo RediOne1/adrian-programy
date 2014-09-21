@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +17,8 @@ import com.mojeprzepisy.aplikacja.R;
 
 public class MyListAdapter extends BaseAdapter {
 	private Activity activity;
-	private Context mContext;
 	private List<Przepis> dane;
 	private static LayoutInflater inflater = null;
-	private Typeface MyBold;
-	private Typeface MyNormal;
 	private ImageLoader imageLoader;
 
 	public MyListAdapter(Activity a,

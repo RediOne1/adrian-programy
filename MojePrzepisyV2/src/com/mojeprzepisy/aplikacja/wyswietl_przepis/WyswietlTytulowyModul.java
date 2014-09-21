@@ -139,6 +139,7 @@ public class WyswietlTytulowyModul extends WyswietlPrzepis {
 			ilosc_ocen.setText("" + przepis.ilosc_ocen);
 			trudnosc.setText(przepis.trudnosc);
 			czas.setText(przepis.czas);
+			new ImageLoader(root).remove(przepis.zdjecie);
 			new ImageLoader(root).DisplayImage(przepis.zdjecie, zdjecie);
 			root.invalidateOptionsMenu();
 			progress.setVisibility(View.GONE);
