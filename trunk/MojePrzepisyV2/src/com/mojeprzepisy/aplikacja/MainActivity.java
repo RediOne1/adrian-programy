@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -59,7 +60,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	SectionsPagerAdapter mSectionsPagerAdapter;
 
 	private final int OCEN_ILE_URUCHOMIEN = 15;
-	
+
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
@@ -188,16 +189,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	public void licznikUruchomien() {
 		SharedPreferences ocen = getSharedPreferences("ocen", 0);
 		SharedPreferences.Editor edytorPref = ocen.edit();
-		int uruchomien=ocen.getInt("uruchomien", 0);
-		
-		if(uruchomien>OCEN_ILE_URUCHOMIEN && !ocen.getBoolean("oceniono", false)){
-			new AlertDialogManager().showUpdateDialog(context, null,context.getString(R.string.ocen_aplikacje));
-			uruchomien =-1;
+		int uruchomien = ocen.getInt("uruchomien", 0);
+
+		if (uruchomien > OCEN_ILE_URUCHOMIEN
+				&& !ocen.getBoolean("oceniono", false)) {
+			new AlertDialogManager().showUpdateDialog(context, null,
+					context.getString(R.string.ocen_aplikacje));
+			uruchomien = -1;
 		}
 		uruchomien++;
 		edytorPref.putInt("uruchomien", uruchomien);
 		edytorPref.commit();
-		
+
 	}
 
 	class SprawdzUpdate extends AsyncTask<String, Krok, String> {
@@ -205,6 +208,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		protected String doInBackground(String... args) {
 			try {
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
+				params.add(new BasicNameValuePair("user_version", ""
+						+ versionCode));
 				JSONObject json = jParser.makeHttpRequest(url_sprawdz_wersje,
 						"POST", params);
 				int success = json.getInt("success");

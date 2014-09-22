@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -15,13 +13,13 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -31,17 +29,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.mojeprzepisy.aplikacja.narzedzia.MyApp;
 import com.mojeprzepisy.aplikacja.narzedzia.JSONParser;
 
 public class RejestracjaActivity extends Activity implements OnClickListener {
 
 	JSONParser jsonParser = new JSONParser();
-	private final static int CUSTOM_DIALOG_ID = 1;
-	private final static int CUSTOM_DIALOG_ID2 = 2;
-	private final static int ALERT_DIALOG_ID = 3;
+	private final static int CUSTOM_DIALOG_ID = 30;
+	private final static int CUSTOM_DIALOG_ID2 = 31;
+	private final static int ALERT_DIALOG_ID = 32;
 	private String url_rejestracja;
-	private String url_logowanie;
 	private String url_aktywuj_konto;
 	private static final String TAG_SUCCESS = "success";
 	private static String komunikat = "...";
@@ -70,7 +66,6 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_rejestracja);
 		url_rejestracja = getString(R.string.url_rejestracja);
-		url_logowanie = getString(R.string.url_logowanie);
 		hasloOK = getString(R.string.haslaOK);
 		hasloZLE = getString(R.string.haslaZLE);
 		url_aktywuj_konto = getString(R.string.url_aktywuj_konto);
@@ -145,6 +140,98 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 	public void dodaj2(EditText loginAktywuj, EditText mailAktywuj) {
 		this.loginAktywuj = loginAktywuj;
 		this.mailAktywuj = mailAktywuj;
+	}protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case CUSTOM_DIALOG_ID:
+			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			final View layout = inflater.inflate(R.layout.login_dialog,
+					(ViewGroup) findViewById(R.id.root));
+			ustawienia = getSharedPreferences("MyCustomSharedPreferences", 0);
+			Login = (EditText) layout.findViewById(R.id.login);
+			Haslo = (EditText) layout.findViewById(R.id.haslo);
+			Login.setText(ustawienia.getString("Login", ""));
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setView(layout);
+			// KOnfiguracja okna AlertDialog
+			builder.setTitle("Logowanie");
+			builder.setNegativeButton(android.R.string.cancel,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							// Wymuszamy zamkni�cie i usuni�cie okna, tak by nie
+							// mo�na
+							// by�o ponownie z niego skorzysta�.
+							removeDialog(CUSTOM_DIALOG_ID);
+						}
+					});
+			builder.setNeutralButton("Aktywuj konto",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							removeDialog(CUSTOM_DIALOG_ID);
+							showDialog(CUSTOM_DIALOG_ID2);
+						}
+					});
+			builder.setPositiveButton(android.R.string.ok,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							removeDialog(CUSTOM_DIALOG_ID);
+							dodaj(Login, Haslo);
+						}
+					});
+			// Twrozymy obiekt AlertDialog i zwracamy go.
+			AlertDialog passwordDialog = builder.create();
+			return passwordDialog;
+		case CUSTOM_DIALOG_ID2:
+			LayoutInflater inflater2 = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			final View layout2 = inflater2.inflate(R.layout.aktywuj_konto,
+					(ViewGroup) findViewById(R.id.root));
+			loginAktywuj = (EditText) layout2.findViewById(R.id.loginAktywuj);
+			mailAktywuj = (EditText) layout2.findViewById(R.id.mailAktywuj);
+			AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+			builder2.setView(layout2);
+			// KOnfiguracja okna AlertDialog
+			builder2.setTitle("Logowanie");
+			builder2.setNegativeButton(android.R.string.cancel,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							// Wymuszamy zamkni�cie i usuni�cie okna, tak by nie
+							// mo�na
+							// by�o ponownie z niego skorzysta�.
+							removeDialog(CUSTOM_DIALOG_ID);
+						}
+					});
+			builder2.setPositiveButton("Wyślij",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							removeDialog(CUSTOM_DIALOG_ID);
+							dodaj2(loginAktywuj, mailAktywuj);
+							new WyslijMail().execute();
+
+						}
+					});
+			// Twrozymy obiekt AlertDialog i zwracamy go.
+			AlertDialog passwordDialog2 = builder2.create();
+			return passwordDialog2;
+		case ALERT_DIALOG_ID:
+			AlertDialog alertDialog = new AlertDialog.Builder(this)
+					.setTitle("Komunikat")
+					.setMessage(komunikat)
+					.setNeutralButton("OK",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									if (zarejestrowano)
+										finish();
+									removeDialog(ALERT_DIALOG_ID);
+								}
+							}).create();
+			return alertDialog;
+		}
+		return null;
 	}
 
 	class WyslijMail extends AsyncTask<String, String, String> {
@@ -238,6 +325,7 @@ public class RejestracjaActivity extends Activity implements OnClickListener {
 						komunikat = json.getString("message");
 					}
 				} catch (Exception e) {
+					Log.e("DEBUG_TAG",""+e);
 					komunikat = "Brak połączenia z internetem.";
 				}
 			} else {
