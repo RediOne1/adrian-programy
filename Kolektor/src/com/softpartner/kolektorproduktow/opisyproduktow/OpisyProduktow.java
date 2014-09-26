@@ -2,6 +2,7 @@ package com.softpartner.kolektorproduktow.opisyproduktow;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -11,6 +12,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import android.app.Activity;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import com.softpartner.kolektorproduktow.R;
 import com.softpartner.kolektorproduktow.narzedzia.XMLParser;
@@ -37,47 +40,111 @@ public class OpisyProduktow {
 
 	}
 
-	private NodeList getNodeList(String method, String... id) {
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("key", KEY));
-		params.add(new BasicNameValuePair("method", method));
-		if (id.length % 2 == 0 && id.length > 0) {
-			for (int i = 0; i < id.length; i += 2) {
-				params.add(new BasicNameValuePair(id[i], id[i + 1]));
+	class getNodeList extends AsyncTask<String, String, NodeList> {
+
+		List<NameValuePair> params;
+		String method;
+
+		public getNodeList(String method, String... id) {
+			this.method = method;
+			params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("key", KEY));
+			params.add(new BasicNameValuePair("method", method));
+			if (id.length % 2 == 0 && id.length > 0) {
+				for (int i = 0; i < id.length; i += 2) {
+					params.add(new BasicNameValuePair(id[i], id[i + 1]));
+				}
 			}
 		}
-		String xml = parser.makeHttpRequest(URL, "GET", params); // getting XML
-		Document doc = parser.getDomElement(xml); // getting DOM element
 
-		NodeList nl = doc.getElementsByTagName(method);
-		Node n = nl.item(0);
-		NodeList nl2 = n.getChildNodes();
-		return nl2;
+		/**
+		 * Before starting background thread Show Progress Dialog
+		 * */
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		/**
+		 * getting All products from url
+		 * */
+		protected NodeList doInBackground(String... args) {
+			String xml = parser.makeHttpRequest(URL, "GET", params); // getting
+																		// XML
+			Document doc = parser.getDomElement(xml); // getting DOM element
+
+			NodeList node_method = doc.getElementsByTagName(method);
+			Node n = node_method.item(0);
+			NodeList method_childs = n.getChildNodes();
+			return method_childs;
+		}
+
+		/**
+		 * After completing background task Dismiss the progress dialog
+		 * **/
+		protected void onPostExecute(String file_url) {
+		}
 	}
 
-	public List<ProductOP> getProducts(String... id) {
+	public String getZdjecieURL(Element e) {
+		String result = "";
+		NodeList photoList = e.getElementsByTagName("medium_path");
+		for (int i = 0; i < photoList.getLength(); i++) {
+			if (photoList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element e2 = (Element) photoList.item(i);
+				result = e2.getTextContent();
+			}
+		}
+		return result;
+	}
+
+	public List<ProductOP> getProduct(String type, String value)
+			throws InterruptedException, ExecutionException {
 		List<ProductOP> produkty = new ArrayList<ProductOP>();
-		NodeList nl = getNodeList("getProducts", id);
+		NodeList nl = new getNodeList("getProduct", type, value).execute()
+				.get();
 		for (int i = 0; i < nl.getLength(); i++) {
 			Element e = (Element) nl.item(i);
-			ProductOP p = new ProductOP();
-			p.product_id = parser.getValue(e, "product_id");
-			p.product_name = parser.getValue(e, "product_name");
-			p.producer_id = parser.getValue(e, "producer_id");
-			p.producer_name = parser.getValue(e, "producer_name");
-			p.brand_id = parser.getValue(e, "brand_id");
-			p.brand_name = parser.getValue(e, "brand_name");
-			p.ean = parser.getValue(e, "ean");
-			p.category_id = parser.getValue(e, "category_id");
-			p.category_name = parser.getValue(e, "category_name");
+			ProductOP p = new ProductOP(root);
+			NodeList nl2 = e.getChildNodes();
+			for (int j = 0; j < nl2.getLength(); j++) {
+				if (nl2.item(j).getNodeType() == Node.ELEMENT_NODE) {
+					Element e2 = (Element) nl2.item(j);
+					if (e2.getNodeName().equals("media"))
+						p.zdjecie = getZdjecieURL(e2);
+					p.addElement(e2.getNodeName(), e2.getTextContent());
+				}
+			}
 			produkty.add(p);
 		}
 		return produkty;
 	}
 
-	public List<Producer> getProducers() {
+	public List<ProductOP> getProducts(String... id)
+			throws InterruptedException, ExecutionException {
+		List<ProductOP> produkty = new ArrayList<ProductOP>();
+		NodeList nl = new getNodeList("getProducts", id).get();
+		for (int i = 0; i < nl.getLength(); i++) {
+			Element e = (Element) nl.item(i);
+			ProductOP p = new ProductOP(root);
+			NodeList nl2 = e.getChildNodes();
+			for (int j = 0; j < nl2.getLength(); j++) {
+				if (nl2.item(j).getNodeType() == Node.ELEMENT_NODE) {
+					Element e2 = (Element) nl2.item(j);
+					p.addElement(e2.getNodeName(), e2.getNodeValue());
+					Log.d("DEBUG_TAG",
+							e2.getNodeName() + " " + e2.getNodeValue());
+				}
+			}
+			produkty.add(p);
+		}
+		return produkty;
+	}
+
+	public List<Producer> getProducers() throws InterruptedException,
+			ExecutionException {
 		List<Producer> producenci = new ArrayList<Producer>();
-		NodeList nl = getNodeList("getProducers");
+		NodeList nl = new getNodeList("getProducers").get();
 		for (int i = 0; i < nl.getLength(); i++) {
 			Element e = (Element) nl.item(i);
 			Producer p = new Producer();
@@ -88,9 +155,10 @@ public class OpisyProduktow {
 		return producenci;
 	}
 
-	public List<Brand> getBrands() {
+	public List<Brand> getBrands() throws InterruptedException,
+			ExecutionException {
 		List<Brand> brands = new ArrayList<Brand>();
-		NodeList nl = getNodeList("getBrands");
+		NodeList nl = new getNodeList("getBrands").get();
 
 		for (int i = 0; i < nl.getLength(); i++) {
 			Element e = (Element) nl.item(i);

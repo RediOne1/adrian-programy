@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -64,9 +65,8 @@ public class GoogleLogin implements OnClickListener, ConnectionCallbacks,
 	private ConnectionResult mConnectionResult;
 
 	private SignInButton btnSignIn;
-	private Button btnSignOut, btnRevokeAccess;
+	private Button btnSignOut, btnRevokeAccess, btnSkaner;
 	private LinearLayout llProfileLayout;
-	private View skaner_layout;
 	MyApp app;
 
 	public GoogleLogin(Activity root) {
@@ -77,11 +77,12 @@ public class GoogleLogin implements OnClickListener, ConnectionCallbacks,
 		btnSignIn = (SignInButton) root.findViewById(R.id.btn_sign_in);
 		btnSignOut = (Button) root.findViewById(R.id.btn_sign_out);
 		btnRevokeAccess = (Button) root.findViewById(R.id.btn_revoke_access);
-		skaner_layout = (View) root.findViewById(R.id.skaner_layout);
+		btnSkaner = (Button) root.findViewById(R.id.wlacz_skaner);
 
 		llProfileLayout = (LinearLayout) root.findViewById(R.id.llProfile);
 
 		// Button click listeners
+		btnSkaner.setOnClickListener(this);
 		btnSignIn.setOnClickListener(this);
 		btnSignOut.setOnClickListener(this);
 		btnRevokeAccess.setOnClickListener(this);
@@ -151,13 +152,13 @@ public class GoogleLogin implements OnClickListener, ConnectionCallbacks,
 			btnSignOut.setVisibility(View.VISIBLE);
 			btnRevokeAccess.setVisibility(View.VISIBLE);
 			llProfileLayout.setVisibility(View.VISIBLE);
-			skaner_layout.setVisibility(View.VISIBLE);
+			btnSkaner.setVisibility(View.VISIBLE);
 		} else {
 			btnSignIn.setVisibility(View.VISIBLE);
 			btnSignOut.setVisibility(View.GONE);
 			btnRevokeAccess.setVisibility(View.GONE);
 			llProfileLayout.setVisibility(View.GONE);
-			skaner_layout.setVisibility(View.GONE);
+			btnSkaner.setVisibility(View.GONE);
 		}
 	}
 
@@ -220,6 +221,10 @@ public class GoogleLogin implements OnClickListener, ConnectionCallbacks,
 			signOutFromGplus();
 		} else if (v.getId() == R.id.btn_revoke_access) {
 			revokeGplusAccess();
+		} else if (v == btnSkaner) {
+			Intent i = new Intent(root, Scandit.class);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			root.startActivity(i);
 		}
 	}
 
@@ -308,6 +313,9 @@ public class GoogleLogin implements OnClickListener, ConnectionCallbacks,
 
 		protected void onPostExecute(String result) {
 			pDialog.dismiss();
+			Intent i = new Intent(root, Scandit.class);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			root.startActivity(i);
 		}
 	}
 }

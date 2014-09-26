@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/skaner_layout"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/wlacz_skaner"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        layout="@layout/activity_skaner"
+        android:layout_marginBottom="10dp"
+        android:text="@string/scan"
         android:visibility="gone" />
 
     <LinearLayout
