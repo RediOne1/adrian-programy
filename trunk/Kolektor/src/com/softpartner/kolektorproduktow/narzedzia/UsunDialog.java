@@ -28,13 +28,11 @@ public class UsunDialog extends DialogFragment {
 	private ProgressDialog pDialog;
 	private int success;
 	JSONParser jParser = new JSONParser();
-	private MyApp app;
 	private String url_usun_produkt;
 
 	public UsunDialog(Activity root, Produkt produkt) {
 		this.root = root;
 		this.produkt = produkt;
-		app = (MyApp) root.getApplicationContext();
 		url_usun_produkt = root.getString(R.string.url_usun_produkt);
 	}
 
@@ -117,7 +115,6 @@ public class UsunDialog extends DialogFragment {
 						root.getString(R.string.nie_usunieto) + produkt.nazwa,
 						Toast.LENGTH_SHORT).show();
 			}
-			app.skaner.szukaj();
 			pDialog.dismiss();
 
 		}

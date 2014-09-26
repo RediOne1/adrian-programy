@@ -3,15 +3,14 @@ package com.softpartner.kolektorproduktow;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class StartActivity extends ListFragment {
+public class StartActivity extends Fragment {
 
 	private GoogleLogin googleLogin;
-	private Skaner skaner;
 	View rootView;
 
 	@Override
@@ -25,7 +24,6 @@ public class StartActivity extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		googleLogin = new GoogleLogin(getActivity());
-		skaner = new Skaner(this);
 		googleLogin.mGoogleApiClient.connect();
 	}
 
@@ -39,10 +37,6 @@ public class StartActivity extends ListFragment {
 
 	protected void mOnActivityResult(int requestCode, int responseCode,
 			Intent intent) {
-		// scan requestCode = 0x0000c0de
-		if (requestCode == 0x0000c0de) {
-			skaner.onActivityResult(requestCode, responseCode, intent);
-		} else {
 			if (responseCode != Activity.RESULT_OK) {
 				googleLogin.mSignInClicked = false;
 			}
@@ -52,6 +46,5 @@ public class StartActivity extends ListFragment {
 			if (!googleLogin.mGoogleApiClient.isConnecting()) {
 				googleLogin.mGoogleApiClient.connect();
 			}
-		}
 	}
 }

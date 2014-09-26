@@ -76,7 +76,7 @@ public class XMLParser {
 
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					is, "iso-8859-1"), 10000);
+					is, "utf-8"), 10000);
 			StringBuilder sb = new StringBuilder();
 			String line = null;
 			while ((line = reader.readLine()) != null) {
