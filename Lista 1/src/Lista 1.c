@@ -11,17 +11,33 @@
 #include <string.h>
 
 int *temp;
-void algorytm(int n, int m){
+void algorytm(int n, int m, char *T, char *pattern) {
+	int i = 0, j = 0;
+	for (i = 0, j = 0; i < n; i++, j++) {
+		if (j == m)
+			printf("\nZnaleziono wzorzec %d", i - m + 1);
 
+		while ((j >= 0) && (T[i] != pattern[j]))
+			j = temp[j];
+
+	}
+	if (j == m)
+		printf("\nZnaleziono wzorzec %d", i - m + 1);
+	else
+		printf("\nzle slowo");
 }
 
 void przejscia(int n, char *pattern) {
 	int i = 0, j = -1;
 	temp[0] = -1;
-	for (i = 0, j = -1; i < n; j++, i++, temp[i] = j) {
-		while (j >= 0 && (pattern[i] != pattern[j])) {
-			j = temp[j];
+	while(i < n){
+		while(j >=0){
+			if(pattern[i] != pattern[j])
+				j = temp[j];
+			else
+				break;
 		}
+		temp[++i] = ++j;
 	}
 	for (i = 0; i <= n; i++) {
 		printf("%d ", temp[i]);
@@ -33,8 +49,9 @@ int main(int argc, char **argv) {
 	char *T = argv[2];
 	int m = strlen(T);
 	int n = strlen(pattern);
-	printf("%d\n", n);
-	temp = calloc(n+1, sizeof(int));
+	printf("%d   %d\n", m, n);
+	temp = calloc(n + 1, sizeof(int));
 	przejscia(n, pattern);
+	algorytm(m, n, T, pattern);
 	return EXIT_SUCCESS;
 }
