@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 public abstract class Generator implements Serializable
 {
-    Bitmap bitmap;
+    	private static final long serialVersionUID = -8690093341007522387L;
+	Bitmap bitmap;
     Canvas canvas;
 
     void init (int w, int h)

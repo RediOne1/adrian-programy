@@ -5,11 +5,16 @@ import java.util.List;
 import java.util.Random;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
 public class FreakyGenerator extends Generator {
+
+	private static final int MAX_ILOSC_OBSZAROW = 2000;
+	private static final int GESTOSC_LINI = 2;
+	private static final int KOLOR_LINII = Color.WHITE;
+	private static final float MINIMALNA_SZEROKOSC_OBSZARU = 50;
+	private static final float MINIMALNA_WYSOKOSC_OBSZARU = 50;
 
 	private static final long serialVersionUID = -1341784248038743032L;
 	private Random r;
@@ -34,12 +39,18 @@ public class FreakyGenerator extends Generator {
 			return stopY - startY;
 		}
 
-		private void fill(int color) {
-			paint.setColor(color);
-			canvas.drawRect(startX, startY, stopX, stopY, paint);
-			Bitmap t_bitmap = Bitmap.createBitmap((int)getWidth(), (int)getHeight(), Bitmap.Config.ARGB_8888);
-	        Canvas t_canvas = new Canvas(t_bitmap);
-	        
+		private void fill(boolean poziomo) {
+			if (poziomo) {
+				int n = (int) this.getHeight();
+				for (int i = 0; i < n; i += GESTOSC_LINI)
+					canvas.drawLine(startX, startY + i, stopX, startY + i,
+							paint);
+			} else {
+				int n = (int) this.getWidth();
+				for (int i = 0; i < n; i += GESTOSC_LINI)
+					canvas.drawLine(startX + i, startY, startX + i, stopY,
+							paint);
+			}
 		}
 	}
 
@@ -47,30 +58,49 @@ public class FreakyGenerator extends Generator {
 	public Bitmap generate(long seed, int w, int h) {
 		init(w, h);
 		paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		paint.setColor(KOLOR_LINII);
 		r = new Random(seed);
 		obszary.add(new Obszar(0, 0, w, h));
-		int n = r.nextInt(1000);
-		for(int i = 0;i<n;i++){
+		int n = r.nextInt(MAX_ILOSC_OBSZAROW / 2);
+		for (int i = 0; i < n; i++) {
 			split(obszary.remove(0));
 		}
 		for (Obszar o : obszary)
-			o.fill(r.nextBoolean() ? Color.BLACK : Color.WHITE);
+			o.fill(r.nextBoolean());
 		return bitmap;
 	}
 
 	private void split(Obszar o) {
-		Obszar o1, o2;
+		Obszar o1 = null, o2 = null;
 		if (o.getWidth() > o.getHeight()) {
-			float new_width = r.nextFloat() * o.getWidth();
-			o1 = new Obszar(o.startX, o.startY, o.startX + new_width, o.stopY);
-			o2 = new Obszar(o.startX + new_width, o.startY, o.stopX, o.stopY);
+			if (o.getWidth() > 2 * MINIMALNA_SZEROKOSC_OBSZARU) {
+				float new_width = randomFloat(MINIMALNA_SZEROKOSC_OBSZARU,
+						o.getWidth() - MINIMALNA_SZEROKOSC_OBSZARU);
+				o1 = new Obszar(o.startX, o.startY, o.startX + new_width,
+						o.stopY);
+				o2 = new Obszar(o.startX + new_width, o.startY, o.stopX,
+						o.stopY);
+			}
 		} else {
-			float new_height = r.nextFloat() * o.getHeight();
-			o1 = new Obszar(o.startX, o.startY, o.stopX, o.startY + new_height);
-			o2 = new Obszar(o.startX, o.startY + new_height, o.stopX, o.stopY);
+			if (o.getHeight() > 2 * MINIMALNA_WYSOKOSC_OBSZARU) {
+				float new_height = randomFloat(MINIMALNA_WYSOKOSC_OBSZARU,
+						o.getHeight() - MINIMALNA_WYSOKOSC_OBSZARU);
+				o1 = new Obszar(o.startX, o.startY, o.stopX, o.startY
+						+ new_height);
+				o2 = new Obszar(o.startX, o.startY + new_height, o.stopX,
+						o.stopY);
+			}
 		}
-		obszary.add(o1);
-		obszary.add(o2);
+		if (o1 != null && o2 != null) {
+			obszary.add(o1);
+			obszary.add(o2);
+		} else
+			obszary.add(o);
+	}
+
+	private float randomFloat(float a, float b) {
+		float rand = r.nextFloat() * (b - a) + a;
+		return rand;
 	}
 
 	@Override
