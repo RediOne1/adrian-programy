@@ -59,7 +59,7 @@ public class MainActivity extends Activity
         startActivity(intent);
     }
 
-    static Generator[] generators = {new LinesGenerator(), new ExampleGenerator(), new FreakyGenerator()};
+    static Generator[] generators = {new LinesGenerator(), new ExampleGenerator(), new FreakyGenerator(), new Poziome()};
     Generator selectedGenerator = generators[0];
 
     Point screensize = new Point();
