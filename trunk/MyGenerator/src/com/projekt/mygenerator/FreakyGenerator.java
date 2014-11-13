@@ -12,7 +12,7 @@ public class FreakyGenerator extends Generator {
 
 	private static final int MAX_ILOSC_OBSZAROW = 2000;
 	private static final int GESTOSC_LINI = 2;
-	private static final int KOLOR_LINII = Color.WHITE;
+	private static final int KOLOR_LINII = Color.BLACK;
 	private static final float MINIMALNA_SZEROKOSC_OBSZARU = 50;
 	private static final float MINIMALNA_WYSOKOSC_OBSZARU = 50;
 
@@ -57,7 +57,7 @@ public class FreakyGenerator extends Generator {
 	@Override
 	public Bitmap generate(long seed, int w, int h) {
 		init(w, h);
-		paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		paint = new Paint();
 		paint.setColor(KOLOR_LINII);
 		r = new Random(seed);
 		obszary.add(new Obszar(0, 0, w, h));
