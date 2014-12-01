@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2">
+
+    <item
+        jar="/home/adrian/Pulpit/Programy/android-studio/Loca/app/build/intermediates/exploded-aar/com.facebook.android/facebook/3.20.0/classes.jar"
+        jumboMode="false" revision="21.1.1" sha1="2cf30756dff8d2cf67f88b3a23aa666a72b0f70d">
+        <dex
+            dex="/home/adrian/Pulpit/Programy/android-studio/Loca/app/build/intermediates/pre-dexed/debug/classes-2b74c1133fc630576aadfc4437709b70e2c9d7f7.jar" />
+    </item>
+    <item
+        jar="/home/adrian/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.2/91c20388c9a45f62b5ed8fe0502bb76ff6251fc7/bolts-android-1.1.2.jar"
+        jumboMode="false" revision="21.1.1" sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
+        <dex
+            dex="/home/adrian/Pulpit/Programy/android-studio/Loca/app/build/intermediates/pre-dexed/debug/bolts-android-1.1.2-18178e58adab3cdc0c9b46ad9ebf636d63634a71.jar" />
+    </item>
+    <item
+        jar="/home/adrian/Pulpit/Programy/android-studio/Loca/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false" revision="21.1.1" sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
+        <dex
+            dex="/home/adrian/Pulpit/Programy/android-studio/Loca/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-67c2daed9151a6946b003e244bd7bcdd1bfb1f1f.jar" />
+    </item>
+    <item
+        jar="/home/adrian/Pulpit/Programy/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false" revision="21.1.1" sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
+        <dex
+            dex="/home/adrian/Pulpit/Programy/android-studio/Loca/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-33de55573a6ee25c71548362689cc8231cb155c7.jar" />
+    </item>
+    <item
+        jar="/home/adrian/Pulpit/Programy/android-studio/Loca/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false" revision="21.1.1" sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex
+            dex="/home/adrian/Pulpit/Programy/android-studio/Loca/app/build/intermediates/pre-dexed/debug/classes-186cff0727f930c19842b3571599d56a54e429c1.jar" />
+    </item>
+
+</items>
